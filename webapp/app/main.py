@@ -93,7 +93,7 @@ async def chat(payload: ChatPayload):
         "-g", payload.message,
         "-m", payload.model,
         "-x", str(payload.max_tokens),
-        "-p", str(payload.temperature),
+        "--temperature", str(payload.temperature),
         "-y", system_prompt,
     ]
 
