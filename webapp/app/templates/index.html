@@ -31,12 +31,37 @@
         <input id="max_tokens" type="number" min="1" max="8192" value="{{ default_max_tokens }}" />
       </div>
       <div class="row">
+        <label>Expected Output Tokens</label>
+        <input id="expected_output_tokens" type="number" min="1" max="8192" value="512" />
+      </div>
+      <div class="row">
+        <label>Mode</label>
+        <select id="mode">
+          <option value="standard" selected>Standard</option>
+          <option value="deep_research">Deep Research</option>
+        </select>
+      </div>
+      <div class="row">
         <label>Context Window</label>
         <input id="context_window" type="number" min="0" max="50" value="6" />
       </div>
       <div class="row">
         <label>System Prompt (optional)</label>
         <textarea id="system_prompt" rows="2" placeholder="Override default system prompt..."></textarea>
+      </div>
+      <div class="row">
+        <label>Attach Files (text files or images for analysis)</label>
+        <input id="files" type="file" multiple accept=".txt,.md,.json,.csv,.log,.py,.rs,.js,.ts,.html,.css,image/*" />
+        <small style="color: var(--muted); display: block; margin-top: 4px;">
+          💡 Upload images to ask Grok to analyze them (vision). Grok cannot generate images.
+        </small>
+      </div>
+      <div class="row">
+        <label>Web Search Assist</label>
+        <select id="web_search">
+          <option value="off" selected>Off</option>
+          <option value="on">On</option>
+        </select>
       </div>
     </section>
 
@@ -46,6 +71,24 @@
       <textarea id="message" rows="3" placeholder="Type your message..."></textarea>
       <button id="send">Send</button>
       <span id="status" class="status"></span>
+    </section>
+
+    <section class="estimates">
+      <div id="estimate_box" class="estimate-box" hidden></div>
+    </section>
+
+    <section class="info-box">
+      <h3>✨ xAI Grok Capabilities</h3>
+      <ul>
+        <li>💬 <strong>Chat:</strong> Natural language conversations with context awareness</li>
+        <li>👁️ <strong>Vision:</strong> Analyze images by attaching them with your message</li>
+        <li>🔍 <strong>Web Search:</strong> Augment queries with real-time web data</li>
+        <li>🧠 <strong>Deep Research:</strong> Comprehensive analysis with multi-step reasoning</li>
+        <li>📁 <strong>File Analysis:</strong> Upload text files for context and analysis</li>
+      </ul>
+      <p style="color: var(--muted); font-size: 0.9em; margin-top: 8px;">
+        ℹ️ Note: xAI does not support image generation. Use vision to analyze existing images.
+      </p>
     </section>
   </div>
 
@@ -64,9 +107,40 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
+    async function readAsText(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+
     async function send() {
       const message = document.getElementById('message').value.trim();
       if (!message) return;
+
+      const filesInput = document.getElementById('files');
+      const filesPayload = [];
+      if (filesInput.files && filesInput.files.length) {
+        for (const f of filesInput.files) {
+          try {
+            if (f.type && f.type.startsWith('image/')) {
+              // read as data URL for multimodal
+              const b64 = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(f);
+              });
+              filesPayload.push({ name: f.name, content: String(b64) });
+            } else {
+              const content = await readAsText(f);
+              filesPayload.push({ name: f.name, content: String(content).slice(0, 200000) });
+            }
+          } catch (e) { /* ignore */ }
+        }
+      }
 
       const payload = {
         session_id: sessionId,
@@ -74,8 +148,12 @@
         model: document.getElementById('model').value,
         temperature: parseFloat(document.getElementById('temperature').value),
         max_tokens: parseInt(document.getElementById('max_tokens').value),
+        expected_output_tokens: parseInt(document.getElementById('expected_output_tokens').value),
+        mode: document.getElementById('mode').value,
         context_window: parseInt(document.getElementById('context_window').value),
-        system_prompt: document.getElementById('system_prompt').value || null
+        system_prompt: document.getElementById('system_prompt').value || null,
+        files: filesPayload,
+        web_search: document.getElementById('web_search').value === 'on'
       };
 
       addBubble('user', message);
@@ -96,6 +174,21 @@
         sessionId = data.session_id;
         addBubble('assistant', data.assistant);
         statusEl.textContent = '✅ Message sent!';
+
+        // show estimate
+        const box = document.getElementById('estimate_box');
+        if (data.estimate) {
+          const e = data.estimate;
+          box.innerHTML = `
+            <div><strong>Estimated Tokens</strong></div>
+            <div>Prompt: ${e.prompt_tokens.toLocaleString()} | Completion: ${e.completion_tokens.toLocaleString()} | Total: ${e.total_tokens.toLocaleString()}</div>
+            <div><strong>Estimated Cost (USD)</strong></div>
+            <div>Input: $${e.cost.input_usd} | Output: $${e.cost.output_usd} | Total: $${e.cost.total_usd}</div>
+          `;
+          box.hidden = false;
+        } else {
+          box.hidden = true;
+        }
       } catch (e) {
         addBubble('assistant', `❌ Error: ${e.message}`);
         statusEl.textContent = '❌ Error occurred';
