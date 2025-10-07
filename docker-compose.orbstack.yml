@@ -1,0 +1,79 @@
+version: '3.8'
+
+# OrbStack-optimized docker-compose
+# This version is configured for OrbStack instead of Docker Desktop
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: opgrok-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_AUTH_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_AUTH_PASSWORD:-changeme}
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=America/New_York
+      - N8N_LOG_LEVEL=info
+      - N8N_API_ENABLED=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - opgrok-network
+    # OrbStack handles resource limits automatically
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: opgrok-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-n8npassword}
+      - POSTGRES_DB=n8n
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - opgrok-network
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U n8n']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  webapp:
+    build:
+      context: .
+      dockerfile: webapp/Dockerfile
+    container_name: opgrok-webapp
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - XAI_API_KEY=${XAI_API_KEY}
+      - N8N_API_URL=http://n8n:5678/api/v1
+      - N8N_WEBHOOK_URL=http://n8n:5678
+      - N8N_AUTH_USER=${N8N_AUTH_USER:-admin}
+      - N8N_AUTH_PASSWORD=${N8N_AUTH_PASSWORD:-changeme}
+    depends_on:
+      - n8n
+      - postgres
+    networks:
+      - opgrok-network
+    volumes:
+      - ./webapp:/app/webapp
+      - ./grok-chat-app/target/release:/app/bin
+
+networks:
+  opgrok-network:
+    driver: bridge
+
+volumes:
+  n8n_data:
+    driver: local
+  postgres_data:
+    driver: local

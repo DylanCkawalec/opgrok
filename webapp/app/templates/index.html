@@ -11,6 +11,11 @@
     <header>
       <h1>🤖 Grok Chat</h1>
       <p class="subtitle">Local UI over the Rust terminal agent</p>
+      <div style="margin-top: 12px;">
+        <a href="/workflows" style="color: var(--primary); text-decoration: none; padding: 8px 16px; background: var(--bg-secondary); border-radius: 6px; display: inline-block;">
+          🔧 n8n Workflow Builder
+        </a>
+      </div>
     </header>
 
     <section class="controls">
@@ -50,6 +55,17 @@
         <textarea id="system_prompt" rows="2" placeholder="Override default system prompt..."></textarea>
       </div>
       <div class="row">
+        <label>Codebase Context (for coding tasks)</label>
+        <textarea id="codebase_context" rows="3" placeholder="Paste relevant code snippets, project structure, or context for coding tasks..."></textarea>
+      </div>
+      <div class="row">
+        <label>Enable Tools (for agentic tasks)</label>
+        <select id="enable_tools">
+          <option value="off" selected>Off</option>
+          <option value="on">On</option>
+        </select>
+      </div>
+      <div class="row">
         <label>Attach Files (text files or images for analysis)</label>
         <input id="files" type="file" multiple accept=".txt,.md,.json,.csv,.log,.py,.rs,.js,.ts,.html,.css,image/*" />
         <small style="color: var(--muted); display: block; margin-top: 4px;">
@@ -85,9 +101,10 @@
         <li>🔍 <strong>Web Search:</strong> Augment queries with real-time web data</li>
         <li>🧠 <strong>Deep Research:</strong> Comprehensive analysis with multi-step reasoning</li>
         <li>📁 <strong>File Analysis:</strong> Upload text files for context and analysis</li>
+        <li>⚡ <strong>Coding Assistant:</strong> Use grok-code-fast-1 model for code generation, debugging, and refactoring</li>
       </ul>
       <p style="color: var(--muted); font-size: 0.9em; margin-top: 8px;">
-        ℹ️ Note: xAI does not support image generation. Use vision to analyze existing images.
+        💡 For coding tasks: Use the "Codebase Context" field, enable "Tools", and select the grok-code-fast-1 model.
       </p>
     </section>
   </div>
@@ -152,8 +169,26 @@
         mode: document.getElementById('mode').value,
         context_window: parseInt(document.getElementById('context_window').value),
         system_prompt: document.getElementById('system_prompt').value || null,
+        codebase_context: document.getElementById('codebase_context').value || null,
         files: filesPayload,
-        web_search: document.getElementById('web_search').value === 'on'
+        web_search: document.getElementById('web_search').value === 'on',
+        tools: document.getElementById('enable_tools').value === 'on' ? [
+          {
+            "type": "function",
+            "function": {
+              "name": "run_terminal_command",
+              "description": "Execute terminal commands for coding tasks",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "command": {"type": "string", "description": "The command to execute"},
+                  "explanation": {"type": "string", "description": "Why this command is needed"}
+                },
+                "required": ["command"]
+              }
+            }
+          }
+        ] : null
       };
 
       addBubble('user', message);
@@ -172,7 +207,14 @@
         }
         const data = await res.json();
         sessionId = data.session_id;
-        addBubble('assistant', data.assistant);
+
+        // Display assistant response
+        let responseText = data.assistant;
+        if (data.tool_calls && data.tool_calls.length > 0) {
+          responseText += '\n\n🔧 Tool Calls:\n' + JSON.stringify(data.tool_calls, null, 2);
+        }
+        addBubble('assistant', responseText);
+
         statusEl.textContent = '✅ Message sent!';
 
         // show estimate

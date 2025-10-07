@@ -1,10 +1,31 @@
-# 🤖 opgrok - Local xAI Grok Chat Application
+# 🤖 opgrok - AI-Powered Workflow Automation Platform
 
-A comprehensive local chat application for xAI's Grok API, featuring both a Rust CLI and a beautiful Python web interface.
+A revolutionary platform combining xAI's Grok API with n8n workflow automation, featuring intelligent chat interfaces and AI-powered workflow generation from natural language descriptions.
+
+## 🎯 What's New: n8n Workflow Builder
+
+**Generate complete automation workflows just by describing what you need!**
+
+Simply tell Grok what automation you want, and it will:
+- 🧠 Analyze your requirements intelligently
+- 🏗️ Design the optimal workflow structure
+- ⚙️ Configure all nodes and connections automatically
+- 🚀 Deploy to your local n8n instance
+- ✅ Ready to activate and run!
+
+**Example**: "Send me a Slack notification every day at 9 AM with top Hacker News stories" → Complete workflow with schedule, HTTP request, data processing, and Slack integration nodes, fully configured and ready to use!
 
 ## ✨ Features
 
-### Core Capabilities
+### Workflow Automation (NEW!)
+- **🤖 AI Workflow Generation**: Describe workflows in natural language, get complete n8n automations
+- **🔧 Intelligent Node Configuration**: Grok automatically configures all parameters, connections, and I/O
+- **📋 Workflow Management**: Create, activate, execute, and manage workflows through beautiful UI
+- **🎨 Visual Builder Interface**: Dedicated workflow builder with examples and templates
+- **🔗 n8n Integration**: Full REST API integration with local n8n instance
+- **💡 Smart Detection**: Chat interface automatically detects workflow requests
+
+### Core Chat Capabilities
 - **💬 Chat Completions**: Multi-turn conversations with context awareness
 - **👁️ Vision (Multimodal)**: Analyze images by attaching them to your messages
 - **📁 File Analysis**: Upload text files for context and analysis
@@ -19,22 +40,85 @@ A comprehensive local chat application for xAI's Grok API, featuring both a Rust
 - `grok-4-fast-non-reasoning` - Fast non-reasoning variant
 - `grok-3` - Grok 3 model
 - `grok-3-mini` - Lightweight Grok 3
+- `grok-code-fast-1` - Specialized for coding tasks (code generation, debugging, refactoring)
 
 ### Architecture
+- **n8n Workflow Engine**: Open-source automation platform with 300+ integrations
+- **Grok AI Intelligence**: Multi-step workflow analysis and generation
 - **Rust CLI**: Fast, efficient terminal interface for text-based chat
 - **Python Web App**: Beautiful UI with full feature support
+  - Workflow builder interface
   - Multimodal requests (images) → Direct xAI API
   - Text-only requests → Rust CLI (faster)
-- **SQLite**: Optional database for persistent chat logs (server feature)
+- **Docker Compose**: Orchestrated deployment of all services
+- **PostgreSQL**: Persistent storage for workflows and execution history
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Rust (1.70+)
-- Python (3.8+)
-- xAI API Key ([get one here](https://x.ai))
+- Docker & Docker Compose (for n8n workflow automation)
+- Rust (1.70+) - for CLI
+- Python (3.8+) - for web app
+- xAI API Key ([get one here](https://console.x.ai/))
 
-### Installation
+### Option A: Full Stack with n8n Workflow Builder (Recommended)
+
+**Choose your installation method:**
+
+#### Local Installation (No Docker) - EASIEST ⭐
+
+Perfect if you're having Docker/OrbStack keychain issues!
+
+```bash
+# 1. Clone and configure
+git clone https://github.com/DylanCkawalec/opgrok.git
+cd opgrok
+cp .env.example .env
+# Edit .env and add your XAI_API_KEY
+
+# 2. Start all services (installs n8n via npx)
+bash scripts/run_n8n_local.sh
+
+# 3. Stop services when done
+bash scripts/stop_n8n_local.sh
+```
+
+**Requirements**: Node.js 18+, Python 3.8+, Rust 1.70+
+
+#### Docker/OrbStack Installation
+
+For containerized deployment (auto-detects OrbStack):
+
+```bash
+# 1. Clone and configure
+git clone https://github.com/DylanCkawalec/opgrok.git
+cd opgrok
+cp .env.example .env
+# Edit .env and add your XAI_API_KEY
+
+# 2. Start all services
+bash scripts/run_n8n.sh  # Auto-detects OrbStack or Docker
+
+# 3. Stop services
+docker-compose down
+```
+
+**Requirements**: Docker Desktop or OrbStack
+
+#### Access Points (Both Methods)
+- 🤖 **Chat Interface**: http://localhost:8000
+- 🔧 **Workflow Builder**: http://localhost:8000/workflows
+- 📊 **n8n Dashboard**: http://localhost:5678 (admin/changeme)
+
+**Try it now:**
+1. Open http://localhost:8000/workflows
+2. Type: "Send me a daily email with top tech news at 9 AM"
+3. Click "Generate Workflow"
+4. Watch as Grok builds and deploys your complete automation!
+
+📖 **Detailed Guide**: See [N8N_QUICKSTART.md](N8N_QUICKSTART.md) for full documentation
+
+### Option B: Chat-Only (No Workflow Builder)
 
 1. **Clone the repository:**
 ```bash
@@ -200,11 +284,14 @@ Default pricing (per 1M tokens, USD):
 | grok-4-fast-non-reasoning | $1.50 | $3.00 |
 | grok-3 | $1.00 | $2.00 |
 | grok-3-mini | $0.20 | $0.40 |
+| grok-code-fast-1 | $0.20 | $1.50 |
 
 Override via environment variables:
 ```bash
 export PRICE_GROK_4_0709_INPUT_PER_MTOK=5.0
 export PRICE_GROK_4_0709_OUTPUT_PER_MTOK=15.0
+export PRICE_GROK_CODE_FAST_1_INPUT_PER_MTOK=0.2
+export PRICE_GROK_CODE_FAST_1_OUTPUT_PER_MTOK=1.5
 ```
 
 ## 🔧 Advanced Configuration

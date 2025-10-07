@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>n8n Workflow Builder - Grok Chat</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .workflow-section {
+      background: var(--bg-secondary);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .workflow-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .workflow-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .workflow-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .workflow-card h3 {
+      margin: 0 0 8px 0;
+      color: var(--primary);
+    }
+    .workflow-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .workflow-card .tag {
+      background: var(--primary);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+    .workflow-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .workflow-actions button {
+      padding: 6px 12px;
+      font-size: 0.9em;
+    }
+    .workflow-preview {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 16px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    .workflow-node {
+      background: var(--bg-secondary);
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      padding: 12px;
+      margin: 8px 0;
+    }
+    .workflow-node h4 {
+      margin: 0 0 8px 0;
+      color: var(--primary);
+    }
+    .workflow-builder-prompt {
+      background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .workflow-builder-prompt h2 {
+      margin: 0 0 12px 0;
+    }
+    .workflow-builder-prompt p {
+      margin: 0 0 20px 0;
+      opacity: 0.9;
+    }
+    .prompt-input-section {
+      display: flex;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .prompt-input-section textarea {
+      flex: 1;
+      min-height: 80px;
+    }
+    .examples {
+      margin-top: 16px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+    .example-prompt {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin: 4px;
+      display: inline-block;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .example-prompt:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .stage-indicator {
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      text-align: center;
+      transition: all 0.3s ease;
+      opacity: 0.5;
+    }
+    .stage-indicator.active {
+      background: var(--primary);
+      color: white;
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    .stage-indicator.completed {
+      background: #10b981;
+      color: white;
+      opacity: 1;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+    .status-active {
+      background: #10b981;
+      color: white;
+    }
+    .status-inactive {
+      background: #6b7280;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🤖 n8n Workflow Builder</h1>
+      <p class="subtitle">AI-Powered Automation with Grok</p>
+      <div style="display: flex; gap: 12px; margin-top: 12px;">
+        <a href="/" style="color: var(--primary);">← Back to Chat</a>
+        <a href="http://localhost:5678" target="_blank" style="color: var(--primary);">Open n8n Dashboard →</a>
+      </div>
+    </header>
+
+    <div class="workflow-builder-prompt">
+      <h2>✨ Describe Your Workflow</h2>
+      <p>Tell me what automation you need, and I'll build a complete n8n workflow for you.</p>
+      
+      <div class="prompt-input-section">
+        <textarea id="workflow_prompt" placeholder="Example: Send me a Slack notification every day at 9 AM with top Hacker News stories..."></textarea>
+        <button id="generate_btn" onclick="generateWorkflow()">Generate Workflow</button>
+      </div>
+      
+      <!-- Advanced Controls -->
+      <details style="margin-top: 16px; background: rgba(255,255,255,0.1); padding: 16px; border-radius: 8px;">
+        <summary style="cursor: pointer; font-weight: 600;">🔧 Advanced Options</summary>
+        
+        <div style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Generation Mode</label>
+            <select id="generation_mode" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: white;">
+              <option value="interpret">Interpret - AI adds helpful details</option>
+              <option value="exact">Exact - Follow instructions precisely</option>
+            </select>
+            <small style="color: rgba(255,255,255,0.7); font-size: 0.85em;">
+              💡 Interpret mode adds smart enhancements, Exact mode follows your prompt literally
+            </small>
+          </div>
+          
+          <div>
+            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Node Sequence (Optional)</label>
+            <input id="node_sequence" type="text" placeholder="trigger → api → format → send" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: white;">
+            <small style="color: rgba(255,255,255,0.7); font-size: 0.85em;">
+              ⚡ Specify node sequence: "webhook → validate → api → slack"
+            </small>
+          </div>
+        </div>
+        
+        <div style="margin-top: 12px;">
+          <label style="display: block; margin-bottom: 4px; font-weight: 500;">Node Details (Optional)</label>
+          <textarea id="node_details" rows="3" placeholder="Optional: Add specific requirements for each node..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: white; resize: vertical;"></textarea>
+          <small style="color: rgba(255,255,255,0.7); font-size: 0.85em;">
+            🎯 Example: "webhook should accept JSON, slack should use #alerts channel, format should include timestamp"
+          </small>
+        </div>
+      </details>
+
+      <div class="examples">
+        <strong>Try these examples:</strong><br>
+        <span class="example-prompt" onclick="useExample(this)">Monitor my email for invoices and save them to Google Sheets</span>
+        <span class="example-prompt" onclick="useExample(this)">Create a webhook that receives form data and sends it to Slack</span>
+        <span class="example-prompt" onclick="useExample(this)">Daily morning briefing with weather and calendar events</span>
+      </div>
+    </div>
+
+    <section id="generation_status" class="workflow-section" hidden>
+      <h3 id="status_title">🔄 Generating Workflow...</h3>
+      <p id="status_message">Grok is analyzing your request and building the workflow...</p>
+      
+      <!-- Progress Bar -->
+      <div style="margin: 16px 0; background: rgba(255,255,255,0.2); border-radius: 8px; height: 8px; overflow: hidden;">
+        <div id="progress_bar" style="background: linear-gradient(90deg, var(--primary), #10b981); height: 100%; width: 0%; transition: width 0.5s ease;"></div>
+      </div>
+      
+      <!-- Stage Indicators -->
+      <div id="stage_indicators" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 12px 0; font-size: 0.85em;">
+        <div class="stage-indicator" data-stage="0">🔍 Enhance</div>
+        <div class="stage-indicator" data-stage="1">🧠 Analyze</div>
+        <div class="stage-indicator" data-stage="2">⚙️ Build</div>
+        <div class="stage-indicator" data-stage="3">🔗 Connect</div>
+        <div class="stage-indicator" data-stage="4">🚀 Deploy</div>
+      </div>
+      
+      <div id="workflow_preview" class="workflow-preview" hidden></div>
+    </section>
+
+    <section class="workflow-section">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3>📋 Your Workflows</h3>
+        <button onclick="refreshWorkflows()">🔄 Refresh</button>
+      </div>
+      <div id="workflow_list" class="workflow-list">
+        <p>Loading workflows...</p>
+      </div>
+    </section>
+
+    <section id="n8n_status" class="info-box">
+      <h3>🔧 n8n Status</h3>
+      <p id="n8n_status_text">Checking connection...</p>
+    </section>
+  </div>
+
+  <script>
+    async function checkN8NStatus() {
+      try {
+        const res = await fetch('/api/n8n/health');
+        const data = await res.json();
+        const statusEl = document.getElementById('n8n_status_text');
+        
+        if (data.healthy) {
+          statusEl.innerHTML = `✅ <strong>Connected</strong> - n8n is running at ${data.n8n_url}`;
+          statusEl.style.color = '#10b981';
+        } else {
+          statusEl.innerHTML = `❌ <strong>Disconnected</strong> - n8n is not accessible. Please start it with: <code>docker-compose up -d n8n</code>`;
+          statusEl.style.color = '#ef4444';
+        }
+      } catch (e) {
+        document.getElementById('n8n_status_text').innerHTML = `❌ <strong>Error</strong> - ${e.message}`;
+      }
+    }
+
+    async function loadWorkflows() {
+      const listEl = document.getElementById('workflow_list');
+      try {
+        const res = await fetch('/api/n8n/workflows');
+        const data = await res.json();
+        
+        if (data.workflows.length === 0) {
+          listEl.innerHTML = '<p style="color: var(--muted);">No workflows yet. Create your first one above!</p>';
+          return;
+        }
+
+        listEl.innerHTML = '';
+        for (const wf of data.workflows) {
+          const card = document.createElement('div');
+          card.className = 'workflow-card';
+          
+          const statusBadge = wf.active ? 
+            '<span class="status-badge status-active">Active</span>' :
+            '<span class="status-badge status-inactive">Inactive</span>';
+          
+          const tags = wf.tags ? wf.tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
+          
+          card.innerHTML = `
+            <h3>${wf.name}</h3>
+            ${statusBadge}
+            <p style="color: var(--muted); font-size: 0.9em; margin-top: 8px;">
+              Created: ${new Date(wf.createdAt).toLocaleDateString()}<br>
+              Nodes: ${wf.nodes?.length || 0}
+            </p>
+            <div class="tags">${tags}</div>
+            <div class="workflow-actions">
+              <button onclick="viewWorkflow('${wf.id}')">View</button>
+              ${!wf.active ? `<button onclick="activateWorkflow('${wf.id}')">Activate</button>` : ''}
+              <button onclick="executeWorkflow('${wf.id}')">Execute</button>
+              <button onclick="deleteWorkflow('${wf.id}')" style="background: #ef4444;">Delete</button>
+            </div>
+          `;
+          
+          listEl.appendChild(card);
+        }
+      } catch (e) {
+        listEl.innerHTML = `<p style="color: #ef4444;">Error loading workflows: ${e.message}</p>`;
+      }
+    }
+
+    async function generateWorkflow() {
+      const prompt = document.getElementById('workflow_prompt').value.trim();
+      if (!prompt) {
+        alert('Please enter a workflow description');
+        return;
+      }
+
+      // Get advanced options
+      const mode = document.getElementById('generation_mode').value;
+      const nodeSequence = document.getElementById('node_sequence').value.trim();
+      const nodeDetails = document.getElementById('node_details').value.trim();
+
+      const btn = document.getElementById('generate_btn');
+      const statusSection = document.getElementById('generation_status');
+      const statusTitle = document.getElementById('status_title');
+      const statusMessage = document.getElementById('status_message');
+      const previewDiv = document.getElementById('workflow_preview');
+
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+      statusSection.hidden = false;
+      previewDiv.hidden = true;
+      statusTitle.textContent = '🔄 Generating Workflow...';
+      statusMessage.textContent = 'Stage 1: Enhancing input with Grok-3-mini...';
+
+      // Create payload with advanced options
+      const payload = {
+        prompt,
+        mode,
+        node_sequence: nodeSequence || null,
+        node_details: nodeDetails || null,
+        auto_activate: false
+      };
+
+      try {
+        // Start streaming-like updates with progress indicators
+        const statusUpdates = [
+          'Stage 1: Enhancing input with Grok-3-mini...',
+          'Stage 2: Analyzing workflow structure...',
+          'Stage 3: Building nodes and connections...',
+          'Stage 4: Validating and optimizing...',
+          'Stage 5: Deploying to n8n...'
+        ];
+        
+        let updateIndex = 0;
+        const progressBar = document.getElementById('progress_bar');
+        const stageIndicators = document.querySelectorAll('.stage-indicator');
+        
+        function updateProgress() {
+          if (updateIndex < statusUpdates.length - 1) {
+            updateIndex++;
+            statusMessage.textContent = statusUpdates[updateIndex];
+            
+            // Update progress bar
+            progressBar.style.width = `${(updateIndex / 4) * 100}%`;
+            
+            // Update stage indicators
+            stageIndicators.forEach((indicator, i) => {
+              indicator.classList.remove('active', 'completed');
+              if (i < updateIndex) {
+                indicator.classList.add('completed');
+              } else if (i === updateIndex) {
+                indicator.classList.add('active');
+              }
+            });
+          }
+        }
+        
+        const updateInterval = setInterval(updateProgress, 3000);
+        updateProgress(); // Initial update
+
+        const res = await fetch('/api/n8n/workflows/generate/advanced', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        clearInterval(updateInterval);
+        
+        // Complete all stages
+        progressBar.style.width = '100%';
+        stageIndicators.forEach(indicator => {
+          indicator.classList.remove('active');
+          indicator.classList.add('completed');
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || 'Generation failed');
+        }
+
+        const data = await res.json();
+        
+        statusTitle.textContent = '✅ Workflow Created!';
+        statusMessage.innerHTML = `
+          <div style="margin-bottom: 12px;">
+            <strong>${data.workflow_name}</strong> (ID: ${data.workflow_id})
+          </div>
+          <div style="margin-bottom: 8px;">
+            🔗 <a href="${data.n8n_url}" target="_blank">Open in n8n dashboard</a>
+          </div>
+          <div style="color: rgba(255,255,255,0.8); font-size: 0.9em;">
+            Mode: ${data.enhancement_used} | Nodes: ${data.workflow.nodes.length} | Connections: ${Object.keys(data.workflow.connections || {}).length}
+          </div>
+        `;
+
+        // Show enhanced preview with connections
+        const nodes = data.workflow.nodes || [];
+        const connections = data.workflow.connections || {};
+        
+        previewDiv.innerHTML = '<h4>Generated Workflow:</h4>';
+        
+        // Show nodes in flow order
+        for (let i = 0; i < nodes.length; i++) {
+          const node = nodes[i];
+          const nodeEl = document.createElement('div');
+          nodeEl.className = 'workflow-node';
+          
+          // Find connections from this node
+          const nodeConnections = connections[node.id] || {};
+          const targets = nodeConnections.main?.[0] || [];
+          const connectsTo = targets.map(t => nodes.find(n => n.id === t.node)?.name || t.node).join(', ');
+          
+          nodeEl.innerHTML = `
+            <h4>${i + 1}. ${node.name}</h4>
+            <p><strong>Type:</strong> ${node.type.replace('n8n-nodes-base.', '')}</p>
+            <p><strong>Position:</strong> ${node.position[0]}, ${node.position[1]}</p>
+            ${connectsTo ? `<p><strong>Connects to:</strong> ${connectsTo}</p>` : ''}
+            ${Object.keys(node.parameters || {}).length ? `<p><strong>Parameters:</strong> ${Object.keys(node.parameters).length} configured</p>` : ''}
+          `;
+          previewDiv.appendChild(nodeEl);
+          
+          // Add arrow if has connections
+          if (i < nodes.length - 1 && connectsTo) {
+            const arrow = document.createElement('div');
+            arrow.style.cssText = 'text-align: center; font-size: 1.2em; margin: 8px 0; color: var(--primary);';
+            arrow.textContent = '↓';
+            previewDiv.appendChild(arrow);
+          }
+        }
+        
+        previewDiv.hidden = false;
+
+        // Refresh the workflow list
+        await loadWorkflows();
+
+        // Clear the prompt
+        document.getElementById('workflow_prompt').value = '';
+
+      } catch (e) {
+        clearInterval(updateInterval);
+        statusTitle.textContent = '❌ Generation Failed';
+        statusMessage.innerHTML = `<span style="color: #ef4444;">${e.message}</span>
+          <div style="margin-top: 8px; font-size: 0.9em; color: rgba(255,255,255,0.7);">
+            💡 Try: Use simpler language, reduce complexity, or try "exact" mode
+          </div>`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Generate Workflow';
+      }
+    }
+
+    async function viewWorkflow(id) {
+      window.open(`http://localhost:5678/workflow/${id}`, '_blank');
+    }
+
+    async function activateWorkflow(id) {
+      try {
+        await fetch(`/api/n8n/workflows/${id}/activate`, { method: 'POST' });
+        alert('Workflow activated!');
+        await loadWorkflows();
+      } catch (e) {
+        alert('Failed to activate: ' + e.message);
+      }
+    }
+
+    async function executeWorkflow(id) {
+      try {
+        const res = await fetch(`/api/n8n/workflows/${id}/execute`, { method: 'POST' });
+        const data = await res.json();
+        alert('Workflow executed! Check n8n dashboard for results.');
+      } catch (e) {
+        alert('Failed to execute: ' + e.message);
+      }
+    }
+
+    async function deleteWorkflow(id) {
+      if (!confirm('Are you sure you want to delete this workflow?')) return;
+      
+      try {
+        await fetch(`/api/n8n/workflows/${id}`, { method: 'DELETE' });
+        alert('Workflow deleted!');
+        await loadWorkflows();
+      } catch (e) {
+        alert('Failed to delete: ' + e.message);
+      }
+    }
+
+    function refreshWorkflows() {
+      loadWorkflows();
+    }
+
+    function useExample(el) {
+      document.getElementById('workflow_prompt').value = el.textContent;
+    }
+
+    // Enter key to generate
+    document.getElementById('workflow_prompt').addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        generateWorkflow();
+      }
+    });
+
+    // Initial load
+    checkN8NStatus();
+    loadWorkflows();
+
+    // Refresh status every 30 seconds
+    setInterval(checkN8NStatus, 30000);
+  </script>
+</body>
+</html>

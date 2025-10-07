@@ -8,6 +8,7 @@ header { margin-bottom: 16px; }
 .controls .row { display:flex; flex-direction: column; gap: 6px; }
 .controls label { font-size: 12px; color: var(--muted); }
 .controls input, .controls select, .controls textarea { background:#0b0f14; color:var(--text); border:1px solid #222a36; padding:8px; border-radius:8px; }
+.controls .row textarea#codebase_context { resize: vertical; min-height: 80px; }
 .chat { background: var(--panel); border-radius: 10px; height: 55vh; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 .bubble { padding: 10px 12px; border-radius: 10px; max-width: 80%; line-height: 1.4; white-space: pre-wrap; }
 .bubble.user { align-self: flex-end; background: #0b1020; border: 1px solid #223; }
