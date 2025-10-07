@@ -1,6 +1,7 @@
 import random
 import math
 
+
 def is_prime_miller_rabin(n, k=40):
     """
     Probabilistic primality test using Miller-Rabin algorithm.
@@ -13,14 +14,14 @@ def is_prime_miller_rabin(n, k=40):
         return True
     if n % 2 == 0:
         return False
-    
+
     # Write n-1 as 2^s * d
     s = 0
     d = n - 1
     while d % 2 == 0:
         d //= 2
         s += 1
-    
+
     # Witness loop
     for _ in range(k):
         a = random.randint(2, n - 2)
@@ -35,6 +36,7 @@ def is_prime_miller_rabin(n, k=40):
             return False
     return True
 
+
 def generate_large_prime(bits=1024):
     """
     Generates a random prime number with the specified number of bits.
@@ -46,6 +48,7 @@ def generate_large_prime(bits=1024):
         num |= (1 << (bits - 1)) | 1  # Ensure it's odd and has the high bit set
         if is_prime_miller_rabin(num):
             return num
+
 
 # Example usage:
 if __name__ == "__main__":

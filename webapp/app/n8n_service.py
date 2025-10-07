@@ -14,6 +14,7 @@ from pydantic import BaseModel
 
 class N8NNode(BaseModel):
     """Represents an n8n workflow node"""
+
     id: str
     name: str
     type: str
@@ -25,6 +26,7 @@ class N8NNode(BaseModel):
 
 class N8NConnection(BaseModel):
     """Represents connections between n8n nodes"""
+
     source: str
     sourceOutput: int = 0
     target: str
@@ -33,19 +35,20 @@ class N8NConnection(BaseModel):
 
 class N8NWorkflow(BaseModel):
     """Complete n8n workflow structure"""
+
     name: str
     nodes: List[N8NNode]
     connections: Dict[str, Any]
     settings: Dict[str, Any] = {}
     tags: List[str] = []
-    
+
     def to_create_dict(self) -> Dict[str, Any]:
         """Convert to dict for creation (excludes read-only fields like active, tags)"""
         return {
             "name": self.name,
             "nodes": [node.dict() for node in self.nodes],
             "connections": self.connections,
-            "settings": self.settings
+            "settings": self.settings,
         }
 
 
@@ -59,7 +62,9 @@ class N8NService:
         auth_password: Optional[str] = None,
         api_key: Optional[str] = None,
     ):
-        self.api_url = api_url or os.getenv("N8N_API_URL", "http://localhost:5678/api/v1")
+        self.api_url = api_url or os.getenv(
+            "N8N_API_URL", "http://localhost:5678/api/v1"
+        )
         self.auth_user = auth_user or os.getenv("N8N_AUTH_USER", "admin")
         self.auth_password = auth_password or os.getenv("N8N_AUTH_PASSWORD", "changeme")
         self.api_key = api_key or os.getenv("N8N_API_KEY")
@@ -183,19 +188,20 @@ class GrokWorkflowBuilder:
     def __init__(self, xai_api_key: str):
         self.api_key = xai_api_key
         self.api_url = "https://api.x.ai/v1/chat/completions"
-        
+
         # Different models for different tasks
         self.models = {
-            "analysis": "grok-4-0709",  # Complex reasoning for workflow design
+            "analysis": "grok-4-fast-non-reasoning",  # FAST workflow design (3-5s vs 50s!)
             "enhancement": "grok-3-mini",  # Fast enhancement and validation
-            "configuration": "grok-4-fast-non-reasoning"  # Fast parameter generation
+            "configuration": "grok-4-fast-non-reasoning",  # Fast parameter generation
+            "complex_analysis": "grok-4-0709"  # Reserved for extremely complex workflows only
         }
 
     async def enhance_user_input(
-        self, 
-        user_prompt: str, 
-        mode: str = "interpret", 
-        node_sequence: Optional[str] = None
+        self,
+        user_prompt: str,
+        mode: str = "interpret",
+        node_sequence: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Stage 1: Use Grok-3-mini to enhance and validate user input
@@ -262,16 +268,14 @@ Respond with JSON:
                     "suggested_sequence": [],
                     "required_integrations": [],
                     "estimated_complexity": "medium",
-                    "recommendations": "No enhancements available"
+                    "recommendations": "No enhancements available",
                 }
 
     async def analyze_workflow_request(
-        self, 
-        enhanced_prompt: str, 
-        complexity: str = "medium"
+        self, enhanced_prompt: str, complexity: str = "medium"
     ) -> Dict[str, Any]:
         """
-        Step 1: Use Grok to analyze and break down the workflow request
+        Stage 2: Use Grok to analyze and break down the workflow request
         """
         system_prompt = """You are an expert n8n workflow architect. Analyze the user's workflow request and break it down into:
 
@@ -288,6 +292,7 @@ IMPORTANT GUIDELINES:
 - Ensure each node has a clear purpose
 - Create linear data flow when possible
 - Include proper error handling
+- ALL node IDs must be unique and descriptive
 
 Respond ONLY with valid JSON in this exact format:
 {
@@ -322,17 +327,23 @@ Common n8n node types:
 - n8n-nodes-base.gmail (Gmail integration)
 - n8n-nodes-base.googleSheets (Google Sheets)
 - n8n-nodes-base.scheduleTrigger (cron schedule)
+- n8n-nodes-base.telegram (Telegram bot)
 - n8n-nodes-base.respondToWebhook (respond to webhook)
 """
 
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
+            {"role": "user", "content": enhanced_prompt},
         ]
 
-        # Use different timeouts and models based on complexity
-        timeout = 60.0 if complexity == "simple" else 120.0 if complexity == "medium" else 240.0
-        model = self.models["analysis"] if complexity in ["medium", "complex"] else self.models["configuration"]
+        # OPTIMIZED: Use FAST models for speed!
+        # grok-4-fast is 10-15x faster than grok-4-0709
+        if complexity == "complex":
+            model = self.models["complex_analysis"]  # Only for 16+ node workflows
+            timeout = 180.0
+        else:
+            model = self.models["analysis"]  # Fast model for all normal workflows
+            timeout = 40.0  # Reduced timeout for fast model
 
         async with httpx.AsyncClient(timeout=timeout) as client:
             response = await client.post(
@@ -362,7 +373,9 @@ Common n8n node types:
 
                 return json.loads(content)
             except json.JSONDecodeError as e:
-                raise ValueError(f"Failed to parse Grok response as JSON: {e}\n{content}")
+                raise ValueError(
+                    f"Failed to parse Grok response as JSON: {e}\n{content}"
+                )
 
     async def generate_node_configuration(
         self, node_type: str, context: str
@@ -430,32 +443,34 @@ Example for httpRequest node:
                 return {}
 
     async def build_complete_workflow(
-        self, 
+        self,
         user_prompt: str,
         mode: str = "interpret",
         node_sequence: Optional[str] = None,
-        progress_callback: Optional[callable] = None
+        progress_callback: Optional[callable] = None,
     ) -> N8NWorkflow:
         """
         Complete workflow: Multi-stage AI-powered workflow generation
         """
         if progress_callback:
             progress_callback("Enhancing user input with Grok-3-mini...")
-        
+
         # Stage 1: Enhance user input (fast)
         enhancement = await self.enhance_user_input(user_prompt, mode, node_sequence)
         enhanced_prompt = enhancement.get("enhanced_prompt", user_prompt)
         complexity = enhancement.get("estimated_complexity", "medium")
-        
+
         if progress_callback:
-            progress_callback(f"Analyzing workflow structure ({complexity} complexity)...")
-        
+            progress_callback(
+                f"Analyzing workflow structure ({complexity} complexity)..."
+            )
+
         # Stage 2: Analyze the enhanced request
         analysis = await self.analyze_workflow_request(enhanced_prompt, complexity)
 
         if progress_callback:
             progress_callback(f"Building {len(analysis.get('nodes', []))} nodes...")
-        
+
         # Stage 3: Build nodes with advanced configurations
         nodes = []
         node_map = {}
@@ -472,16 +487,18 @@ Example for httpRequest node:
 
             # Create node with intelligent positioning for complex workflows
             row = i // 4  # 4 nodes per row
-            col = i % 4   # Column in current row
-            position = node_spec.get("position", [
-                200 + (col * 300),  # X: 200, 500, 800, 1100, then wrap
-                200 + (row * 200)   # Y: 200, 400, 600, etc.
-            ])
+            col = i % 4  # Column in current row
+            position = node_spec.get(
+                "position",
+                [
+                    200 + (col * 300),  # X: 200, 500, 800, 1100, then wrap
+                    200 + (row * 200),  # Y: 200, 400, 600, etc.
+                ],
+            )
 
             # Validate and clean parameters
             parameters = self._validate_node_parameters(
-                node_spec["type"], 
-                parameters if parameters else {}
+                node_spec["type"], parameters if parameters else {}
             )
 
             node = N8NNode(
@@ -496,10 +513,10 @@ Example for httpRequest node:
 
         if progress_callback:
             progress_callback("Creating intelligent node connections...")
-        
+
         # Stage 4: Build intelligent connections
         connections = self._build_intelligent_connections(analysis, node_map)
-        
+
         # Stage 5: Validate and optimize connections
         connections = self._validate_and_optimize_connections(connections, node_map)
 
@@ -516,21 +533,77 @@ Example for httpRequest node:
 
         return workflow
 
-    def _validate_node_parameters(self, node_type: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
+    async def _build_workflow_from_analysis(
+        self,
+        analysis: Dict[str, Any],
+        enhanced_prompt: str,
+        node_sequence: Optional[str] = None,
+    ) -> N8NWorkflow:
+        """
+        Build workflow directly from analysis (avoids redundant AI calls)
+        This is called by the optimized API endpoint to prevent duplicate work
+        """
+        nodes = []
+        node_map = {}
+
+        for i, node_spec in enumerate(analysis.get("nodes", [])):
+            # Use parameters from analysis (already generated)
+            parameters = node_spec.get("parameters", {})
+
+            # Only generate config if absolutely missing
+            if not parameters:
+                context = f"Node: {node_spec['name']}, Type: {node_spec['type']}"
+                parameters = await self.generate_node_configuration(
+                    node_spec["type"], context
+                )
+
+            # Smart positioning for complex workflows
+            row = i // 4
+            col = i % 4
+            position = node_spec.get("position", [200 + (col * 300), 200 + (row * 200)])
+
+            # Validate parameters
+            parameters = self._validate_node_parameters(node_spec["type"], parameters)
+
+            node = N8NNode(
+                id=node_spec.get("id", f"node_{i}"),
+                name=node_spec["name"],
+                type=node_spec["type"],
+                position=position,
+                parameters=parameters,
+            )
+            nodes.append(node)
+            node_map[node.id] = node
+
+        # Build intelligent connections
+        connections = self._build_intelligent_connections(analysis, node_map)
+        connections = self._validate_and_optimize_connections(connections, node_map)
+
+        return N8NWorkflow(
+            name=analysis.get("workflow_name", "AI Generated Workflow"),
+            nodes=nodes,
+            connections=connections,
+            tags=analysis.get("tags", ["ai-generated", "grok"]),
+            settings={"executionOrder": "v1"},
+        )
+
+    def _validate_node_parameters(
+        self, node_type: str, parameters: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Validate and fix node parameters to prevent n8n errors"""
-        
+
         # Common parameter fixes
         clean_params = {}
-        
+
         for key, value in parameters.items():
             if value is None:
                 continue  # Skip None values
-            
+
             # Handle arrays that might not be iterable
-            if isinstance(value, str) and key in ['headers', 'parameters']:
+            if isinstance(value, str) and key in ["headers", "parameters"]:
                 # These should be objects, not strings
                 continue
-            
+
             # Handle nested objects
             if isinstance(value, dict):
                 clean_nested = {}
@@ -541,7 +614,7 @@ Example for httpRequest node:
                     clean_params[key] = clean_nested
             else:
                 clean_params[key] = value
-        
+
         # Node-type specific validation
         if node_type == "n8n-nodes-base.httpRequest":
             # Ensure HTTP request has proper structure
@@ -549,17 +622,17 @@ Example for httpRequest node:
                 clean_params["method"] = "GET"
             if "url" not in clean_params:
                 clean_params["url"] = "https://api.example.com"
-                
+
         elif node_type == "n8n-nodes-base.scheduleTrigger":
             # Ensure schedule has proper format
             if "rule" not in clean_params and "cronExpression" not in clean_params:
                 clean_params["cronExpression"] = "0 9 * * *"  # Default: daily at 9 AM
-                
+
         elif node_type == "n8n-nodes-base.function":
             # Ensure function has code
             if "functionCode" not in clean_params:
                 clean_params["functionCode"] = "return items;"
-                
+
         elif node_type == "n8n-nodes-base.if":
             # Ensure IF node has conditions
             if "conditions" not in clean_params:
@@ -568,11 +641,11 @@ Example for httpRequest node:
                         {
                             "value1": "={{$json.status}}",
                             "operation": "equal",
-                            "value2": "success"
+                            "value2": "success",
                         }
                     ]
                 }
-        
+
         return clean_params
 
     def _build_intelligent_connections(
@@ -580,115 +653,133 @@ Example for httpRequest node:
     ) -> Dict[str, Any]:
         """Build intelligent connections ensuring proper workflow flow"""
         connections = {}
-        
+
         # Get specified connections first
         specified_connections = set()
         for conn_spec in analysis.get("connections", []):
             source_id = conn_spec["source"]
             target_id = conn_spec["target"]
-            
+
             # Validate nodes exist
             if source_id not in node_map or target_id not in node_map:
                 continue
-                
+
             specified_connections.add((source_id, target_id))
-            
+
             # Initialize connection structure
             if source_id not in connections:
                 connections[source_id] = {"main": [[]]}
-            
-            connections[source_id]["main"][0].append({
-                "node": target_id,
-                "type": "main",
-                "index": 0,
-            })
-        
+
+            connections[source_id]["main"][0].append(
+                {
+                    "node": target_id,
+                    "type": "main",
+                    "index": 0,
+                }
+            )
+
         # Auto-connect nodes that aren't connected but should be (based on node types)
         node_list = list(node_map.values())
-        
+
         for i in range(len(node_list) - 1):
             current_node = node_list[i]
             next_node = node_list[i + 1]
-            
+
             # Skip if already connected
             if (current_node.id, next_node.id) in specified_connections:
                 continue
-            
+
             # Connect based on node type logic
-            should_connect = self._should_auto_connect(current_node.type, next_node.type)
-            
+            should_connect = self._should_auto_connect(
+                current_node.type, next_node.type
+            )
+
             if should_connect:
                 if current_node.id not in connections:
                     connections[current_node.id] = {"main": [[]]}
-                
-                connections[current_node.id]["main"][0].append({
-                    "node": next_node.id,
-                    "type": "main",
-                    "index": 0,
-                })
-        
+
+                connections[current_node.id]["main"][0].append(
+                    {
+                        "node": next_node.id,
+                        "type": "main",
+                        "index": 0,
+                    }
+                )
+
         return connections
 
     def _should_auto_connect(self, source_type: str, target_type: str) -> bool:
         """Determine if two node types should be auto-connected"""
-        
+
         # Triggers should connect to first processing node
         if "trigger" in source_type.lower():
             return True
-            
+
         # HTTP requests often connect to functions or other processors
         if "httpRequest" in source_type:
-            return target_type in ["n8n-nodes-base.function", "n8n-nodes-base.set", "n8n-nodes-base.if"]
-            
+            return target_type in [
+                "n8n-nodes-base.function",
+                "n8n-nodes-base.set",
+                "n8n-nodes-base.if",
+            ]
+
         # Functions often connect to output nodes
         if "function" in source_type:
-            return "telegram" in target_type or "slack" in target_type or "email" in target_type
-            
+            return (
+                "telegram" in target_type
+                or "slack" in target_type
+                or "email" in target_type
+            )
+
         # Set nodes connect to most things
         if "set" in source_type:
             return True
-            
+
         # Default: connect sequential nodes unless they're both output types
         output_types = ["telegram", "slack", "email", "webhook", "respondToWebhook"]
-        both_output = any(t in source_type for t in output_types) and any(t in target_type for t in output_types)
-        
+        both_output = any(t in source_type for t in output_types) and any(
+            t in target_type for t in output_types
+        )
+
         return not both_output
 
     def _validate_and_optimize_connections(
         self, connections: Dict[str, Any], node_map: Dict[str, N8NNode]
     ) -> Dict[str, Any]:
         """Validate connections and fix common issues"""
-        
+
         optimized = {}
-        
+
         for source_id, conn_data in connections.items():
             if source_id not in node_map:
                 continue  # Skip invalid source nodes
-            
+
             optimized[source_id] = {"main": [[]]}
-            
+
             # Validate each connection
             for connection in conn_data.get("main", [[]])[0]:
                 target_id = connection.get("node")
-                
+
                 if target_id and target_id in node_map:
-                    optimized[source_id]["main"][0].append({
-                        "node": target_id,
-                        "type": "main",
-                        "index": 0,
-                    })
-        
+                    optimized[source_id]["main"][0].append(
+                        {
+                            "node": target_id,
+                            "type": "main",
+                            "index": 0,
+                        }
+                    )
+
         # Ensure no orphaned nodes (connect any unconnected nodes)
         connected_nodes = set()
         for source_id, conn_data in optimized.items():
             connected_nodes.add(source_id)
             for connection in conn_data.get("main", [[]])[0]:
                 connected_nodes.add(connection["node"])
-        
+
         # Connect any orphaned nodes to the workflow
         all_nodes = list(node_map.keys())
         orphaned = [node_id for node_id in all_nodes if node_id not in connected_nodes]
-        
+
         if orphaned and all_nodes:
             # Connect orphaned nodes to the last connected node
             if optimized:
@@ -696,37 +787,39 @@ Example for httpRequest node:
                 for orphan_id in orphaned:
                     if last_connected not in optimized:
                         optimized[last_connected] = {"main": [[]]}
-                    
-                    optimized[last_connected]["main"][0].append({
-                        "node": orphan_id,
-                        "type": "main", 
-                        "index": 0,
-                    })
-        
+
+                    optimized[last_connected]["main"][0].append(
+                        {
+                            "node": orphan_id,
+                            "type": "main",
+                            "index": 0,
+                        }
+                    )
+
         return optimized
 
 
 async def generate_workflow_from_prompt(
-    user_prompt: str, 
-    xai_api_key: str, 
+    user_prompt: str,
+    xai_api_key: str,
     n8n_service: N8NService,
     mode: str = "interpret",
     node_sequence: Optional[str] = None,
-    progress_callback: Optional[callable] = None
+    progress_callback: Optional[callable] = None,
 ) -> Dict[str, Any]:
     """
     Advanced workflow generation with multi-stage AI processing
     """
     if progress_callback:
         progress_callback("Starting advanced workflow generation...")
-    
+
     # Build the workflow using enhanced multi-stage Grok processing
     builder = GrokWorkflowBuilder(xai_api_key)
     workflow = await builder.build_complete_workflow(
-        user_prompt, 
-        mode=mode, 
+        user_prompt,
+        mode=mode,
         node_sequence=node_sequence,
-        progress_callback=progress_callback
+        progress_callback=progress_callback,
     )
 
     if progress_callback:

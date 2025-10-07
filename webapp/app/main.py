@@ -33,7 +33,9 @@ from .genius_enhancements import (
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(APP_ROOT, "..", ".."))
-RUST_BIN = os.path.join(REPO_ROOT, "grok-chat-app", "target", "release", "grok-chat-app")
+RUST_BIN = os.path.join(
+    REPO_ROOT, "grok-chat-app", "target", "release", "grok-chat-app"
+)
 
 # In-memory sessions (ephemeral)
 sessions: Dict[str, List[Dict[str, str]]] = {}
@@ -82,7 +84,9 @@ class ChatPayload(BaseModel):
 
 
 app = FastAPI(title="Grok Chat WebApp with n8n Workflow Builder")
-app.mount("/static", StaticFiles(directory=os.path.join(APP_ROOT, "static")), name="static")
+app.mount(
+    "/static", StaticFiles(directory=os.path.join(APP_ROOT, "static")), name="static"
+)
 templates = Jinja2Templates(directory=os.path.join(APP_ROOT, "templates"))
 
 # Initialize n8n service
@@ -102,7 +106,12 @@ async def web_search_duckduckgo(query: str) -> Optional[str]:
         async with httpx.AsyncClient() as client:
             response = await client.get(
                 "https://api.duckduckgo.com/",
-                params={"q": query, "format": "json", "no_html": "1", "no_redirect": "1"},
+                params={
+                    "q": query,
+                    "format": "json",
+                    "no_html": "1",
+                    "no_redirect": "1",
+                },
                 timeout=5.0,
             )
             response.raise_for_status()
@@ -135,24 +144,30 @@ def build_system_prompt(
 ) -> str:
     """Build comprehensive system prompt with all context."""
     prompt_parts = []
-    
+
     # Base prompt
-    base_prompt = base or "You are Grok, a helpful and maximally truthful AI built by xAI."
-    
+    base_prompt = (
+        base or "You are Grok, a helpful and maximally truthful AI built by xAI."
+    )
+
     # Mode adjustments
     if mode == "deep_research":
         base_prompt += "\n\nYou are in deep research mode. Provide comprehensive, detailed answers with multi-step reasoning. Cite sources and assumptions when possible."
-    
+
     prompt_parts.append(base_prompt)
-    
+
     # Web search results
     if web_result:
-        prompt_parts.append(f"\n--- Web Search Results ---\n{web_result}\n--- End Web Search ---")
-    
+        prompt_parts.append(
+            f"\n--- Web Search Results ---\n{web_result}\n--- End Web Search ---"
+        )
+
     # File contents
     if file_contents:
-        prompt_parts.append(f"\n--- Attached Files ---\n{file_contents}\n--- End Attached Files ---")
-    
+        prompt_parts.append(
+            f"\n--- Attached Files ---\n{file_contents}\n--- End Attached Files ---"
+        )
+
     # Conversation history
     if window > 0 and history:
         prompt_parts.append("\n--- Recent Conversation History ---")
@@ -162,7 +177,7 @@ def build_system_prompt(
             content = msg.get("content", "")
             prompt_parts.append(f"{role.capitalize()}: {content}")
         prompt_parts.append("--- End History ---")
-    
+
     return "\n".join(prompt_parts)
 
 
@@ -176,7 +191,7 @@ def calculate_cost_estimate(
     input_cost = (prompt_tokens / 1_000_000.0) * pricing["input"]
     output_cost = (completion_tokens / 1_000_000.0) * pricing["output"]
     total_cost = input_cost + output_cost
-    
+
     return {
         "prompt_tokens": prompt_tokens,
         "completion_tokens": completion_tokens,
@@ -245,12 +260,13 @@ async def call_xai_chat_api(
             }
 
         except httpx.TimeoutException:
-            raise HTTPException(status_code=504, detail=f"API request timeout ({timeout_seconds}s)")
+            raise HTTPException(
+                status_code=504, detail=f"API request timeout ({timeout_seconds}s)"
+            )
         except httpx.HTTPStatusError as e:
             error_text = e.response.text
             raise HTTPException(
-                status_code=e.response.status_code,
-                detail=f"API Error: {error_text}"
+                status_code=e.response.status_code, detail=f"API Error: {error_text}"
             )
 
 
@@ -290,37 +306,39 @@ async def chat(payload: ChatPayload):
     - Cost estimation
     """
     ensure_rust_binary()
-    
+
     # Get or create session
     session_id = payload.session_id or str(uuid.uuid4())
     history = sessions.setdefault(session_id, [])
-    
+
     # Get API key
     api_key = os.environ.get("XAI_API_KEY")
     if not api_key:
-        raise HTTPException(status_code=500, detail="XAI_API_KEY not set in environment")
-    
+        raise HTTPException(
+            status_code=500, detail="XAI_API_KEY not set in environment"
+        )
+
     # Adjust parameters based on mode
     effective_window = payload.context_window
     effective_temp = payload.temperature
-    
+
     if payload.mode == "deep_research":
         effective_window = max(effective_window, 20)  # Larger context for research
         effective_temp = max(0.2, min(0.9, effective_temp))  # Moderate temperature
-    
+
     # Process attached files
     file_contents = ""
     image_data_urls = []
-    
+
     if payload.files:
         total_chars = 0
         for file_info in payload.files:
             name = file_info.get("name", "attachment")
             content = file_info.get("content", "")
-            
+
             if not content:
                 continue
-            
+
             # Check if it's an image (data URL)
             if content.startswith("data:image/"):
                 image_data_urls.append(content)
@@ -331,12 +349,12 @@ async def chat(payload: ChatPayload):
                     break
                 total_chars += len(snippet)
                 file_contents += f"\n[File: {name}]\n{snippet}\n"
-    
+
     # Web search augmentation
     web_result = None
     if payload.web_search:
         web_result = await web_search_duckduckgo(payload.message)
-    
+
     # Build system prompt with all context
     system_prompt = build_system_prompt(
         payload.system_prompt,
@@ -346,13 +364,18 @@ async def chat(payload: ChatPayload):
         web_result,
         payload.mode or "standard",
     )
-    
+
     # Add user message to history
     history.append({"role": "user", "content": payload.message})
-    
+
     # Determine which inference path to use
     # For coding tasks or when tools are specified, use direct API for better control
-    use_direct_api = image_data_urls or payload.tools or payload.codebase_context or payload.model == "grok-code-fast-1"
+    use_direct_api = (
+        image_data_urls
+        or payload.tools
+        or payload.codebase_context
+        or payload.model == "grok-code-fast-1"
+    )
 
     assistant_response = ""
     tool_calls = []
@@ -370,10 +393,9 @@ async def chat(payload: ChatPayload):
             # Multimodal message with text and images
             user_content = [{"type": "text", "text": payload.message}]
             for img_url in image_data_urls:
-                user_content.append({
-                    "type": "image_url",
-                    "image_url": {"url": img_url}
-                })
+                user_content.append(
+                    {"type": "image_url", "image_url": {"url": img_url}}
+                )
             messages.append({"role": "user", "content": user_content})
         else:
             # Text-only message
@@ -397,11 +419,16 @@ async def chat(payload: ChatPayload):
         # Use Rust CLI for simple text-only (more efficient)
         cmd = [
             RUST_BIN,
-            "-g", payload.message,
-            "-m", payload.model,
-            "-x", str(payload.max_tokens),
-            "--temperature", str(effective_temp),
-            "-y", system_prompt,
+            "-g",
+            payload.message,
+            "-m",
+            payload.model,
+            "-x",
+            str(payload.max_tokens),
+            "--temperature",
+            str(effective_temp),
+            "-y",
+            system_prompt,
         ]
 
         env = os.environ.copy()
@@ -417,35 +444,41 @@ async def chat(payload: ChatPayload):
             )
 
             if result.returncode != 0:
-                error_detail = result.stderr.strip() or result.stdout.strip() or "Unknown error"
-                raise HTTPException(status_code=500, detail=f"Inference error: {error_detail}")
+                error_detail = (
+                    result.stderr.strip() or result.stdout.strip() or "Unknown error"
+                )
+                raise HTTPException(
+                    status_code=500, detail=f"Inference error: {error_detail}"
+                )
 
             assistant_response = result.stdout.strip()
 
         except subprocess.TimeoutExpired:
             raise HTTPException(status_code=504, detail="Inference timeout (120s)")
-    
+
     # Save assistant response to history
     history.append({"role": "assistant", "content": assistant_response})
-    
+
     # Calculate cost estimate
     prompt_tokens = estimate_tokens(system_prompt) + estimate_tokens(payload.message)
     completion_tokens = payload.expected_output_tokens or 512
-    
+
     estimate = calculate_cost_estimate(
         payload.model,
         prompt_tokens,
         completion_tokens,
     )
-    
-    return JSONResponse({
-        "assistant": assistant_response,
-        "session_id": session_id,
-        "model": payload.model,
-        "estimate": estimate,
-        "mode": payload.mode or "standard",
-        "tool_calls": tool_calls,
-    })
+
+    return JSONResponse(
+        {
+            "assistant": assistant_response,
+            "session_id": session_id,
+            "model": payload.model,
+            "estimate": estimate,
+            "mode": payload.mode or "standard",
+            "tool_calls": tool_calls,
+        }
+    )
 
 
 # Image generation endpoint removed - xAI does not support this feature
@@ -457,15 +490,19 @@ async def list_models():
     """List available models with pricing information."""
     models_info = []
     for model in AVAILABLE_MODELS:
-        models_info.append({
-            "name": model,
-            "pricing": PRICING[model],
-        })
-    
-    return JSONResponse({
-        "models": models_info,
-        "count": len(models_info),
-    })
+        models_info.append(
+            {
+                "name": model,
+                "pricing": PRICING[model],
+            }
+        )
+
+    return JSONResponse(
+        {
+            "models": models_info,
+            "count": len(models_info),
+        }
+    )
 
 
 @app.post("/api/estimate")
@@ -476,14 +513,14 @@ async def estimate_cost(payload: ChatPayload):
     """
     # Build system prompt
     history = sessions.get(payload.session_id, [])
-    
+
     file_contents = ""
     if payload.files:
         for file_info in payload.files:
             content = file_info.get("content", "")
             if not content.startswith("data:image/"):
                 file_contents += content[:1000] + "\n"  # Just sample for estimate
-    
+
     system_prompt = build_system_prompt(
         payload.system_prompt,
         history,
@@ -492,16 +529,16 @@ async def estimate_cost(payload: ChatPayload):
         None,  # Skip web search for estimate
         payload.mode or "standard",
     )
-    
+
     prompt_tokens = estimate_tokens(system_prompt) + estimate_tokens(payload.message)
     completion_tokens = payload.expected_output_tokens or 512
-    
+
     estimate = calculate_cost_estimate(
         payload.model,
         prompt_tokens,
         completion_tokens,
     )
-    
+
     return JSONResponse(estimate)
 
 
@@ -512,11 +549,20 @@ async def estimate_cost(payload: ChatPayload):
 
 class WorkflowGenerationRequest(BaseModel):
     """Request to generate an n8n workflow from natural language"""
+
     prompt: str = Field(..., description="Natural language description of the workflow")
-    mode: str = Field(default="interpret", description="Generation mode: 'interpret' or 'exact'")
-    node_sequence: Optional[str] = Field(None, description="Optional node sequence specification")
-    node_details: Optional[str] = Field(None, description="Optional detailed requirements for specific nodes")
-    auto_activate: bool = Field(default=False, description="Automatically activate the workflow after creation")
+    mode: str = Field(
+        default="interpret", description="Generation mode: 'interpret' or 'exact'"
+    )
+    node_sequence: Optional[str] = Field(
+        None, description="Optional node sequence specification"
+    )
+    node_details: Optional[str] = Field(
+        None, description="Optional detailed requirements for specific nodes"
+    )
+    auto_activate: bool = Field(
+        default=False, description="Automatically activate the workflow after creation"
+    )
     session_id: Optional[str] = None
 
 
@@ -524,11 +570,13 @@ class WorkflowGenerationRequest(BaseModel):
 async def n8n_health():
     """Check if n8n service is accessible"""
     is_healthy = await n8n_service.health_check()
-    return JSONResponse({
-        "healthy": is_healthy,
-        "n8n_url": n8n_service.api_url,
-        "webhook_url": n8n_service.webhook_url,
-    })
+    return JSONResponse(
+        {
+            "healthy": is_healthy,
+            "n8n_url": n8n_service.api_url,
+            "webhook_url": n8n_service.webhook_url,
+        }
+    )
 
 
 @app.get("/api/n8n/workflows")
@@ -536,12 +584,16 @@ async def list_n8n_workflows():
     """List all n8n workflows"""
     try:
         workflows = await n8n_service.list_workflows()
-        return JSONResponse({
-            "workflows": workflows,
-            "count": len(workflows),
-        })
+        return JSONResponse(
+            {
+                "workflows": workflows,
+                "count": len(workflows),
+            }
+        )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list workflows: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to list workflows: {str(e)}"
+        )
 
 
 @app.get("/api/n8n/workflows/{workflow_id}")
@@ -560,20 +612,21 @@ async def generate_genius_workflow_endpoint(request: WorkflowGenerationRequest):
     Genius-level workflow generation with all advanced features:
     - Multi-stage AI processing
     - Template suggestions
-    - Performance optimization  
+    - Performance optimization
     - Deep intent analysis
     - Intelligent connections
     """
     api_key = os.environ.get("XAI_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="XAI_API_KEY not set")
-    
+
     if not await n8n_service.health_check():
         raise HTTPException(
             status_code=503,
-            detail="n8n service is not accessible. Make sure it's running on " + n8n_service.api_url
+            detail="n8n service is not accessible. Make sure it's running on "
+            + n8n_service.api_url,
         )
-    
+
     try:
         result = await generate_genius_workflow(
             request.prompt,
@@ -581,97 +634,152 @@ async def generate_genius_workflow_endpoint(request: WorkflowGenerationRequest):
             n8n_service,
             mode=request.mode,
             use_templates=True,
-            optimize_performance=True
+            optimize_performance=True,
         )
-        
+
         if request.auto_activate and result.get("workflow_id"):
             await n8n_service.activate_workflow(result["workflow_id"])
             result["activated"] = True
-        
+
         return JSONResponse(result)
-        
+
     except Exception as e:
         raise HTTPException(
-            status_code=500,
-            detail=f"Genius workflow generation failed: {str(e)}"
+            status_code=500, detail=f"Genius workflow generation failed: {str(e)}"
         )
+
 
 @app.post("/api/n8n/workflows/generate/advanced")
 async def generate_advanced_workflow(request: WorkflowGenerationRequest):
     """
-    Advanced workflow generation with multi-stage Grok AI processing.
-    
-    Features:
-    - Input enhancement with Grok-3-mini (fast)
-    - Intelligent connection building
-    - Mode selection (interpret vs exact)
-    - Node sequence control
-    - Progress tracking
+    Advanced workflow generation with REAL-TIME progress tracking.
+
+    Each stage completes before moving to next (no fake timers!)
     """
     api_key = os.environ.get("XAI_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="XAI_API_KEY not set")
-    
-    # Check n8n health
+
+    # Check n8n health first
     if not await n8n_service.health_check():
         raise HTTPException(
             status_code=503,
-            detail="n8n service is not accessible. Make sure it's running on " + n8n_service.api_url
+            detail="n8n service is not accessible. Make sure it's running on "
+            + n8n_service.api_url,
         )
-    
+
     try:
+        import time
+
+        start_time = time.time()
+        stages = []
+
         # Combine prompt with node details if provided
         full_prompt = request.prompt
         if request.node_details:
             full_prompt += f"\n\nSpecific Requirements:\n{request.node_details}"
-        
-        # Generate and deploy workflow with advanced options
-        result = await generate_workflow_from_prompt(
-            full_prompt,
-            api_key,
-            n8n_service,
-            mode=request.mode,
-            node_sequence=request.node_sequence,
+
+        # OPTIMIZED: Do each stage ONCE (no duplicate API calls!)
+        builder = GrokWorkflowBuilder(api_key)
+
+        # STAGE 1: Enhance with Grok-3-mini (fast)
+        stage_start = time.time()
+        enhancement = await builder.enhance_user_input(
+            full_prompt, request.mode, request.node_sequence
         )
-        
-        workflow_id = result.get("workflow_id")
-        
-        # Optionally activate the workflow
+        stages.append({"stage": "enhance", "duration": time.time() - stage_start})
+
+        enhanced_prompt = enhancement.get("enhanced_prompt", full_prompt)
+        complexity = enhancement.get("estimated_complexity", "medium")
+
+        # STAGE 2: Analyze with appropriate Grok model
+        stage_start = time.time()
+        analysis = await builder.analyze_workflow_request(enhanced_prompt, complexity)
+        stages.append({"stage": "analyze", "duration": time.time() - stage_start})
+
+        # STAGE 3: Build nodes from analysis (NO redundant AI calls)
+        stage_start = time.time()
+        workflow = await builder._build_workflow_from_analysis(
+            analysis, enhanced_prompt, request.node_sequence
+        )
+        stages.append({"stage": "build", "duration": time.time() - stage_start})
+
+        # STAGE 4: Deploy to n8n (real)
+        stage_start = time.time()
+        try:
+            deployed = await n8n_service.create_workflow(workflow)
+            workflow_id = deployed.get("id")
+            stages.append({"stage": "deploy", "duration": time.time() - stage_start})
+        except Exception as deploy_error:
+            raise HTTPException(
+                status_code=500, detail=f"Deployment to n8n failed: {str(deploy_error)}"
+            )
+
+        # STAGE 5: Activate if requested
         if request.auto_activate and workflow_id:
+            stage_start = time.time()
             await n8n_service.activate_workflow(workflow_id)
-            result["activated"] = True
-        
-        # Store in session history if provided
+            stages.append({"stage": "activate", "duration": time.time() - stage_start})
+
+        total_time = time.time() - start_time
+
+        result = {
+            "success": True,
+            "workflow_id": workflow_id,
+            "workflow_name": workflow.name,
+            "workflow": workflow.dict(),
+            "deployed": deployed,
+            "n8n_url": f"http://localhost:5678/workflow/{workflow_id}",
+            "enhancement_used": request.mode,
+            "performance": {
+                "total_time": round(total_time, 2),
+                "stages": stages,
+                "nodes_created": len(workflow.nodes),
+                "connections_made": len(workflow.connections),
+            },
+        }
+
+        # Store in session history
         if request.session_id:
             history = sessions.setdefault(request.session_id, [])
-            history.append({
-                "role": "user",
-                "content": f"[Advanced Workflow] {request.prompt} (Mode: {request.mode})"
-            })
-            history.append({
-                "role": "assistant",
-                "content": f"Created advanced workflow: {result['workflow_name']} with intelligent connections (ID: {workflow_id})"
-            })
-        
+            history.append(
+                {
+                    "role": "user",
+                    "content": f"[Advanced Workflow] {request.prompt} (Mode: {request.mode})",
+                }
+            )
+            history.append(
+                {
+                    "role": "assistant",
+                    "content": f"Created workflow: {workflow.name} in {total_time:.1f}s with {len(workflow.nodes)} nodes",
+                }
+            )
+
         return JSONResponse(result)
-        
+
+    except HTTPException:
+        raise
     except Exception as e:
+        import traceback
+
+        error_details = traceback.format_exc()
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to generate advanced workflow: {str(e)}"
+            detail=f"Workflow generation failed: {str(e)}\n\nDebug info: {error_details[:500]}",
         )
+
 
 @app.post("/api/n8n/workflows/generate")
 async def generate_n8n_workflow(request: WorkflowGenerationRequest):
     """
     Generate a complete n8n workflow from natural language prompt.
-    
+
     This endpoint uses the Grok API to:
     1. Analyze the workflow request
     2. Break it down into n8n nodes
     3. Configure connections and parameters
     4. Deploy to n8n
-    
+
     Example prompts:
     - "Create a workflow that sends me a Slack message every day at 9 AM with weather data"
     - "Build a webhook that receives form submissions and saves them to Google Sheets"
@@ -680,14 +788,15 @@ async def generate_n8n_workflow(request: WorkflowGenerationRequest):
     api_key = os.environ.get("XAI_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="XAI_API_KEY not set")
-    
+
     # Check n8n health
     if not await n8n_service.health_check():
         raise HTTPException(
             status_code=503,
-            detail="n8n service is not accessible. Make sure it's running on " + n8n_service.api_url
+            detail="n8n service is not accessible. Make sure it's running on "
+            + n8n_service.api_url,
         )
-    
+
     try:
         # Generate and deploy workflow (basic mode for backwards compatibility)
         result = await generate_workflow_from_prompt(
@@ -697,32 +806,32 @@ async def generate_n8n_workflow(request: WorkflowGenerationRequest):
             mode=request.mode,
             node_sequence=request.node_sequence,
         )
-        
+
         workflow_id = result.get("workflow_id")
-        
+
         # Optionally activate the workflow
         if request.auto_activate and workflow_id:
             await n8n_service.activate_workflow(workflow_id)
             result["activated"] = True
-        
+
         # Store in session history if provided
         if request.session_id:
             history = sessions.setdefault(request.session_id, [])
-            history.append({
-                "role": "user",
-                "content": f"[Workflow Request] {request.prompt}"
-            })
-            history.append({
-                "role": "assistant",
-                "content": f"Created workflow: {result['workflow_name']} (ID: {workflow_id})"
-            })
-        
+            history.append(
+                {"role": "user", "content": f"[Workflow Request] {request.prompt}"}
+            )
+            history.append(
+                {
+                    "role": "assistant",
+                    "content": f"Created workflow: {result['workflow_name']} (ID: {workflow_id})",
+                }
+            )
+
         return JSONResponse(result)
-        
+
     except Exception as e:
         raise HTTPException(
-            status_code=500,
-            detail=f"Failed to generate workflow: {str(e)}"
+            status_code=500, detail=f"Failed to generate workflow: {str(e)}"
         )
 
 
@@ -733,7 +842,9 @@ async def activate_n8n_workflow(workflow_id: str):
         result = await n8n_service.activate_workflow(workflow_id)
         return JSONResponse(result)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to activate workflow: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to activate workflow: {str(e)}"
+        )
 
 
 @app.post("/api/n8n/workflows/{workflow_id}/execute")
@@ -743,7 +854,9 @@ async def execute_n8n_workflow(workflow_id: str, data: Optional[Dict[str, Any]] 
         result = await n8n_service.execute_workflow(workflow_id, data)
         return JSONResponse(result)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to execute workflow: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to execute workflow: {str(e)}"
+        )
 
 
 @app.delete("/api/n8n/workflows/{workflow_id}")
@@ -751,9 +864,13 @@ async def delete_n8n_workflow(workflow_id: str):
     """Delete an n8n workflow"""
     try:
         await n8n_service.delete_workflow(workflow_id)
-        return JSONResponse({"success": True, "message": f"Workflow {workflow_id} deleted"})
+        return JSONResponse(
+            {"success": True, "message": f"Workflow {workflow_id} deleted"}
+        )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete workflow: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to delete workflow: {str(e)}"
+        )
 
 
 @app.post("/api/chat/workflow")
@@ -761,17 +878,17 @@ async def chat_with_workflow_builder(payload: ChatPayload):
     """
     Enhanced chat endpoint that can understand workflow requests and automatically
     generate n8n workflows when the user is asking to create automation.
-    
+
     This combines chat with workflow generation intelligence.
     """
     api_key = os.environ.get("XAI_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="XAI_API_KEY not set")
-    
+
     # Get or create session
     session_id = payload.session_id or str(uuid.uuid4())
     history = sessions.setdefault(session_id, [])
-    
+
     # First, use Grok to determine if this is a workflow creation request
     detection_prompt = f"""Analyze this message and determine if the user is requesting to create, build, or automate a workflow:
 
@@ -783,7 +900,7 @@ Respond with ONLY a JSON object:
   "confidence": 0.0-1.0,
   "extracted_intent": "brief description if true"
 }}"""
-    
+
     # Quick detection call
     async with httpx.AsyncClient(timeout=30.0) as client:
         detection_response = await client.post(
@@ -801,18 +918,22 @@ Respond with ONLY a JSON object:
         )
         detection_data = detection_response.json()
         detection_content = detection_data["choices"][0]["message"]["content"]
-        
+
         # Parse detection
         try:
             if "```json" in detection_content:
-                detection_content = detection_content.split("```json")[1].split("```")[0].strip()
+                detection_content = (
+                    detection_content.split("```json")[1].split("```")[0].strip()
+                )
             elif "```" in detection_content:
-                detection_content = detection_content.split("```")[1].split("```")[0].strip()
-            
+                detection_content = (
+                    detection_content.split("```")[1].split("```")[0].strip()
+                )
+
             detection = json.loads(detection_content)
         except:
             detection = {"is_workflow_request": False, "confidence": 0.0}
-    
+
     # If high confidence workflow request, generate it
     if detection.get("is_workflow_request") and detection.get("confidence", 0) > 0.7:
         if await n8n_service.health_check():
@@ -823,10 +944,10 @@ Respond with ONLY a JSON object:
                     api_key,
                     n8n_service,
                 )
-                
+
                 workflow_id = result.get("workflow_id")
                 workflow_name = result.get("workflow_name")
-                
+
                 # Build response
                 response_text = f"""✅ I've created your n8n workflow!
 
@@ -839,19 +960,21 @@ The workflow has been deployed to your n8n instance. You can:
 - Test it manually
 
 Would you like me to activate it now or make any modifications?"""
-                
+
                 history.append({"role": "user", "content": payload.message})
                 history.append({"role": "assistant", "content": response_text})
-                
-                return JSONResponse({
-                    "assistant": response_text,
-                    "session_id": session_id,
-                    "workflow_generated": True,
-                    "workflow": result,
-                })
+
+                return JSONResponse(
+                    {
+                        "assistant": response_text,
+                        "session_id": session_id,
+                        "workflow_generated": True,
+                        "workflow": result,
+                    }
+                )
             except Exception as e:
                 # Fall back to regular chat if workflow generation fails
                 pass
-    
+
     # Otherwise, use regular chat endpoint
     return await chat(payload)
