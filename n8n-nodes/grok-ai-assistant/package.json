@@ -1,0 +1,48 @@
+{
+  "name": "n8n-nodes-grok-ai-assistant",
+  "version": "1.0.0",
+  "description": "Grok AI Assistant - Embed Grok intelligence directly into n8n workflows",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes --write",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "lintfix": "tslint --fix -p tsconfig.json -c tslint.json"
+  },
+  "keywords": [
+    "n8n",
+    "n8n-community-node-package",
+    "grok",
+    "ai",
+    "xai",
+    "workflow-automation"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "grokApi.credentials.js"
+    ],
+    "nodes": [
+      "nodes/GrokAiAssistant/GrokAiAssistant.node.js",
+      "nodes/GrokWorkflowAnalyzer/GrokWorkflowAnalyzer.node.js",
+      "nodes/GrokFileEditor/GrokFileEditor.node.js"
+    ]
+  },
+  "author": {
+    "name": "OPGROK",
+    "email": "dylankawalec@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "^1.0.0",
+    "prettier": "^2.7.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.9.0"
+  },
+  "dependencies": {
+    "n8n-core": "^1.0.0"
+  }
+}

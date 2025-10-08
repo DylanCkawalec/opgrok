@@ -98,6 +98,9 @@ class N8NService:
 
     async def list_workflows(self) -> List[Dict[str, Any]]:
         """List all workflows"""
+        import time
+        start = time.time()
+        
         async with httpx.AsyncClient() as client:
             response = await client.get(
                 f"{self.api_url}/workflows",
@@ -105,6 +108,17 @@ class N8NService:
                 auth=self._get_auth(),
             )
             response.raise_for_status()
+            
+            # Log API call for monitoring
+            from .audit_logger import get_audit_logger
+            audit = get_audit_logger()
+            audit.log_api_call(
+                f"{self.api_url}/workflows",
+                "GET",
+                response.status_code,
+                time.time() - start
+            )
+            
             return response.json().get("data", [])
 
     async def get_workflow(self, workflow_id: str) -> Dict[str, Any]:
@@ -194,7 +208,7 @@ class GrokWorkflowBuilder:
             "analysis": "grok-4-fast-non-reasoning",  # FAST workflow design (3-5s vs 50s!)
             "enhancement": "grok-3-mini",  # Fast enhancement and validation
             "configuration": "grok-4-fast-non-reasoning",  # Fast parameter generation
-            "complex_analysis": "grok-4-0709"  # Reserved for extremely complex workflows only
+            "complex_analysis": "grok-4-0709",  # Reserved for extremely complex workflows only
         }
 
     async def enhance_user_input(
@@ -205,8 +219,15 @@ class GrokWorkflowBuilder:
     ) -> Dict[str, Any]:
         """
         Stage 1: Use Grok-3-mini to enhance and validate user input
-        This is fast and improves the quality of the main analysis
+        Handles both short prompts and very long detailed specifications
         """
+        # Handle very long prompts (like detailed workflow specifications)
+        if len(user_prompt) > 5000:
+            return await self._process_long_specification(
+                user_prompt, mode, node_sequence
+            )
+
+        # Normal prompt enhancement
         system_prompt = f"""You are a workflow enhancement AI. Your job is to take user input and enhance it for optimal workflow generation.
 
 Mode: {mode}
@@ -269,6 +290,59 @@ Respond with JSON:
                     "required_integrations": [],
                     "estimated_complexity": "medium",
                     "recommendations": "No enhancements available",
+                }
+
+    async def _process_long_specification(
+        self, detailed_spec: str, mode: str, node_sequence: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Extract essentials from very long specifications"""
+        system_prompt = """Extract key workflow information from this detailed specification.
+
+Output concise JSON:
+{
+  "enhanced_prompt": "clear workflow description (max 1000 words)",
+  "suggested_sequence": ["node types in order"],
+  "required_integrations": ["services needed"],
+  "estimated_complexity": "complex",
+  "recommendations": "critical notes"
+}"""
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": detailed_spec[:8000]},  # Limit to 8k
+        ]
+
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            response = await client.post(
+                self.api_url,
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": self.models["enhancement"],
+                    "messages": messages,
+                    "temperature": 0.2,
+                    "max_tokens": 2048,
+                },
+            )
+            response.raise_for_status()
+            data = response.json()
+            content = data["choices"][0]["message"]["content"]
+
+            try:
+                if "```json" in content:
+                    content = content.split("```json")[1].split("```")[0].strip()
+                result = json.loads(content)
+                result["estimated_complexity"] = "complex"
+                return result
+            except:
+                return {
+                    "enhanced_prompt": detailed_spec[:2000],
+                    "suggested_sequence": [],
+                    "required_integrations": [],
+                    "estimated_complexity": "complex",
+                    "recommendations": "Long spec processed",
                 }
 
     async def analyze_workflow_request(
@@ -336,14 +410,14 @@ Common n8n node types:
             {"role": "user", "content": enhanced_prompt},
         ]
 
-        # OPTIMIZED: Use FAST models for speed!
+        # OPTIMIZED: Use FAST models with appropriate timeouts
         # grok-4-fast is 10-15x faster than grok-4-0709
         if complexity == "complex":
             model = self.models["complex_analysis"]  # Only for 16+ node workflows
-            timeout = 180.0
+            timeout = 240.0  # Longer for complex
         else:
-            model = self.models["analysis"]  # Fast model for all normal workflows
-            timeout = 40.0  # Reduced timeout for fast model
+            model = self.models["analysis"]  # Fast model for normal workflows
+            timeout = 90.0  # Increased for longer prompts
 
         async with httpx.AsyncClient(timeout=timeout) as client:
             response = await client.post(
@@ -657,8 +731,12 @@ Example for httpRequest node:
         # Get specified connections first
         specified_connections = set()
         for conn_spec in analysis.get("connections", []):
-            source_id = conn_spec["source"]
-            target_id = conn_spec["target"]
+            source_id = conn_spec.get("source")
+            target_id = conn_spec.get("target")
+            
+            # Skip if missing
+            if not source_id or not target_id:
+                continue
 
             # Validate nodes exist
             if source_id not in node_map or target_id not in node_map:

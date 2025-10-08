@@ -30,6 +30,23 @@ from .genius_enhancements import (
     WorkflowTemplateManager,
     generate_genius_workflow,
 )
+from .workflow_modifier import (
+    WorkflowModificationEngine,
+    chat_modify_workflow,
+)
+from .ultra_enhancements import (
+    get_cache,
+    get_suggestions,
+    get_context_assistant,
+    WorkflowOptimizer,
+)
+from .audit_logger import get_audit_logger
+from .n8n_connector import (
+    N8NWorkflowAnalyzer,
+    N8NAutoConnector,
+    auto_connect_workflow,
+)
+from .agentic_connector import agentic_connect_workflow
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(APP_ROOT, "..", ".."))
@@ -291,6 +308,18 @@ async def workflow_builder_page(request: Request):
         "workflow.html",
         {
             "request": request,
+        },
+    )
+
+
+@app.get("/workflows/{workflow_id}/editor", response_class=HTMLResponse)
+async def workflow_editor_page(request: Request, workflow_id: str):
+    """Dedicated workflow editor interface"""
+    return templates.TemplateResponse(
+        "workflow_editor.html",
+        {
+            "request": request,
+            "workflow_id": workflow_id,
         },
     )
 
@@ -679,15 +708,51 @@ async def generate_advanced_workflow(request: WorkflowGenerationRequest):
         if request.node_details:
             full_prompt += f"\n\nSpecific Requirements:\n{request.node_details}"
 
+        # Validate prompt length
+        if len(full_prompt) > 15000:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Prompt too long ({len(full_prompt)} chars). Maximum 15,000 characters. Please condense your specification or split into multiple workflows.",
+            )
+
+        # Log for debugging
+        print(
+            f"[Workflow Gen] Prompt length: {len(full_prompt)} chars, Mode: {request.mode}"
+        )
+
         # OPTIMIZED: Do each stage ONCE (no duplicate API calls!)
         builder = GrokWorkflowBuilder(api_key)
 
+        # Check cache first (invisible optimization)
+        cache = get_cache()
+        cached_result = cache.get(full_prompt, request.mode)
+
+        if cached_result and not request.node_sequence:
+            # Return cached workflow instantly!
+            print(f"[Cache Hit] Returning cached workflow for similar prompt")
+            return JSONResponse(
+                {
+                    **cached_result,
+                    "cached": True,
+                    "performance": {
+                        **cached_result.get("performance", {}),
+                        "cache_hit": True,
+                    },
+                }
+            )
+
         # STAGE 1: Enhance with Grok-3-mini (fast)
         stage_start = time.time()
-        enhancement = await builder.enhance_user_input(
-            full_prompt, request.mode, request.node_sequence
-        )
-        stages.append({"stage": "enhance", "duration": time.time() - stage_start})
+        try:
+            enhancement = await builder.enhance_user_input(
+                full_prompt, request.mode, request.node_sequence
+            )
+            stages.append({"stage": "enhance", "duration": time.time() - stage_start})
+        except Exception as e:
+            # Log failure
+            audit = get_audit_logger()
+            audit.log_workflow_generation(full_prompt, None, False, time.time() - start_time, str(e))
+            raise
 
         enhanced_prompt = enhancement.get("enhanced_prompt", full_prompt)
         complexity = enhancement.get("estimated_complexity", "medium")
@@ -703,6 +768,23 @@ async def generate_advanced_workflow(request: WorkflowGenerationRequest):
             analysis, enhanced_prompt, request.node_sequence
         )
         stages.append({"stage": "build", "duration": time.time() - stage_start})
+
+        # Ultra optimization: Optimize workflow structure invisibly
+        workflow_dict = workflow.dict()
+        optimizer = WorkflowOptimizer()
+        workflow_dict = optimizer.optimize_connections(workflow_dict)
+        workflow_dict = optimizer.optimize_positioning(workflow_dict)
+
+        # Rebuild workflow with optimizations
+        from .n8n_service import N8NWorkflow, N8NNode
+
+        workflow = N8NWorkflow(
+            name=workflow_dict["name"],
+            nodes=[N8NNode(**n) for n in workflow_dict["nodes"]],
+            connections=workflow_dict["connections"],
+            settings=workflow_dict.get("settings", {}),
+            tags=workflow_dict.get("tags", []),
+        )
 
         # STAGE 4: Deploy to n8n (real)
         stage_start = time.time()
@@ -738,6 +820,16 @@ async def generate_advanced_workflow(request: WorkflowGenerationRequest):
                 "connections_made": len(workflow.connections),
             },
         }
+
+        # Cache for future use (invisible optimization)
+        cache.set(full_prompt, request.mode, result)
+
+        # Record pattern for proactive suggestions (invisible learning)
+        suggestions = get_suggestions()
+        workflow_type = workflow.name.lower()
+        suggestions.record_workflow_creation(
+            request.session_id or "anonymous", workflow_type
+        )
 
         # Store in session history
         if request.session_id:
@@ -871,6 +963,188 @@ async def delete_n8n_workflow(workflow_id: str):
         raise HTTPException(
             status_code=500, detail=f"Failed to delete workflow: {str(e)}"
         )
+
+
+@app.post("/api/n8n/workflows/{workflow_id}/connect-all")
+async def connect_all_nodes(workflow_id: str):
+    """
+    🔗 CONNECT IT ALL - One-click intelligent node connection
+
+    Analyzes workflow and automatically connects unconnected nodes
+    SAFE: Preserves all existing nodes, parameters, and connections
+    Only ADDS new connections, never removes or modifies existing data
+    """
+    try:
+        result = await auto_connect_workflow(workflow_id, n8n_service)
+        return JSONResponse(result)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to auto-connect: {str(e)}")
+
+
+@app.get("/api/n8n/workflows/{workflow_id}/analyze")
+async def analyze_workflow_structure(workflow_id: str):
+    """
+    📊 Analyze workflow structure and suggest improvements
+    Returns detailed analysis without modifying anything
+    """
+    try:
+        workflow = await n8n_service.get_workflow(workflow_id)
+        analyzer = N8NWorkflowAnalyzer(workflow)
+        analysis = analyzer.analyze_structure()
+
+        return JSONResponse(
+            {
+                "workflow_id": workflow_id,
+                "workflow_name": workflow.get("name"),
+                "analysis": analysis,
+                "report": N8NAutoConnector.create_connection_report(workflow),
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to analyze: {str(e)}")
+
+
+@app.post("/api/n8n/workflows/{workflow_id}/modify")
+async def modify_workflow_with_ai(workflow_id: str, request: WorkflowGenerationRequest):
+    """
+    Modify an existing workflow using AI based on natural language description.
+
+    Example: "Change the schedule to run every 30 minutes instead of hourly"
+    """
+    api_key = os.environ.get("XAI_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="XAI_API_KEY not set")
+
+    try:
+        # Get existing workflow
+        existing = await n8n_service.get_workflow(workflow_id)
+
+        # Use Grok to understand the modification request
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            response = await client.post(
+                "https://api.x.ai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "grok-4-fast-non-reasoning",
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": f"""You are modifying an n8n workflow. 
+
+Current workflow: {json.dumps(existing, indent=2)}
+
+Understand the user's modification request and respond with ONLY a JSON object describing what to change:
+{{
+  "modifications": [
+    {{
+      "type": "update_parameter|add_node|remove_node|change_connection",
+      "target": "node_id or parameter path",
+      "new_value": "the new value or configuration"
+    }}
+  ],
+  "summary": "brief description of changes"
+}}""",
+                        },
+                        {"role": "user", "content": request.prompt},
+                    ],
+                    "temperature": 0.3,
+                    "max_tokens": 2048,
+                },
+            )
+
+            modification_data = response.json()
+            modification_content = modification_data["choices"][0]["message"]["content"]
+
+            # Parse modifications
+            if "```json" in modification_content:
+                modification_content = (
+                    modification_content.split("```json")[1].split("```")[0].strip()
+                )
+
+            modifications = json.loads(modification_content)
+
+            return JSONResponse(
+                {
+                    "success": True,
+                    "workflow_id": workflow_id,
+                    "modifications": modifications,
+                    "message": f"Workflow modification analysis complete. {modifications.get('summary', '')}",
+                }
+            )
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to analyze modification: {str(e)}"
+        )
+
+
+@app.post("/api/chat/workflow-context")
+async def chat_with_workflow_context(payload: ChatPayload):
+    """
+    Workflow-aware chat that can ACTUALLY modify n8n workflows.
+
+    When user says "modify workflow X", this endpoint:
+    1. Gets current workflow state from n8n
+    2. Uses Grok to understand the modification
+    3. Executes the modification via n8n API
+    4. Returns confirmation that changes are live
+    """
+    api_key = os.environ.get("XAI_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="XAI_API_KEY not set")
+
+    session_id = payload.session_id or str(uuid.uuid4())
+    history = sessions.setdefault(session_id, [])
+
+    # Detect if this is a workflow modification request
+    message_lower = payload.message.lower()
+
+    # Check if message mentions specific workflow or "modify"
+    if any(word in message_lower for word in ["modify", "change", "update", "edit"]):
+        # Try to find workflow ID in message or get latest workflow
+        try:
+            workflows = await n8n_service.list_workflows()
+
+            if workflows:
+                # Use the first/latest workflow for modification
+                target_workflow = workflows[0]
+                workflow_id = target_workflow.get("id")
+                workflow_name = target_workflow.get("name")
+
+                # Execute actual modification
+                result = await chat_modify_workflow(
+                    workflow_id, payload.message, api_key, n8n_service
+                )
+
+                # Return with workflow modification result
+                history.append({"role": "user", "content": payload.message})
+                history.append(
+                    {
+                        "role": "assistant",
+                        "content": result.get("assistant_response", ""),
+                    }
+                )
+
+                return JSONResponse(
+                    {
+                        "assistant": result.get("assistant_response"),
+                        "session_id": session_id,
+                        "workflow_modified": True,
+                        "workflow_id": workflow_id,
+                        "workflow_name": workflow_name,
+                        "n8n_url": f"http://localhost:5678/workflow/{workflow_id}",
+                        "modifications": result.get("modifications"),
+                    }
+                )
+        except Exception as e:
+            # Fall through to regular chat if modification fails
+            pass
+
+    # Regular chat (no modification)
+    return await chat(payload)
 
 
 @app.post("/api/chat/workflow")

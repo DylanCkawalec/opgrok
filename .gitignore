@@ -32,8 +32,12 @@ Cargo.lock
 Thumbs.db
 *.bak
 
-# n8n Data
-.n8n/
+# n8n Data (keep structure, ignore content)
+.n8n/.cache/
+.n8n/.n8n/database.*
+.n8n/*.pid
+.n8n/*.log
+.n8n/audit/*.jsonl
 n8n_data/
 postgres_data/
 
