@@ -133,16 +133,52 @@ class N8NService:
             return response.json()
 
     async def create_workflow(self, workflow: N8NWorkflow) -> Dict[str, Any]:
-        """Create a new workflow"""
-        async with httpx.AsyncClient() as client:
+        """Create a new workflow with validation"""
+        workflow_dict = workflow.to_create_dict()
+        
+        # Validate before sending
+        if not workflow_dict.get("nodes"):
+            raise ValueError("Workflow has no nodes!")
+        
+        if len(workflow_dict.get("nodes", [])) > 20:
+            # Complex workflows may fail - simplify
+            raise ValueError(f"Workflow too complex ({len(workflow_dict['nodes'])} nodes). Try simpler workflow or split into multiple.")
+        
+        async with httpx.AsyncClient(timeout=30.0) as client:
             response = await client.post(
                 f"{self.api_url}/workflows",
                 headers=self._get_headers(),
                 auth=self._get_auth(),
-                json=workflow.to_create_dict(),
+                json=workflow_dict,
             )
-            response.raise_for_status()
-            return response.json()
+            
+            if response.status_code != 201 and response.status_code != 200:
+                error_text = response.text
+                raise ValueError(f"n8n rejected workflow: {error_text[:200]}")
+            
+            result = response.json()
+            
+            # Verify it was actually created
+            if not result.get("id"):
+                raise ValueError("n8n didn't return workflow ID!")
+            
+            # Double-check it exists
+            verify_response = await client.get(
+                f"{self.api_url}/workflows/{result['id']}",
+                headers=self._get_headers(),
+                auth=self._get_auth(),
+            )
+            
+            if verify_response.status_code != 200:
+                raise ValueError(f"Workflow created but can't be retrieved! May be invalid.")
+            
+            verified = verify_response.json()
+            
+            # Check nodes actually saved
+            if len(verified.get("nodes", [])) != len(workflow_dict["nodes"]):
+                raise ValueError(f"Only {len(verified.get('nodes', []))} of {len(workflow_dict['nodes'])} nodes saved!")
+            
+            return verified
 
     async def update_workflow(
         self, workflow_id: str, workflow: N8NWorkflow

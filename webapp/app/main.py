@@ -47,6 +47,7 @@ from .n8n_connector import (
     auto_connect_workflow,
 )
 from .agentic_connector import agentic_connect_workflow
+from .workflow_optimizer import auto_optimize_workflow
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(APP_ROOT, "..", ".."))
@@ -830,6 +831,16 @@ async def generate_advanced_workflow(request: WorkflowGenerationRequest):
         suggestions.record_workflow_creation(
             request.session_id or "anonymous", workflow_type
         )
+        
+        # AUTO-OPTIMIZE: Fix any errors in generated workflow
+        try:
+            print(f"[Auto-Optimize] Running for workflow {workflow_id}")
+            optimization = await auto_optimize_workflow(workflow_id, api_key, n8n_service)
+            result["optimization"] = optimization
+            print(f"[Auto-Optimize] Fixed {optimization.get('errors_fixed', 0)} errors")
+        except Exception as e:
+            print(f"[Auto-Optimize] Failed: {e}")
+            result["optimization"] = {"success": False, "error": str(e)}
 
         # Store in session history
         if request.session_id:

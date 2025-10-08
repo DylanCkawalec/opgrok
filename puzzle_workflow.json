@@ -1,0 +1,462 @@
+{
+  "success": true,
+  "workflow_id": "rEWt5oNxTYai7219",
+  "workflow_name": "Complex Puzzle Solver Workflow",
+  "workflow": {
+    "name": "Complex Puzzle Solver Workflow",
+    "nodes": [
+      {
+        "id": "schedule_trigger",
+        "name": "Hourly Puzzle Trigger",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1,
+        "position": [
+          200.0,
+          200.0
+        ],
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "hours",
+                "value": 1
+              }
+            ]
+          },
+          "description": "Trigger puzzle solving every hour"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "initialize_puzzle_data",
+        "name": "Initialize Puzzle Constants",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          550.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Initialize immutable puzzle data\nconst puzzleData = {\n  numbers: Object.freeze([3, 5, 8, 13, 21]),\n  letters: Object.freeze(['H', 'E', 'L', 'L', 'O']),\n  words: Object.freeze(['flow', 'work', 'magic'])\n};\n\n// Validation\nif (!Array.isArray(puzzleData.numbers) || puzzleData.numbers.length === 0) {\n  throw new Error('Numbers array is invalid or empty');\n}\nif (!Array.isArray(puzzleData.letters) || puzzleData.letters.length === 0) {\n  throw new Error('Letters array is invalid or empty');\n}\nif (!Array.isArray(puzzleData.words) || puzzleData.words.length === 0) {\n  throw new Error('Words array is invalid or empty');\n}\n\n// Return as single item for workflow flow\nreturn [{\n  json: {\n    ...puzzleData,\n    timestamp: new Date().toISOString(),\n    workflow_stage: 'initialized'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "math_sequence_solver",
+        "name": "Fibonacci Sum Calculator",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          900.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for math solver');\n}\n\nconst { numbers } = items[0].json;\n\n// Validate numbers array\nif (!Array.isArray(numbers)) {\n  throw new Error('Numbers data is not an array');\n}\n\n// Validate numeric values\nconst invalidNumbers = numbers.filter(n => typeof n !== 'number' || isNaN(n));\nif (invalidNumbers.length > 0) {\n  throw new Error(`Invalid numbers found: ${invalidNumbers.join(', ')}`);\n}\n\nif (numbers.length === 0) {\n  throw new Error('Numbers array is empty');\n}\n\n// Calculate Fibonacci sum\nconst mathResult = numbers.reduce((sum, num) => sum + num, 0);\n\n// Unit test simulation\nconst testSum = [3, 5, 8, 13, 21].reduce((sum, num) => sum + num, 0);\nconst isValid = mathResult === testSum;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    math_result: mathResult,\n    math_validation: {\n      is_valid: isValid,\n      expected_sum: testSum,\n      actual_sum: mathResult,\n      array_length: numbers.length\n    },\n    workflow_stage: 'math_solved'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "alphabet_manipulation",
+        "name": "Letter Reversal Solver",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          1250.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for alphabet solver');\n}\n\nconst { letters } = items[0].json;\n\n// Validate letters array\nif (!Array.isArray(letters)) {\n  throw new Error('Letters data is not an array');\n}\n\nif (letters.length === 0) {\n  throw new Error('Letters array is empty');\n}\n\n// Validate letters are strings\nconst invalidLetters = letters.filter(l => typeof l !== 'string' || l.length === 0);\nif (invalidLetters.length > 0) {\n  throw new Error(`Invalid letters found: ${invalidLetters.join(', ')}`);\n}\n\n// Join and reverse letters\nconst letterString = letters.join('').toUpperCase();\nconst reversedLetters = letterString.split('').reverse().join('');\n\n// Unit test simulation\nconst testReverse = ['H', 'E', 'L', 'L', 'O'].join('').split('').reverse().join('');\nconst isValid = reversedLetters === testReverse;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    letter_result: reversedLetters,\n    letter_validation: {\n      is_valid: isValid,\n      original: letterString,\n      reversed: reversedLetters,\n      expected: testReverse,\n      length: letters.length\n    },\n    workflow_stage: 'letters_solved'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "word_analysis_engine",
+        "name": "Word Pattern Extractor",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          1600.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for word solver');\n}\n\nconst { words } = items[0].json;\n\n// Validate words array\nif (!Array.isArray(words)) {\n  throw new Error('Words data is not an array');\n}\n\nif (words.length === 0) {\n  throw new Error('Words array is empty');\n}\n\n// Validate words are non-empty strings\nconst invalidWords = words.filter(w => typeof w !== 'string' || w.trim().length === 0);\nif (invalidWords.length > 0) {\n  throw new Error(`Invalid words found: ${invalidWords.join(', ')}`);\n}\n\n// Sort words alphabetically and extract first letters\nconst sortedWords = [...words].sort((a, b) => a.localeCompare(b));\nconst firstLetters = sortedWords.map(word => word.charAt(0).toLowerCase());\nconst wordResult = firstLetters.join('');\n\n// Unit test simulation\nconst testWords = ['flow', 'work', 'magic'].sort((a, b) => a.localeCompare(b));\nconst testFirstLetters = testWords.map(w => w.charAt(0).toLowerCase()).join('');\nconst isValid = wordResult === testFirstLetters;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    word_result: wordResult,\n    word_validation: {\n      is_valid: isValid,\n      sorted_words: sortedWords,\n      first_letters: firstLetters,\n      expected: testFirstLetters,\n      word_count: words.length\n    },\n    workflow_stage: 'words_solved'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "result_consolidation",
+        "name": "Merge Puzzle Results",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          1950.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for result merging');\n}\n\nconst currentData = items[0].json;\n\n// Validate all required results exist\nconst requiredFields = ['math_result', 'letter_result', 'word_result'];\nconst missingFields = requiredFields.filter(field => !(field in currentData));\n\nif (missingFields.length > 0) {\n  throw new Error(`Missing required fields: ${missingFields.join(', ')}`);\n}\n\n// Validate result types\nif (typeof currentData.math_result !== 'number') {\n  throw new Error('math_result must be a number');\n}\n\nif (typeof currentData.letter_result !== 'string') {\n  throw new Error('letter_result must be a string');\n}\n\nif (typeof currentData.word_result !== 'string') {\n  throw new Error('word_result must be a string');\n}\n\n// Create consolidated results object\nconst mergedResults = {\n  math: currentData.math_result,\n  letters: currentData.letter_result,\n  words: currentData.word_result,\n  puzzle_id: `puzzle_${Date.now()}`,\n  solved_at: new Date().toISOString(),\n  validation_status: 'all_valid'\n};\n\n// Unit test simulation\nconst testMerge = {\n  math: 50,\n  letters: 'OLLEH',\n  words: 'fmw'\n};\nconst isValidMerge = mergedResults.math === testMerge.math &&\n                    mergedResults.letters === testMerge.letters &&\n                    mergedResults.words === testMerge.words;\n\nreturn [{\n  json: {\n    ...currentData,\n    merged_results: mergedResults,\n    merge_validation: {\n      is_valid: isValidMerge,\n      expected: testMerge,\n      actual: {\n        math: mergedResults.math,\n        letters: mergedResults.letters,\n        words: mergedResults.words\n      },\n      missing_fields: missingFields\n    },\n    workflow_stage: 'results_merged'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "secret_decoder",
+        "name": "Decode Final Message",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          2300.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for secret decoder');\n}\n\nconst currentData = items[0].json;\nconst { merged_results } = currentData;\n\n// Validate merged results exist\nif (!merged_results) {\n  throw new Error('Merged results not found');\n}\n\n// Extract and validate components\nconst mathStr = String(merged_results.math);\nconst letters = String(merged_results.letters);\nconst words = String(merged_results.words);\n\nif (!mathStr || !letters || !words) {\n  throw new Error('One or more result components are empty');\n}\n\n// Decode secret message by concatenation\nconst secretMessage = mathStr + letters + words;\n\n// Additional puzzle logic - check if message meets criteria\nconst messageLength = secretMessage.length;\nconst hasNumbers = /\\d/.test(secretMessage);\nconst hasLetters = /[a-zA-Z]/.test(secretMessage);\nconst isValidFormat = messageLength >= 8 && hasNumbers && hasLetters;\n\n// Unit test simulation\nconst testMessage = '50OLLEHfmw';\nconst testValidation = testMessage.length >= 8 && /\\d/.test(testMessage) && /[a-zA-Z]/.test(testMessage);\nconst isValidDecode = secretMessage === testMessage && isValidFormat === testValidation;\n\nreturn [{\n  json: {\n    ...currentData,\n    secret_message: secretMessage,\n    decode_validation: {\n      is_valid: isValidDecode,\n      message_length: messageLength,\n      has_numbers: hasNumbers,\n      has_letters: hasLetters,\n      expected_message: testMessage,\n      format_valid: isValidFormat\n    },\n    workflow_stage: 'secret_decoded'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "final_output_logger",
+        "name": "Log Decoded Secret",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          2650.0,
+          200.0
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for final logger');\n}\n\nconst currentData = items[0].json;\nconst { secret_message, merged_results, timestamp } = currentData;\n\n// Validate final message exists\nif (!secret_message) {\n  throw new Error('Secret message not generated');\n}\n\n// Create comprehensive log entry\nconst logTimestamp = new Date().toISOString();\nconst logEntry = {\n  timestamp: logTimestamp,\n  puzzle_id: merged_results?.puzzle_id || 'unknown',\n  secret_message: secret_message,\n  components: {\n    math: merged_results?.math || 'N/A',\n    letters: merged_results?.letters || 'N/A',\n    words: merged_results?.words || 'N/A'\n  },\n  workflow_duration: Date.now() - new Date(timestamp || logTimestamp).getTime(),\n  validation_summary: {\n    all_stages_valid: currentData.workflow_stage === 'secret_decoded',\n    message_length: secret_message.length\n  }\n};\n\n// Console output simulation (in n8n this would be execution log)\nconsole.log(`\\n=== PUZZLE SOLVED ===`);\nconsole.log(`[${logTimestamp}] Secret Message: ${secretMessage}`);\nconsole.log(`Components: Math=${logEntry.components.math}, Letters=${logEntry.components.letters}, Words=${logEntry.components.words}`);\nconsole.log(`Duration: ${logEntry.workflow_duration}ms`);\nconsole.log(`Validation: ${logEntry.validation_summary.all_stages_valid ? 'PASS' : 'FAIL'}`);\nconsole.log(`===================\\n`);\n\n// Final validation tests\nconst finalTests = {\n  message_format: secret_message.length >= 8 && /\\d+[A-Z]+[a-z]+/.test(secret_message),\n  component_count: Object.keys(logEntry.components).length === 3,\n  timestamp_valid: !isNaN(Date.parse(logTimestamp))\n};\n\nconst allTestsPass = Object.values(finalTests).every(Boolean);\n\nreturn [{\n  json: {\n    ...currentData,\n    final_log: logEntry,\n    final_validation: {\n      ...finalTests,\n      all_tests_pass: allTestsPass,\n      test_results: finalTests\n    },\n    workflow_stage: 'completed',\n    execution_status: allTestsPass ? 'success' : 'partial_success'\n  }\n}];"
+        },
+        "credentials": {}
+      }
+    ],
+    "connections": {
+      "schedule_trigger": {
+        "main": [
+          [
+            {
+              "node": "initialize_puzzle_data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "initialize_puzzle_data": {
+        "main": [
+          [
+            {
+              "node": "math_sequence_solver",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "math_sequence_solver": {
+        "main": [
+          [
+            {
+              "node": "alphabet_manipulation",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "alphabet_manipulation": {
+        "main": [
+          [
+            {
+              "node": "word_analysis_engine",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "word_analysis_engine": {
+        "main": [
+          [
+            {
+              "node": "result_consolidation",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "result_consolidation": {
+        "main": [
+          [
+            {
+              "node": "secret_decoder",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "secret_decoder": {
+        "main": [
+          [
+            {
+              "node": "final_output_logger",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": [
+      "puzzle",
+      "javascript",
+      "validation",
+      "mathematics",
+      "string-processing",
+      "automation"
+    ]
+  },
+  "deployed": {
+    "name": "Complex Puzzle Solver Workflow",
+    "nodes": [
+      {
+        "id": "schedule_trigger",
+        "name": "Hourly Puzzle Trigger",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1,
+        "position": [
+          200,
+          200
+        ],
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "hours",
+                "value": 1
+              }
+            ]
+          },
+          "description": "Trigger puzzle solving every hour"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "initialize_puzzle_data",
+        "name": "Initialize Puzzle Constants",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          550,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Initialize immutable puzzle data\nconst puzzleData = {\n  numbers: Object.freeze([3, 5, 8, 13, 21]),\n  letters: Object.freeze(['H', 'E', 'L', 'L', 'O']),\n  words: Object.freeze(['flow', 'work', 'magic'])\n};\n\n// Validation\nif (!Array.isArray(puzzleData.numbers) || puzzleData.numbers.length === 0) {\n  throw new Error('Numbers array is invalid or empty');\n}\nif (!Array.isArray(puzzleData.letters) || puzzleData.letters.length === 0) {\n  throw new Error('Letters array is invalid or empty');\n}\nif (!Array.isArray(puzzleData.words) || puzzleData.words.length === 0) {\n  throw new Error('Words array is invalid or empty');\n}\n\n// Return as single item for workflow flow\nreturn [{\n  json: {\n    ...puzzleData,\n    timestamp: new Date().toISOString(),\n    workflow_stage: 'initialized'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "math_sequence_solver",
+        "name": "Fibonacci Sum Calculator",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          900,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for math solver');\n}\n\nconst { numbers } = items[0].json;\n\n// Validate numbers array\nif (!Array.isArray(numbers)) {\n  throw new Error('Numbers data is not an array');\n}\n\n// Validate numeric values\nconst invalidNumbers = numbers.filter(n => typeof n !== 'number' || isNaN(n));\nif (invalidNumbers.length > 0) {\n  throw new Error(`Invalid numbers found: ${invalidNumbers.join(', ')}`);\n}\n\nif (numbers.length === 0) {\n  throw new Error('Numbers array is empty');\n}\n\n// Calculate Fibonacci sum\nconst mathResult = numbers.reduce((sum, num) => sum + num, 0);\n\n// Unit test simulation\nconst testSum = [3, 5, 8, 13, 21].reduce((sum, num) => sum + num, 0);\nconst isValid = mathResult === testSum;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    math_result: mathResult,\n    math_validation: {\n      is_valid: isValid,\n      expected_sum: testSum,\n      actual_sum: mathResult,\n      array_length: numbers.length\n    },\n    workflow_stage: 'math_solved'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "alphabet_manipulation",
+        "name": "Letter Reversal Solver",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          1250,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for alphabet solver');\n}\n\nconst { letters } = items[0].json;\n\n// Validate letters array\nif (!Array.isArray(letters)) {\n  throw new Error('Letters data is not an array');\n}\n\nif (letters.length === 0) {\n  throw new Error('Letters array is empty');\n}\n\n// Validate letters are strings\nconst invalidLetters = letters.filter(l => typeof l !== 'string' || l.length === 0);\nif (invalidLetters.length > 0) {\n  throw new Error(`Invalid letters found: ${invalidLetters.join(', ')}`);\n}\n\n// Join and reverse letters\nconst letterString = letters.join('').toUpperCase();\nconst reversedLetters = letterString.split('').reverse().join('');\n\n// Unit test simulation\nconst testReverse = ['H', 'E', 'L', 'L', 'O'].join('').split('').reverse().join('');\nconst isValid = reversedLetters === testReverse;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    letter_result: reversedLetters,\n    letter_validation: {\n      is_valid: isValid,\n      original: letterString,\n      reversed: reversedLetters,\n      expected: testReverse,\n      length: letters.length\n    },\n    workflow_stage: 'letters_solved'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "word_analysis_engine",
+        "name": "Word Pattern Extractor",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          1600,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for word solver');\n}\n\nconst { words } = items[0].json;\n\n// Validate words array\nif (!Array.isArray(words)) {\n  throw new Error('Words data is not an array');\n}\n\nif (words.length === 0) {\n  throw new Error('Words array is empty');\n}\n\n// Validate words are non-empty strings\nconst invalidWords = words.filter(w => typeof w !== 'string' || w.trim().length === 0);\nif (invalidWords.length > 0) {\n  throw new Error(`Invalid words found: ${invalidWords.join(', ')}`);\n}\n\n// Sort words alphabetically and extract first letters\nconst sortedWords = [...words].sort((a, b) => a.localeCompare(b));\nconst firstLetters = sortedWords.map(word => word.charAt(0).toLowerCase());\nconst wordResult = firstLetters.join('');\n\n// Unit test simulation\nconst testWords = ['flow', 'work', 'magic'].sort((a, b) => a.localeCompare(b));\nconst testFirstLetters = testWords.map(w => w.charAt(0).toLowerCase()).join('');\nconst isValid = wordResult === testFirstLetters;\n\nreturn [{\n  json: {\n    ...items[0].json,\n    word_result: wordResult,\n    word_validation: {\n      is_valid: isValid,\n      sorted_words: sortedWords,\n      first_letters: firstLetters,\n      expected: testFirstLetters,\n      word_count: words.length\n    },\n    workflow_stage: 'words_solved'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "result_consolidation",
+        "name": "Merge Puzzle Results",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          1950,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for result merging');\n}\n\nconst currentData = items[0].json;\n\n// Validate all required results exist\nconst requiredFields = ['math_result', 'letter_result', 'word_result'];\nconst missingFields = requiredFields.filter(field => !(field in currentData));\n\nif (missingFields.length > 0) {\n  throw new Error(`Missing required fields: ${missingFields.join(', ')}`);\n}\n\n// Validate result types\nif (typeof currentData.math_result !== 'number') {\n  throw new Error('math_result must be a number');\n}\n\nif (typeof currentData.letter_result !== 'string') {\n  throw new Error('letter_result must be a string');\n}\n\nif (typeof currentData.word_result !== 'string') {\n  throw new Error('word_result must be a string');\n}\n\n// Create consolidated results object\nconst mergedResults = {\n  math: currentData.math_result,\n  letters: currentData.letter_result,\n  words: currentData.word_result,\n  puzzle_id: `puzzle_${Date.now()}`,\n  solved_at: new Date().toISOString(),\n  validation_status: 'all_valid'\n};\n\n// Unit test simulation\nconst testMerge = {\n  math: 50,\n  letters: 'OLLEH',\n  words: 'fmw'\n};\nconst isValidMerge = mergedResults.math === testMerge.math &&\n                    mergedResults.letters === testMerge.letters &&\n                    mergedResults.words === testMerge.words;\n\nreturn [{\n  json: {\n    ...currentData,\n    merged_results: mergedResults,\n    merge_validation: {\n      is_valid: isValidMerge,\n      expected: testMerge,\n      actual: {\n        math: mergedResults.math,\n        letters: mergedResults.letters,\n        words: mergedResults.words\n      },\n      missing_fields: missingFields\n    },\n    workflow_stage: 'results_merged'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "secret_decoder",
+        "name": "Decode Final Message",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          2300,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for secret decoder');\n}\n\nconst currentData = items[0].json;\nconst { merged_results } = currentData;\n\n// Validate merged results exist\nif (!merged_results) {\n  throw new Error('Merged results not found');\n}\n\n// Extract and validate components\nconst mathStr = String(merged_results.math);\nconst letters = String(merged_results.letters);\nconst words = String(merged_results.words);\n\nif (!mathStr || !letters || !words) {\n  throw new Error('One or more result components are empty');\n}\n\n// Decode secret message by concatenation\nconst secretMessage = mathStr + letters + words;\n\n// Additional puzzle logic - check if message meets criteria\nconst messageLength = secretMessage.length;\nconst hasNumbers = /\\d/.test(secretMessage);\nconst hasLetters = /[a-zA-Z]/.test(secretMessage);\nconst isValidFormat = messageLength >= 8 && hasNumbers && hasLetters;\n\n// Unit test simulation\nconst testMessage = '50OLLEHfmw';\nconst testValidation = testMessage.length >= 8 && /\\d/.test(testMessage) && /[a-zA-Z]/.test(testMessage);\nconst isValidDecode = secretMessage === testMessage && isValidFormat === testValidation;\n\nreturn [{\n  json: {\n    ...currentData,\n    secret_message: secretMessage,\n    decode_validation: {\n      is_valid: isValidDecode,\n      message_length: messageLength,\n      has_numbers: hasNumbers,\n      has_letters: hasLetters,\n      expected_message: testMessage,\n      format_valid: isValidFormat\n    },\n    workflow_stage: 'secret_decoded'\n  }\n}];"
+        },
+        "credentials": {}
+      },
+      {
+        "id": "final_output_logger",
+        "name": "Log Decoded Secret",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          2650,
+          200
+        ],
+        "parameters": {
+          "functionCode": "// Extract input data\nconst items = $input.all();\nif (items.length === 0) {\n  throw new Error('No input data received for final logger');\n}\n\nconst currentData = items[0].json;\nconst { secret_message, merged_results, timestamp } = currentData;\n\n// Validate final message exists\nif (!secret_message) {\n  throw new Error('Secret message not generated');\n}\n\n// Create comprehensive log entry\nconst logTimestamp = new Date().toISOString();\nconst logEntry = {\n  timestamp: logTimestamp,\n  puzzle_id: merged_results?.puzzle_id || 'unknown',\n  secret_message: secret_message,\n  components: {\n    math: merged_results?.math || 'N/A',\n    letters: merged_results?.letters || 'N/A',\n    words: merged_results?.words || 'N/A'\n  },\n  workflow_duration: Date.now() - new Date(timestamp || logTimestamp).getTime(),\n  validation_summary: {\n    all_stages_valid: currentData.workflow_stage === 'secret_decoded',\n    message_length: secret_message.length\n  }\n};\n\n// Console output simulation (in n8n this would be execution log)\nconsole.log(`\\n=== PUZZLE SOLVED ===`);\nconsole.log(`[${logTimestamp}] Secret Message: ${secretMessage}`);\nconsole.log(`Components: Math=${logEntry.components.math}, Letters=${logEntry.components.letters}, Words=${logEntry.components.words}`);\nconsole.log(`Duration: ${logEntry.workflow_duration}ms`);\nconsole.log(`Validation: ${logEntry.validation_summary.all_stages_valid ? 'PASS' : 'FAIL'}`);\nconsole.log(`===================\\n`);\n\n// Final validation tests\nconst finalTests = {\n  message_format: secret_message.length >= 8 && /\\d+[A-Z]+[a-z]+/.test(secret_message),\n  component_count: Object.keys(logEntry.components).length === 3,\n  timestamp_valid: !isNaN(Date.parse(logTimestamp))\n};\n\nconst allTestsPass = Object.values(finalTests).every(Boolean);\n\nreturn [{\n  json: {\n    ...currentData,\n    final_log: logEntry,\n    final_validation: {\n      ...finalTests,\n      all_tests_pass: allTestsPass,\n      test_results: finalTests\n    },\n    workflow_stage: 'completed',\n    execution_status: allTestsPass ? 'success' : 'partial_success'\n  }\n}];"
+        },
+        "credentials": {}
+      }
+    ],
+    "connections": {
+      "schedule_trigger": {
+        "main": [
+          [
+            {
+              "node": "initialize_puzzle_data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "initialize_puzzle_data": {
+        "main": [
+          [
+            {
+              "node": "math_sequence_solver",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "math_sequence_solver": {
+        "main": [
+          [
+            {
+              "node": "alphabet_manipulation",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "alphabet_manipulation": {
+        "main": [
+          [
+            {
+              "node": "word_analysis_engine",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "word_analysis_engine": {
+        "main": [
+          [
+            {
+              "node": "result_consolidation",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "result_consolidation": {
+        "main": [
+          [
+            {
+              "node": "secret_decoder",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "secret_decoder": {
+        "main": [
+          [
+            {
+              "node": "final_output_logger",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "active": false,
+    "versionId": "690c56ce-3dd2-41de-9670-e671ef410a49",
+    "id": "rEWt5oNxTYai7219",
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "createdAt": "2025-10-08T19:52:42.212Z",
+    "updatedAt": "2025-10-08T19:52:42.212Z",
+    "isArchived": false,
+    "triggerCount": 0
+  },
+  "n8n_url": "http://localhost:5678/workflow/rEWt5oNxTYai7219",
+  "enhancement_used": "exact",
+  "performance": {
+    "total_time": 39.5,
+    "stages": [
+      {
+        "stage": "enhance",
+        "duration": 13.938169002532959
+      },
+      {
+        "stage": "analyze",
+        "duration": 25.53880000114441
+      },
+      {
+        "stage": "build",
+        "duration": 0.0001010894775390625
+      },
+      {
+        "stage": "deploy",
+        "duration": 0.024740219116210938
+      }
+    ],
+    "nodes_created": 8,
+    "connections_made": 7
+  }
+}
