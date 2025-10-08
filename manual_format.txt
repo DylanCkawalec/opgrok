@@ -1,0 +1,35 @@
+============================================================
+MANUALLY CONNECTED WORKFLOW (from n8n):
+============================================================
+
+Connections structure:
+{
+  "node1": {
+    "main": [
+      [
+        {
+          "node": "node2",
+          "type": "main",
+          "index": 0
+        }
+      ]
+    ]
+  },
+  "Start": {
+    "main": [
+      [
+        {
+          "node": "End",
+          "type": "main",
+          "index": 0
+        }
+      ]
+    ]
+  }
+}
+
+Nodes structure:
+  node1: position=[112, 112]
+  node2: position=[304, 112]
+
+Any webhookId or other fields?
