@@ -1,19 +1,19 @@
-# 🤖 opgrok - AI-Powered Workflow Automation Platform
+# 🤖 OPGROK - AI-Powered Workflow Automation
 
-A revolutionary platform combining xAI's Grok API with n8n workflow automation, featuring intelligent chat interfaces and AI-powered workflow generation from natural language descriptions.
+**Build production-ready n8n workflows from natural language in 30 seconds.**
 
-## 🎯 What's New: n8n Workflow Builder
+```
+You: "Send me Bitcoin prices to Telegram every 5 seconds"
+AI: [Builds complete workflow with 4 connected nodes]
+Time: 35 seconds
+Result: Production-ready automation, just click activate!
+```
 
-**Generate complete automation workflows just by describing what you need!**
+## ✨ What Is This?
 
-Simply tell Grok what automation you want, and it will:
-- 🧠 Analyze your requirements intelligently
-- 🏗️ Design the optimal workflow structure
-- ⚙️ Configure all nodes and connections automatically
-- 🚀 Deploy to your local n8n instance
-- ✅ Ready to activate and run!
+OPGROK combines xAI's Grok API with n8n automation to create **the world's first AI workflow builder**. Describe what you want in plain English, and get a complete, connected, professional-grade workflow ready to deploy.
 
-**Example**: "Send me a Slack notification every day at 9 AM with top Hacker News stories" → Complete workflow with schedule, HTTP request, data processing, and Slack integration nodes, fully configured and ready to use!
+**No coding. No configuration. Just describe and deploy.**
 
 ## ✨ Features
 
@@ -34,24 +34,23 @@ Simply tell Grok what automation you want, and it will:
 - **💰 Cost Estimation**: Live token usage and cost tracking for all models
 - **📊 Session Management**: Persistent conversation history within sessions
 
-### Supported Models
-- `grok-4-0709` - Latest Grok 4 model
-- `grok-4-fast-reasoning` - Fast reasoning variant
-- `grok-4-fast-non-reasoning` - Fast non-reasoning variant
-- `grok-3` - Grok 3 model
-- `grok-3-mini` - Lightweight Grok 3
-- `grok-code-fast-1` - Specialized for coding tasks (code generation, debugging, refactoring)
+### 🔥 Key Features
 
-### Architecture
-- **n8n Workflow Engine**: Open-source automation platform with 300+ integrations
-- **Grok AI Intelligence**: Multi-step workflow analysis and generation
-- **Rust CLI**: Fast, efficient terminal interface for text-based chat
-- **Python Web App**: Beautiful UI with full feature support
-  - Workflow builder interface
-  - Multimodal requests (images) → Direct xAI API
-  - Text-only requests → Rust CLI (faster)
-- **Docker Compose**: Orchestrated deployment of all services
-- **PostgreSQL**: Persistent storage for workflows and execution history
+- **30-Second Workflow Generation** - Natural language → Working automation
+- **Intelligent Auto-Connection** - Nodes linked perfectly, not just placed
+- **8 Pre-Built Templates** - One-click workflow creation
+- **Advanced Controls** - Exact mode, node sequencing, detailed specs
+- **Real-Time Progress** - See actual AI stages completing
+- **Complex Workflow Support** - Handle 16+ nodes effortlessly
+- **Multi-Model AI Pipeline** - Grok-3-mini + Grok-4-fast for speed & quality
+
+### 🏗️ Architecture
+
+- **Frontend**: Beautiful UI with templates, progress tracking, advanced controls
+- **Backend**: FastAPI with multi-stage AI processing
+- **AI Engine**: Grok-3-mini (enhancement) + Grok-4-fast (analysis)  
+- **Workflow Engine**: n8n with 300+ integrations
+- **Storage**: Local SQLite (can upgrade to PostgreSQL)
 
 ## 🚀 Quick Start
 
@@ -112,11 +111,12 @@ docker-compose down
 
 **Try it now:**
 1. Open http://localhost:8000/workflows
-2. Type: "Send me a daily email with top tech news at 9 AM"
-3. Click "Generate Workflow"
-4. Watch as Grok builds and deploys your complete automation!
+2. Select "💰 Bitcoin Price → Telegram" template
+3. Click "Generate Workflow"  
+4. Watch AI build it in ~35 seconds
+5. Activate and run!
 
-📖 **Detailed Guide**: See [N8N_QUICKSTART.md](N8N_QUICKSTART.md) for full documentation
+📖 **Complete Guide**: [MASTER_GUIDE.md](MASTER_GUIDE.md) | **Examples**: [WORKFLOW_EXAMPLES.md](WORKFLOW_EXAMPLES.md)
 
 ### Option B: Chat-Only (No Workflow Builder)
 
