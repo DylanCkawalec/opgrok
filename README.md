@@ -1,325 +1,148 @@
 # OPGROK
 
-**Build a team of specialized Grok agents for any goal — then ship it as one reusable binary.**
-
-![OPGROK hero](assets/brand/readme-hero.png)
-
 <p align="center">
-  <img src="assets/brand/logo-lockup-h.svg" alt="OPGROK" height="56" />
+  <img src="assets/brand/readme-hero.png" alt="OPGROK" />
 </p>
-
-```text
-@opgrok build a marketing site with hero, pricing, and wireframes
-```
-
-That one line is the product.
+<p align="center">
+  <strong>Turn any goal into a team of Grok agents — shipped as one reusable binary.</strong>
+</p>
+<p align="center">
+  <a href="https://console.x.ai">xAI API</a> · 150 specialist agents · Python + Rust
+</p>
 
 ---
 
-## What OPGROK is
+## What it does
 
-OPGROK is a **framework for Grok itself**.
+Give it a goal. It hires the right specialist agents, wires them into a pipeline, and packages that pipeline as a single binary you can run again without re-planning.
 
-It does not replace Grok. It multiplies Grok by:
-
-1. **Hiring SuperGroks** — 150 specialist agents (25 categories x 6 roles) + navigators + core skills
-2. **Sealing a plan** — falsifiable Winning Condition (spec only, no implementation code)
-3. **Building a work tree** — n8n-style graph of agents (IPO + OODA per node)
-4. **Packaging one harness** — **one binary** + **one README** under `core/binaries/`
-5. **Running the graph** — each node injects its skill and calls the **xAI Grok API**
-6. **Surfacing a result** — `OPGROK_RESULT` from the sink (usually a judge SuperGrok)
-
-Think of it as: *Grok hires Grok specialists, wires them into a pipeline, and freezes that pipeline into a tool you can run again.*
+```bash
+./opgrok craft "build a landing page with hero and pricing"
+./opgrok run build-a-landing-page-with-hero-and-pricing
+```
 
 ---
 
 ## How it works
 
-```text
-                    @opgrok <goal>
-                           │
-                           ▼
-              ┌────────────────────────┐
-              │  Route SuperGroks      │  intent / purpose match
-              │  (core/skills/…)       │
-              └────────────┬───────────┘
-                           ▼
-              ┌────────────────────────┐
-              │  Winning Condition     │  1 binary + 1 README law
-              └────────────┬───────────┘
-                           ▼
-              ┌────────────────────────┐
-              │  graph.json            │  ordered agent DAG
-              │  skills_cache/         │  skill bodies for each node
-              └────────────┬───────────┘
-                           ▼
-              ┌────────────────────────┐
-              │  Build harness package │  crate/ + bin/opgrok-<slug>
-              └────────────┬───────────┘
-                           ▼
-         ┌─────────────────┴─────────────────┐
-         │  Run nodes (Grok API + toolkit)   │
-         │  multi-model · memory · tools     │
-         │  repair · parallel · judge sink   │
-         └─────────────────┬─────────────────┘
-                           ▼
-                    OPGROK_RESULT
+```
+goal → route agents → seal winning condition → build graph → package binary → run via Grok API → result
 ```
 
-### SuperGroks
+1. **Route** — match your goal to specialist agents (SuperGroks) by intent and purpose
+2. **Seal** — write a falsifiable winning condition (what does success look like?)
+3. **Graph** — arrange hired agents into an ordered DAG
+4. **Package** — compile to one binary + one README
+5. **Run** — each node calls the xAI Grok API with its skill injected
+6. **Result** — output bubbles up from the final node
 
-Nested skills:
+---
 
-```text
-core/skills/<category>/<role>/SKILL.md
-```
+## SuperGroks
 
-Call name is flat: `/rust-smith`, `/plan-scout`, `/review-audit`.
-
-**Roles (6):** `smith` · `forge` · `scout` · `trace` · `audit` · `seal`
-
-**178** indexed skills:
+178 indexed skills under `core/skills/<category>/<role>/SKILL.md`:
 
 | Kind | Count | Example |
 |------|------:|---------|
-| SuperGroks | 150 | `/rust-smith`, `/plan-scout` |
-| Category navigators | 25 | `/cat-code`, `/cat-agent` |
+| Specialists | 150 | `/rust-smith`, `/plan-scout` |
+| Navigators | 25 | `/cat-code`, `/cat-agent` |
 | Core | 2 | `/opgrok`, `/seal` |
 | Special | 1 | `/meta-asset-creator` |
 
-Each SuperGrok has a human **Name-Hash** identity (`core/registry/named-hashes.json`).
-
-Indexes: `core/skills/_framework/REGISTRY.json`, `MCP_CATALOG.json`, `NAVIGATION.md`, `AGENT_GLOSSARY.md`
-
-### Harness package (winning condition)
-
-Every crafted OPGROK must deliver:
-
-| Artifact | Purpose |
-|----------|---------|
-| `bin/opgrok-<slug>` | Runnable entrypoint |
-| `README.md` | The only harness readme |
-| `WINNING_CONDITION.md` | Falsifiable acceptance seal |
-| `graph.json` | Agent DAG |
-| `skills_cache/` | Injected SuperGrok contracts |
-| `crate/` | Rust sources for real compile |
-
-### Grok-native toolkit
-
-Optional execution upgrades (do not change the packaging law):
-
-| Capability | What it does |
-|------------|----------------|
-| Multi-model routing | Fast / strong / judge models per node |
-| Memory | Blackboard persists across runs |
-| Artifacts | Nodes write real files |
-| Self-repair | Retry failed nodes with fix prompts |
-| Parallel DAG | Ready nodes can run together |
-| Toolbelt | `read_file`, `grep`, `web_fetch`, `write_artifact` |
-| Judge sink | Final review SuperGrok |
-| Ledger + journal | Tokens + audit trail |
-| Vision hooks | Image paths for vision nodes |
-
-Details: [`core/toolkit/README.md`](core/toolkit/README.md)
+**6 roles:** `smith` (smallest unit) · `forge` (end-to-end) · `scout` (map first) · `trace` (root cause) · `audit` (checklist) · `seal` (gate + freeze)
 
 ---
 
 ## Quick start
 
-### 1. Prerequisites
-
-- Python 3.10+
-- `XAI_API_KEY` from [console.x.ai](https://console.x.ai) (must be **enabled**)
-- Optional: Rust/cargo for native release binaries
-- Optional: Node 18+ if you use the n8n app shell
-
-### 2. Configure
+**Prerequisites:** Python 3.10+, `XAI_API_KEY` from [console.x.ai](https://console.x.ai). Rust and Node are optional.
 
 ```bash
+git clone https://github.com/DylanCkawalec/opgrok.git
 cd opgrok
-cp .env.example .env
-# set XAI_API_KEY=...
+cp .env.example .env   # set XAI_API_KEY=...
+./opgrok craft "your goal here"
+./opgrok run <slug> --dry-run   # no API calls
+./opgrok run <slug>             # live — calls xAI per node
 ```
 
-### 3. Craft a harness
+Install a harness globally:
 
 ```bash
-./opgrok craft "build a landing page outline"
-```
-
-Or directly:
-
-```bash
-python3 core/tools/craft_harness.py "build a landing page outline"
-```
-
-### 4. Run it
-
-```bash
-# Dry-run (no API) — verifies skills + routing
-python3 core/tools/run_harness.py <slug> --dry-run
-
-# Live (Grok API per node)
-python3 core/tools/run_harness.py <slug>
-
-# Same via package entrypoint
-./core/binaries/<slug>/bin/opgrok-<slug> --dry-run
-```
-
-### 5. Install globally (optional)
-
-```bash
-python3 core/tools/build_harness.py <slug> --install
+./opgrok build <slug> --install
 export PATH="$HOME/.opgrok/bin:$PATH"
 opgrok-<slug> --goal "..."
 ```
 
 ---
 
-## Use from Grok Build
+## CLI
 
-Point skill discovery at this repo:
-
-```toml
-# ~/.grok/config.toml  or project config
-[skills]
-paths = ["/absolute/path/to/opgrok/core/skills"]
-```
-
-Then:
-
-```text
-@opgrok design a CLI architecture for a log shipper
-/opgrok seal <slug>
-```
+| Command | What it does |
+|---------|-------------|
+| `./opgrok craft "goal"` | Hire agents, seal condition, build package |
+| `./opgrok run <slug>` | Run harness (add `--dry-run` to skip API) |
+| `./opgrok build <slug>` | Compile binary (+ `--install` for global) |
+| `./opgrok route "intent"` | Preview which agents match |
+| `./opgrok validate` | Check the skill catalog |
+| `./opgrok harnesses` | List built harnesses |
+| `./opgrok start` | Launch optional web UI (port 420) |
+| `./opgrok stop` | Stop web UI |
 
 ---
 
-## Repository map
+## Repository
 
-```text
+```
 opgrok/
-├── core/                 # primary product
-│   ├── skills/           # SuperGroks + /opgrok + /seal
-│   ├── toolkit/          # Grok-native runtime enhancements
-│   ├── harness/          # harness law + graph schema
-│   ├── binaries/         # crafted harness packages (gitignored)
-│   ├── tools/            # craft / run / build / validate (Python)
-│   └── rust/             # sg-runtime, sg-harness, sg-cli, sg-mcp
-├── apps/                 # optional UI shell (web, chat, n8n)
-├── ops/                  # install + process scripts
-├── docs/                 # doc index
-└── README.md             # you are here
-```
-
-| Layer | Responsibility |
-|-------|----------------|
-| **core/** | SuperGroks, harness craft/run, toolkit, Rust control plane |
-| **apps/** | Optional workflow UI / chat / n8n — clients of core |
-| **ops/** | `opgrok` CLI wrapper for craft/run and app process management |
-
----
-
-## CLI cheatsheet
-
-| Command | Action |
-|---------|--------|
-| `./opgrok craft "goal"` | Hire SuperGroks, winning condition, graph, build package |
-| `./opgrok run <slug> [--dry-run]` | Execute harness |
-| `./opgrok build <slug> [--install]` | Cargo release or Python entrypoint + optional global install |
-| `./opgrok route "intent"` | Preview SuperGrok matches |
-| `./opgrok harnesses` | List `core/binaries/registry.json` |
-| `./opgrok validate` | Validate SuperGrok catalog |
-| `./opgrok start` | Optional app shell (web + n8n on :420 / :5678) |
-| `./opgrok stop` | Stop app shell |
-
-Python tools (same power, no wrapper required):
-
-```bash
-python3 core/tools/craft_harness.py "..."
-python3 core/tools/run_harness.py <slug> [--dry-run]
-python3 core/tools/build_harness.py <slug> [--install]
-python3 core/tools/validate_supergroks.py
-```
-
-Rust (when cargo is installed):
-
-```bash
-cargo run -p opgrok-sg-cli -- --repo . status
-cargo run -p opgrok-sg-cli -- --repo . craft "..."
-cargo run -p opgrok-sg-mcp -- --repo . tools-manifest
+├── core/       agents, harness craft/run, toolkit, Rust control plane
+├── apps/       optional web/chat/n8n UI
+├── ops/        install + CLI scripts
+├── assets/     brand + UI assets
+└── docs/       doc index
 ```
 
 ---
 
-## Environment
+## Configuration
 
-Minimum:
+Key environment variables (see `.env.example`):
 
-```bash
-XAI_API_KEY=xai-...
-```
-
-Harness **dry-run** deliberately skips the network. Use live run (no `--dry-run`) to call xAI.
-
-Useful toolkit flags (see `.env.example`):
-
-```bash
-OPGROK_MODEL=grok-4
-OPGROK_MODEL_FAST=grok-3-mini
-OPGROK_MODEL_JUDGE=grok-4
-OPGROK_MAX_RETRIES=1
-OPGROK_PARALLEL=1
-OPGROK_MEMORY=1
-OPGROK_JUDGE=1
-OPGROK_TOOLS=1
-OPGROK_ALLOW_NET=1
-OPGROK_ALLOW_SHELL=0
-```
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `XAI_API_KEY` | — | Required — from console.x.ai |
+| `OPGROK_MODEL` | `grok-4` | Strong model for heavy nodes |
+| `OPGROK_MODEL_FAST` | `grok-3-mini` | Fast model for light nodes |
+| `OPGROK_PARALLEL` | `1` | Run ready nodes concurrently |
+| `OPGROK_MEMORY` | `1` | Persist blackboard across runs |
+| `OPGROK_JUDGE` | `1` | Append a judge node to review |
+| `OPGROK_ALLOW_SHELL` | `0` | Off by default — enable shell tools |
 
 ---
 
-## Brand & assets
+## Docs
 
-Grok/xAI-themed library (SVG + PNG):
-
-| | |
-|--|--|
-| Spec | [assets.md](assets/assets.md) |
-| Library | [assets/README.md](assets/README.md) |
-| Tokens | [assets/tokens.css](assets/tokens.css) |
-| Skill | `/meta-asset-creator` |
-
-![Harness graph](assets/protocol/harness-graph.png)
-
-![Craft pipeline](assets/protocol/craft-pipeline.png)
-
-## Documentation index
-
-| Doc | Contents |
-|-----|----------|
-| [core/README.md](core/README.md) | Core product reference |
-| [core/toolkit/README.md](core/toolkit/README.md) | Toolkit capabilities |
-| [core/harness/SPEC.md](core/harness/SPEC.md) | Harness law |
-| [core/skills/README.md](core/skills/README.md) | SuperGrok catalog layout |
-| [assets/README.md](assets/README.md) | Visual component library |
-| [apps/README.md](apps/README.md) | Optional application shell |
-| [docs/README.md](docs/README.md) | Doc index |
+- [core/README.md](core/README.md) — core product reference
+- [core/toolkit/README.md](core/toolkit/README.md) — toolkit capabilities
+- [core/harness/SPEC.md](core/harness/SPEC.md) — harness spec
+- [core/skills/README.md](core/skills/README.md) — agent catalog layout
+- [apps/README.md](apps/README.md) — optional app shell
+- [docs/README.md](docs/README.md) — doc index
 
 ---
 
-## Design principles
+## Principles
 
-1. **Grok is the brain** — OPGROK is structure, memory, and packaging.
-2. **Spec before code** — Winning Conditions, not silent code dumps.
-3. **One harness = one binary + one README** — no doc sprawl per package.
-4. **SuperGroks are contracts** — independent, composable, binary-ready.
-5. **Apps are optional** — the kernel runs from CLI and Grok Build without the web UI.
+1. **Grok is the brain** — OPGROK adds structure, memory, and packaging.
+2. **Spec before code** — winning conditions, not silent code dumps.
+3. **One harness = one binary + one README** — no doc sprawl.
+4. **Agents are contracts** — independent, composable, binary-ready.
+5. **Apps are optional** — the core runs from CLI without any UI.
 
 ---
 
-## License / safety
+## Safety
 
-- API keys stay in `.env` (never commit secrets).
-- Shell tools are **off** unless `OPGROK_ALLOW_SHELL=1`.
-- Security SuperGroks audit and harden; they do not author exploits.
+- API keys stay in `.env` — never committed.
+- Shell tools off unless `OPGROK_ALLOW_SHELL=1`.
+- Security agents audit and harden — they do not author exploits.
