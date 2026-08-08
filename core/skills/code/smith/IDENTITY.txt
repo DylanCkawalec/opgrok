@@ -1,0 +1,7 @@
+name: Amelie
+full_hash: 3072ce31f3593df6c57fec187921e49df4e77f5ad5d728c86fb511db454b11d4
+short_token: Amelie-3072ce31f359
+full_token: Amelie-3072ce31f3593df6c57fec187921e49df4e77f5ad5d728c86fb511db454b11d4
+path: core/skills/code/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

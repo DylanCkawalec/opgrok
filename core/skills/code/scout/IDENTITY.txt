@@ -1,0 +1,7 @@
+name: Ambrosio
+full_hash: 4f1e91fc5122d26f4f065a83702a811490c4a4f38da365e6f7a1e59d5582efd8
+short_token: Ambrosio-4f1e91fc5122
+full_token: Ambrosio-4f1e91fc5122d26f4f065a83702a811490c4a4f38da365e6f7a1e59d5582efd8
+path: core/skills/code/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

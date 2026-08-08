@@ -1,0 +1,7 @@
+name: Archie
+full_hash: 1933134cf0808dfb4aaba741a658e8ebecb3cc06afa67131e2b6558d2dcab0e5
+short_token: Archie-1933134cf080
+full_token: Archie-1933134cf0808dfb4aaba741a658e8ebecb3cc06afa67131e2b6558d2dcab0e5
+path: core/skills/data/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

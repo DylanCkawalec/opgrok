@@ -1,0 +1,7 @@
+name: Abner
+full_hash: a9199f69b0ad95254825c4ad28a72ce0581738ed34982834ce55bce6d4ce6c01
+short_token: Abner-a9199f69b0ad
+full_token: Abner-a9199f69b0ad95254825c4ad28a72ce0581738ed34982834ce55bce6d4ce6c01
+path: core/skills/agent/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

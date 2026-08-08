@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OPGROK Harnesses</title>
+  <link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .harness-page { max-width: 1100px; margin: 0 auto; padding: 24px; overflow-y: auto; height: 100vh; }
+    .hero-band {
+      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      margin-bottom: 24px; position: relative;
+    }
+    .hero-band img { width: 100%; display: block; max-height: 220px; object-fit: cover; opacity: 0.85; }
+    .hero-overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px; background: linear-gradient(transparent, rgba(5,5,6,0.92));
+    }
+    .hero-overlay h1 { margin: 0 0 6px; font-size: 1.5rem; }
+    .hero-overlay p { margin: 0; color: var(--muted); }
+    .api-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+      padding: 4px 10px; border-radius: 999px; margin-top: 10px; }
+    .api-pill.ok { background: rgba(34,211,238,0.12); color: #22d3ee; border: 1px solid rgba(34,211,238,0.35); }
+    .api-pill.bad { background: rgba(239,68,68,0.12); color: #ef4444; border: 1px solid rgba(239,68,68,0.35); }
+    .craft-box { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px; }
+    .craft-box textarea { width: 100%; min-height: 80px; background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 10px; font: inherit; }
+    .craft-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .h-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .h-card h3 { margin: 0; font-size: 1rem; word-break: break-all; }
+    .h-card .meta { color: var(--muted); font-size: 0.85rem; }
+    .h-card .actions { display: flex; gap: 8px; margin-top: auto; }
+    .btn { border: none; border-radius: 8px; padding: 8px 12px; font-weight: 600; cursor: pointer; font-size: 13px; }
+    .btn-primary { background: #f5a524; color: #0a0a0b; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-cyan { background: rgba(34,211,238,0.15); color: #22d3ee; border: 1px solid rgba(34,211,238,0.35); }
+    #out { margin-top: 16px; background: #0d1117; border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px; font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; max-height: 360px; overflow: auto; }
+    .nav-top { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .nav-top a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-top a:hover { color: var(--text); }
+    .nav-top img.logo { height: 36px; }
+  </style>
+</head>
+<body>
+  <div class="harness-page">
+    <div class="nav-top">
+      <img class="logo" src="/assets/brand/logo-lockup-h.svg" alt="OPGROK" />
+      <a href="/">Chat</a>
+      <a href="/workflows">Workflows</a>
+      <a href="/harnesses"><strong>Harnesses</strong></a>
+      <a href="http://localhost:420/n8n" target="_blank">n8n</a>
+    </div>
+
+    <div class="hero-band">
+      <img src="/assets/protocol/craft-pipeline.png" alt="Craft pipeline" />
+      <div class="hero-overlay">
+        <h1>SuperGrok harnesses</h1>
+        <p>Craft a team of agents → Leslie seal → run with the xAI Grok API.</p>
+        {% if api_status and api_status.xai_key_present %}
+        <span class="api-pill ok">● XAI_API_KEY loaded</span>
+        {% else %}
+        <span class="api-pill bad">○ XAI_API_KEY missing — check monorepo .env</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="craft-box">
+      <label class="sidebar-label">@opgrok goal</label>
+      <textarea id="goal" placeholder="e.g. build a landing page outline with hero and pricing"></textarea>
+      <div class="craft-actions">
+        <label>Hire <input id="hire" type="number" min="2" max="12" value="4" style="width:56px;margin-left:6px" /></label>
+        <button class="btn btn-primary" id="craftBtn">Craft harness</button>
+        <button class="btn btn-ghost" id="refreshBtn">Refresh list</button>
+      </div>
+      <div id="out" hidden></div>
+    </div>
+
+    <h2 style="margin:0 0 12px;font-size:1.1rem">Packages</h2>
+    <div class="card-grid" id="grid"></div>
+  </div>
+  <script>
+    const out = document.getElementById('out');
+    function show(x) {
+      out.hidden = false;
+      out.textContent = typeof x === 'string' ? x : JSON.stringify(x, null, 2);
+    }
+    async function loadList() {
+      const r = await fetch('/api/harnesses');
+      const data = await r.json();
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      (data.harnesses || []).slice().reverse().forEach(h => {
+        const el = document.createElement('div');
+        el.className = 'h-card';
+        el.innerHTML = `
+          <h3>${h.slug || 'unnamed'}</h3>
+          <div class="meta">${(h.goal || '').slice(0, 120)}</div>
+          <div class="meta">hired: ${(h.hired || []).slice(0, 6).join(', ')}</div>
+          <div class="actions">
+            <button class="btn btn-ghost" data-dry="${h.slug}">Dry-run</button>
+            <button class="btn btn-cyan" data-live="${h.slug}">Live run</button>
+          </div>`;
+        grid.appendChild(el);
+      });
+      grid.querySelectorAll('[data-dry]').forEach(btn => {
+        btn.onclick = () => run(btn.dataset.dry, true);
+      });
+      grid.querySelectorAll('[data-live]').forEach(btn => {
+        btn.onclick = () => run(btn.dataset.live, false);
+      });
+    }
+    async function craft() {
+      const goal = document.getElementById('goal').value.trim();
+      const hire = parseInt(document.getElementById('hire').value || '4', 10);
+      if (!goal) return show('Enter a goal');
+      show('Crafting…');
+      const r = await fetch('/api/harnesses/craft', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ goal, hire })
+      });
+      const data = await r.json();
+      show(data);
+      loadList();
+    }
+    async function run(slug, dry) {
+      show((dry ? 'Dry-running ' : 'Live running ') + slug + '…');
+      const r = await fetch('/api/harnesses/' + encodeURIComponent(slug) + '/run', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ dry_run: dry })
+      });
+      const data = await r.json();
+      show(data);
+    }
+    document.getElementById('craftBtn').onclick = craft;
+    document.getElementById('refreshBtn').onclick = loadList;
+    loadList();
+  </script>
+</body>
+</html>

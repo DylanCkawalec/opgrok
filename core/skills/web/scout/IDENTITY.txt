@@ -1,0 +1,7 @@
+name: Hemi
+full_hash: 985df47cd85b5710f74f87058049175d2b50cd0f3aa00e7dba08fe2ca52ac070
+short_token: Hemi-985df47cd85b
+full_token: Hemi-985df47cd85b5710f74f87058049175d2b50cd0f3aa00e7dba08fe2ca52ac070
+path: core/skills/web/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

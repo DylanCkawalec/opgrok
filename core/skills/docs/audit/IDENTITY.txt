@@ -1,0 +1,7 @@
+name: Balin
+full_hash: 0bc907d4f1914516143e3c4409823c1b38007421ad25ce22ae19124a3a3516cb
+short_token: Balin-0bc907d4f191
+full_token: Balin-0bc907d4f1914516143e3c4409823c1b38007421ad25ce22ae19124a3a3516cb
+path: core/skills/docs/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

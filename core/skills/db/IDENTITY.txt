@@ -1,0 +1,7 @@
+name: Arista
+full_hash: 724739308f74e9df878acfde6b4a1341a41f02ace7f3c1763b15063d1488a67c
+short_token: Arista-724739308f74
+full_token: Arista-724739308f74e9df878acfde6b4a1341a41f02ace7f3c1763b15063d1488a67c
+path: core/skills/db/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

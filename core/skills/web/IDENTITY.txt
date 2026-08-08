@@ -1,0 +1,7 @@
+name: Hayden
+full_hash: aed71a5f560cf7d4e5e668a20d4baf67106152399fe1e2e545db94fcbe285fc2
+short_token: Hayden-aed71a5f560c
+full_token: Hayden-aed71a5f560cf7d4e5e668a20d4baf67106152399fe1e2e545db94fcbe285fc2
+path: core/skills/web/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

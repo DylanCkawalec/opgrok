@@ -1,0 +1,7 @@
+name: Darrell
+full_hash: 41078160da6e4993a8de0cc94c964f0c98d25a911416ceb18d888a868e7b83d6
+short_token: Darrell-41078160da6e
+full_token: Darrell-41078160da6e4993a8de0cc94c964f0c98d25a911416ceb18d888a868e7b83d6
+path: core/skills/plan/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

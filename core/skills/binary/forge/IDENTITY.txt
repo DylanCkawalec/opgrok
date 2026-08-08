@@ -1,0 +1,7 @@
+name: Ajay
+full_hash: a0ad3af790f2789b3895da8cf37a6bbb2d66b21b861ef8642c115f32ddceadd5
+short_token: Ajay-a0ad3af790f2
+full_token: Ajay-a0ad3af790f2789b3895da8cf37a6bbb2d66b21b861ef8642c115f32ddceadd5
+path: core/skills/binary/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

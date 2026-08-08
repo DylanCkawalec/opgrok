@@ -1,0 +1,7 @@
+name: Christian
+full_hash: a6fb369addfc41edaf7e841d65df7c8774fd4a6e6283dce1546847c03fba991c
+short_token: Christian-a6fb369addfc
+full_token: Christian-a6fb369addfc41edaf7e841d65df7c8774fd4a6e6283dce1546847c03fba991c
+path: core/skills/meta/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

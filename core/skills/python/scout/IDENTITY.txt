@@ -1,0 +1,7 @@
+name: Ebele
+full_hash: cccf8041affb95f6ebc76c0ac95db1b992c411d1c72b9f53ac842f58c33aada2
+short_token: Ebele-cccf8041affb
+full_token: Ebele-cccf8041affb95f6ebc76c0ac95db1b992c411d1c72b9f53ac842f58c33aada2
+path: core/skills/python/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

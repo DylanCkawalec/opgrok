@@ -1,0 +1,7 @@
+name: Eden
+full_hash: 0475c681b9bf3bc85f38717631ac290254bb460d57807efbd3352e5b905a22b2
+short_token: Eden-0475c681b9bf
+full_token: Eden-0475c681b9bf3bc85f38717631ac290254bb460d57807efbd3352e5b905a22b2
+path: core/skills/python/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

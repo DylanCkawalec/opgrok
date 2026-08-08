@@ -1,0 +1,7 @@
+name: Gustav
+full_hash: 6a9843ea53f1ff18669cbc028936b81cc0326fa8cfd2fb6f05ebf5a54e053bec
+short_token: Gustav-6a9843ea53f1
+full_token: Gustav-6a9843ea53f1ff18669cbc028936b81cc0326fa8cfd2fb6f05ebf5a54e053bec
+path: core/skills/ui/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

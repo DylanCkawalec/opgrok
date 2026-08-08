@@ -1,0 +1,7 @@
+name: Augusta
+full_hash: 1793b3d84b8a9bab957644d83c76bf75e9a5a90f0f5c12835ed670c8782184cf
+short_token: Augusta-1793b3d84b8a
+full_token: Augusta-1793b3d84b8a9bab957644d83c76bf75e9a5a90f0f5c12835ed670c8782184cf
+path: core/skills/debug/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

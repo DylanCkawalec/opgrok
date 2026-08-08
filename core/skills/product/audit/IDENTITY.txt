@@ -1,0 +1,7 @@
+name: Deryn
+full_hash: 02a60547695600598c19812291016308b06f22485868986227a6f22fee820bad
+short_token: Deryn-02a605476956
+full_token: Deryn-02a60547695600598c19812291016308b06f22485868986227a6f22fee820bad
+path: core/skills/product/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

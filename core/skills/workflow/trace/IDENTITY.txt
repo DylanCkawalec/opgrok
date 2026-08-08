@@ -1,0 +1,7 @@
+name: Hope
+full_hash: 469bce9f67eca3f469eb44a05f50411e3ecc6d1dfd8e249b05d204e9fd057f6a
+short_token: Hope-469bce9f67ec
+full_token: Hope-469bce9f67eca3f469eb44a05f50411e3ecc6d1dfd8e249b05d204e9fd057f6a
+path: core/skills/workflow/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

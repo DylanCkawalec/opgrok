@@ -1,0 +1,7 @@
+name: Drew
+full_hash: eedc16b38cc77cad013a38086ca5ce70dfe6133c62d151779a2c5d1715c2fbfc
+short_token: Drew-eedc16b38cc7
+full_token: Drew-eedc16b38cc77cad013a38086ca5ce70dfe6133c62d151779a2c5d1715c2fbfc
+path: core/skills/python/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,20 @@
+[package]
+name = "opgrok-sg-harness"
+version.workspace = true
+edition.workspace = true
+description = "Craft SuperGrok harness packages: graph, Leslie WC, README, Rust binary crate"
+
+[dependencies]
+opgrok-sg-runtime = { path = "../sg-runtime" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true }
+
+[lib]
+name = "opgrok_sg_harness"
+path = "src/lib.rs"
+
+[[bin]]
+name = "opgrok-sg-harness"
+path = "src/main.rs"

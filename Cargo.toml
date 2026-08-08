@@ -1,0 +1,26 @@
+[workspace]
+resolver = "2"
+members = [
+    "core/rust/sg-runtime",
+    "core/rust/sg-mcp",
+    "core/rust/sg-cli",
+    "core/rust/sg-harness",
+    "apps/chat",
+]
+default-members = [
+    "core/rust/sg-runtime",
+    "core/rust/sg-cli",
+    "core/rust/sg-harness",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+version = "0.0.1"
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros", "fs", "io-util"] }

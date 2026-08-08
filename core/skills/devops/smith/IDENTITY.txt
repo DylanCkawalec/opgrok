@@ -1,0 +1,7 @@
+name: Azaria
+full_hash: 927fc7820660e0ba634e494b6eedfa8476183875bf6c4fe1b5ca9bce13a100cc
+short_token: Azaria-927fc7820660
+full_token: Azaria-927fc7820660e0ba634e494b6eedfa8476183875bf6c4fe1b5ca9bce13a100cc
+path: core/skills/devops/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

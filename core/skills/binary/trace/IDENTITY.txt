@@ -1,0 +1,7 @@
+name: Alegre
+full_hash: c93d99bb222aac0b02a7822f48cb50459a723dd3c66e56cc2031fa321309ccaf
+short_token: Alegre-c93d99bb222a
+full_token: Alegre-c93d99bb222aac0b02a7822f48cb50459a723dd3c66e56cc2031fa321309ccaf
+path: core/skills/binary/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

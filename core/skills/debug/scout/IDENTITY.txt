@@ -1,0 +1,7 @@
+name: Audra
+full_hash: 318224bd13c2c6005d208cf4b3323577bf8cab5c37567591d23c1f016f8e6aaf
+short_token: Audra-318224bd13c2
+full_token: Audra-318224bd13c2c6005d208cf4b3323577bf8cab5c37567591d23c1f016f8e6aaf
+path: core/skills/debug/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

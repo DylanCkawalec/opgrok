@@ -64,3 +64,12 @@ temp/
 dist/
 build/
 *.egg-info/
+
+# OPGROK harness artifacts (personal — crafted per user, not for public)
+core/binaries/
+
+# n8n runtime cache + data (keep dir structure, ignore contents)
+.n8n/.cache/
+.n8n/nodes/
+.n8n/config
+.n8n/crash.journal

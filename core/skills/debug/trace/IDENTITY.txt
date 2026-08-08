@@ -1,0 +1,7 @@
+name: Augustina
+full_hash: 1bf5c7af76eef9eafa548f41e36c99ff5e6cbc2acbb1c723bac61def84996ba5
+short_token: Augustina-1bf5c7af76ee
+full_token: Augustina-1bf5c7af76eef9eafa548f41e36c99ff5e6cbc2acbb1c723bac61def84996ba5
+path: core/skills/debug/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

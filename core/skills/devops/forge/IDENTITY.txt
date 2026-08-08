@@ -1,0 +1,7 @@
+name: Averyne
+full_hash: ed2683f6fd3fc6ba9614a899b77cf0bad6a36007565c557338cd540225d6faad
+short_token: Averyne-ed2683f6fd3f
+full_token: Averyne-ed2683f6fd3fc6ba9614a899b77cf0bad6a36007565c557338cd540225d6faad
+path: core/skills/devops/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

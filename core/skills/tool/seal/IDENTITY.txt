@@ -1,0 +1,7 @@
+name: Gleb
+full_hash: fae071bba4d3f3bf2455c11b4bc8a43806f7bc6b133144edf8f2d98c3592a584
+short_token: Gleb-fae071bba4d3
+full_token: Gleb-fae071bba4d3f3bf2455c11b4bc8a43806f7bc6b133144edf8f2d98c3592a584
+path: core/skills/tool/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

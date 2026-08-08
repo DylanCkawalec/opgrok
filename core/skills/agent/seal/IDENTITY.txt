@@ -1,0 +1,7 @@
+name: Afua
+full_hash: afa8a6dc73944430881fae71659e53c1fbb907567ff104c5ad3a3c91a79ede22
+short_token: Afua-afa8a6dc7394
+full_token: Afua-afa8a6dc73944430881fae71659e53c1fbb907567ff104c5ad3a3c91a79ede22
+path: core/skills/agent/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

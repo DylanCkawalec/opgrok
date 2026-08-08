@@ -1,0 +1,7 @@
+name: Haven
+full_hash: f9891542ed4278a6fa6fca72ab7c77a2ffa4c41d6ea32953193e304ca4b1c673
+short_token: Haven-f9891542ed42
+full_token: Haven-f9891542ed4278a6fa6fca72ab7c77a2ffa4c41d6ea32953193e304ca4b1c673
+path: core/skills/vision/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

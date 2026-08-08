@@ -1,0 +1,7 @@
+name: Diego
+full_hash: dd34fec0c2b701ca990a3bbfb661b2e62b3c24551182108d15e7d724a797e12a
+short_token: Diego-dd34fec0c2b7
+full_token: Diego-dd34fec0c2b701ca990a3bbfb661b2e62b3c24551182108d15e7d724a797e12a
+path: core/skills/product/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: George
+full_hash: 7587dcd530e0298569c0c8fea18ac4b9cfcd8feddcfe8df930e8b4358608f9a3
+short_token: George-7587dcd530e0
+full_token: George-7587dcd530e0298569c0c8fea18ac4b9cfcd8feddcfe8df930e8b4358608f9a3
+path: core/skills/test/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Hanae
+full_hash: ff8a6c8a56e401f17cfdb34db840ba1a4799e2f75104c5332656dbc3bf9c71f9
+short_token: Hanae-ff8a6c8a56e4
+full_token: Hanae-ff8a6c8a56e401f17cfdb34db840ba1a4799e2f75104c5332656dbc3bf9c71f9
+path: core/skills/ui/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" fill="none">
+  <path d="M0 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 0h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M16 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 16h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M32 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 32h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M48 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 48h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M64 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 64h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M80 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 80h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M96 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 96h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M112 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 112h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M128 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 128h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M144 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 144h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M160 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 160h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M176 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 176h192" stroke="#27272A" stroke-width="1"/>
+  <path d="M192 0v192" stroke="#27272A" stroke-width="1"/>
+  <path d="M0 192h192" stroke="#27272A" stroke-width="1"/>
+</svg>

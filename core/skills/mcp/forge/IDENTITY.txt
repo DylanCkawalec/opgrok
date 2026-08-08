@@ -1,0 +1,7 @@
+name: Chad
+full_hash: cc3478984930ce6624b4562fc9cfcb39c7918a75ca31a112ed67598a26230c08
+short_token: Chad-cc3478984930
+full_token: Chad-cc3478984930ce6624b4562fc9cfcb39c7918a75ca31a112ed67598a26230c08
+path: core/skills/mcp/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

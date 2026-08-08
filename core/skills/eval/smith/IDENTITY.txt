@@ -1,0 +1,7 @@
+name: Bianca
+full_hash: 830e44744170ecf41e9fd4d47dc5e040485d3fd592910b096e0b973f2c40fb12
+short_token: Bianca-830e44744170
+full_token: Bianca-830e44744170ecf41e9fd4d47dc5e040485d3fd592910b096e0b973f2c40fb12
+path: core/skills/eval/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

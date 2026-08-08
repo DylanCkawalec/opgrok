@@ -1,0 +1,679 @@
+{
+  "name": "opgrok-asset-library",
+  "version": "1.0.0",
+  "theme": "grok-xai-frontier",
+  "generated_at": "2026-08-08T17:04:04.671603+00:00",
+  "tokens": "assets/tokens.css",
+  "spec": "assets.md",
+  "api_refs": [
+    "https://docs.x.ai/developers/model-capabilities/images/generation",
+    "https://docs.x.ai/developers/model-capabilities/imagine",
+    "https://docs.x.ai/developers/models"
+  ],
+  "generators": {
+    "svg": "core/tools/generate_assets_svg.py",
+    "raster": "Grok Imagine via image_gen",
+    "skill": "core/skills/meta/asset-creator/SKILL.md"
+  },
+  "count": 94,
+  "assets": [
+    {
+      "path": "assets/README.md",
+      "name": "README.md",
+      "ext": ".md",
+      "category": "root",
+      "bytes": 2299
+    },
+    {
+      "path": "assets/app/canvas-grid.svg",
+      "name": "canvas-grid.svg",
+      "ext": ".svg",
+      "category": "app",
+      "bytes": 1664
+    },
+    {
+      "path": "assets/app/craft-cta-banner.png",
+      "name": "craft-cta-banner.png",
+      "ext": ".png",
+      "category": "app",
+      "bytes": 222766
+    },
+    {
+      "path": "assets/app/sidebar-mark.svg",
+      "name": "sidebar-mark.svg",
+      "ext": ".svg",
+      "category": "app",
+      "bytes": 719
+    },
+    {
+      "path": "assets/brand/apple-touch-180.png",
+      "name": "apple-touch-180.png",
+      "ext": ".png",
+      "category": "brand",
+      "bytes": 159374
+    },
+    {
+      "path": "assets/brand/favicon-32.png",
+      "name": "favicon-32.png",
+      "ext": ".png",
+      "category": "brand",
+      "bytes": 159374
+    },
+    {
+      "path": "assets/brand/github-banner.png",
+      "name": "github-banner.png",
+      "ext": ".png",
+      "category": "brand",
+      "bytes": 167737
+    },
+    {
+      "path": "assets/brand/logo-lockup-h.svg",
+      "name": "logo-lockup-h.svg",
+      "ext": ".svg",
+      "category": "brand",
+      "bytes": 1052
+    },
+    {
+      "path": "assets/brand/logo-lockup-stack.svg",
+      "name": "logo-lockup-stack.svg",
+      "ext": ".svg",
+      "category": "brand",
+      "bytes": 1058
+    },
+    {
+      "path": "assets/brand/logo-mark.svg",
+      "name": "logo-mark.svg",
+      "ext": ".svg",
+      "category": "brand",
+      "bytes": 719
+    },
+    {
+      "path": "assets/brand/logo-wordmark.svg",
+      "name": "logo-wordmark.svg",
+      "ext": ".svg",
+      "category": "brand",
+      "bytes": 467
+    },
+    {
+      "path": "assets/brand/og-image.png",
+      "name": "og-image.png",
+      "ext": ".png",
+      "category": "brand",
+      "bytes": 173882
+    },
+    {
+      "path": "assets/brand/powered-by-grok.svg",
+      "name": "powered-by-grok.svg",
+      "ext": ".svg",
+      "category": "brand",
+      "bytes": 426
+    },
+    {
+      "path": "assets/brand/readme-hero.png",
+      "name": "readme-hero.png",
+      "ext": ".png",
+      "category": "brand",
+      "bytes": 164505
+    },
+    {
+      "path": "assets/prompts/STYLE_LOCK.txt",
+      "name": "STYLE_LOCK.txt",
+      "ext": ".txt",
+      "category": "prompts",
+      "bytes": 371
+    },
+    {
+      "path": "assets/prompts/readme-hero.txt",
+      "name": "readme-hero.txt",
+      "ext": ".txt",
+      "category": "prompts",
+      "bytes": 392
+    },
+    {
+      "path": "assets/protocol/binary-package.png",
+      "name": "binary-package.png",
+      "ext": ".png",
+      "category": "protocol",
+      "bytes": 175252
+    },
+    {
+      "path": "assets/protocol/craft-pipeline.png",
+      "name": "craft-pipeline.png",
+      "ext": ".png",
+      "category": "protocol",
+      "bytes": 221072
+    },
+    {
+      "path": "assets/protocol/harness-graph.png",
+      "name": "harness-graph.png",
+      "ext": ".png",
+      "category": "protocol",
+      "bytes": 133006
+    },
+    {
+      "path": "assets/protocol/inference-flow.png",
+      "name": "inference-flow.png",
+      "ext": ".png",
+      "category": "protocol",
+      "bytes": 252174
+    },
+    {
+      "path": "assets/protocol/leslie-seal.png",
+      "name": "leslie-seal.png",
+      "ext": ".png",
+      "category": "protocol",
+      "bytes": 210144
+    },
+    {
+      "path": "assets/protocol/leslie-seal.svg",
+      "name": "leslie-seal.svg",
+      "ext": ".svg",
+      "category": "protocol",
+      "bytes": 590
+    },
+    {
+      "path": "assets/protocol/toolkit-grid.png",
+      "name": "toolkit-grid.png",
+      "ext": ".png",
+      "category": "protocol",
+      "bytes": 275243
+    },
+    {
+      "path": "assets/social/discord-banner.png",
+      "name": "discord-banner.png",
+      "ext": ".png",
+      "category": "social",
+      "bytes": 216888
+    },
+    {
+      "path": "assets/social/tweet-card.png",
+      "name": "tweet-card.png",
+      "ext": ".png",
+      "category": "social",
+      "bytes": 257191
+    },
+    {
+      "path": "assets/supergroks/cat-agent.svg",
+      "name": "cat-agent.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 384
+    },
+    {
+      "path": "assets/supergroks/cat-binary.svg",
+      "name": "cat-binary.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 301
+    },
+    {
+      "path": "assets/supergroks/cat-code.svg",
+      "name": "cat-code.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 234
+    },
+    {
+      "path": "assets/supergroks/cat-data.svg",
+      "name": "cat-data.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 330
+    },
+    {
+      "path": "assets/supergroks/cat-debug.svg",
+      "name": "cat-debug.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 288
+    },
+    {
+      "path": "assets/supergroks/cat-docs.svg",
+      "name": "cat-docs.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 306
+    },
+    {
+      "path": "assets/supergroks/cat-eval.svg",
+      "name": "cat-eval.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 226
+    },
+    {
+      "path": "assets/supergroks/cat-mcp.svg",
+      "name": "cat-mcp.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 405
+    },
+    {
+      "path": "assets/supergroks/cat-meta.svg",
+      "name": "cat-meta.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 278
+    },
+    {
+      "path": "assets/supergroks/cat-ml.svg",
+      "name": "cat-ml.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 493
+    },
+    {
+      "path": "assets/supergroks/cat-plan.svg",
+      "name": "cat-plan.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 241
+    },
+    {
+      "path": "assets/supergroks/cat-review.svg",
+      "name": "cat-review.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 298
+    },
+    {
+      "path": "assets/supergroks/cat-rust.svg",
+      "name": "cat-rust.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 297
+    },
+    {
+      "path": "assets/supergroks/cat-security.svg",
+      "name": "cat-security.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 254
+    },
+    {
+      "path": "assets/supergroks/cat-test.svg",
+      "name": "cat-test.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 238
+    },
+    {
+      "path": "assets/supergroks/cat-tool.svg",
+      "name": "cat-tool.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 271
+    },
+    {
+      "path": "assets/supergroks/cat-ui.svg",
+      "name": "cat-ui.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 313
+    },
+    {
+      "path": "assets/supergroks/cat-vision.svg",
+      "name": "cat-vision.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 303
+    },
+    {
+      "path": "assets/supergroks/cat-web.svg",
+      "name": "cat-web.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 348
+    },
+    {
+      "path": "assets/supergroks/cat-workflow.svg",
+      "name": "cat-workflow.svg",
+      "ext": ".svg",
+      "category": "supergroks",
+      "bytes": 514
+    },
+    {
+      "path": "assets/tokens.css",
+      "name": "tokens.css",
+      "ext": ".css",
+      "category": "root",
+      "bytes": 1857
+    },
+    {
+      "path": "assets/ui/avatars/avatar-leslie.png",
+      "name": "avatar-leslie.png",
+      "ext": ".png",
+      "category": "ui",
+      "bytes": 253528
+    },
+    {
+      "path": "assets/ui/avatars/avatar-opgrok.png",
+      "name": "avatar-opgrok.png",
+      "ext": ".png",
+      "category": "ui",
+      "bytes": 159374
+    },
+    {
+      "path": "assets/ui/avatars/avatar-supergrok.png",
+      "name": "avatar-supergrok.png",
+      "ext": ".png",
+      "category": "ui",
+      "bytes": 136389
+    },
+    {
+      "path": "assets/ui/chrome/button-ghost.svg",
+      "name": "button-ghost.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 377
+    },
+    {
+      "path": "assets/ui/chrome/button-primary.svg",
+      "name": "button-primary.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 350
+    },
+    {
+      "path": "assets/ui/chrome/edge-arrow.svg",
+      "name": "edge-arrow.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 306
+    },
+    {
+      "path": "assets/ui/chrome/modal-frame.svg",
+      "name": "modal-frame.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 314
+    },
+    {
+      "path": "assets/ui/chrome/node-chip.svg",
+      "name": "node-chip.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 402
+    },
+    {
+      "path": "assets/ui/chrome/panel-header.svg",
+      "name": "panel-header.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 551
+    },
+    {
+      "path": "assets/ui/chrome/pill-dry.svg",
+      "name": "pill-dry.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 428
+    },
+    {
+      "path": "assets/ui/chrome/pill-live.svg",
+      "name": "pill-live.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 429
+    },
+    {
+      "path": "assets/ui/chrome/spinner-orbit.svg",
+      "name": "spinner-orbit.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 506
+    },
+    {
+      "path": "assets/ui/chrome/toast-fail.svg",
+      "name": "toast-fail.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 376
+    },
+    {
+      "path": "assets/ui/chrome/toast-pass.svg",
+      "name": "toast-pass.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 376
+    },
+    {
+      "path": "assets/ui/empty/empty-harness.png",
+      "name": "empty-harness.png",
+      "ext": ".png",
+      "category": "ui",
+      "bytes": 137920
+    },
+    {
+      "path": "assets/ui/empty/empty-run.png",
+      "name": "empty-run.png",
+      "ext": ".png",
+      "category": "ui",
+      "bytes": 99162
+    },
+    {
+      "path": "assets/ui/empty/empty-skills.png",
+      "name": "empty-skills.png",
+      "ext": ".png",
+      "category": "ui",
+      "bytes": 120982
+    },
+    {
+      "path": "assets/ui/icons/artifact.svg",
+      "name": "artifact.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 354
+    },
+    {
+      "path": "assets/ui/icons/binaries.svg",
+      "name": "binaries.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 342
+    },
+    {
+      "path": "assets/ui/icons/copy.svg",
+      "name": "copy.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 346
+    },
+    {
+      "path": "assets/ui/icons/craft.svg",
+      "name": "craft.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 350
+    },
+    {
+      "path": "assets/ui/icons/download.svg",
+      "name": "download.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 302
+    },
+    {
+      "path": "assets/ui/icons/edge.svg",
+      "name": "edge.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 306
+    },
+    {
+      "path": "assets/ui/icons/external.svg",
+      "name": "external.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 350
+    },
+    {
+      "path": "assets/ui/icons/graph.svg",
+      "name": "graph.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 456
+    },
+    {
+      "path": "assets/ui/icons/help.svg",
+      "name": "help.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 424
+    },
+    {
+      "path": "assets/ui/icons/home.svg",
+      "name": "home.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 343
+    },
+    {
+      "path": "assets/ui/icons/judge.svg",
+      "name": "judge.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 314
+    },
+    {
+      "path": "assets/ui/icons/memory.svg",
+      "name": "memory.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 336
+    },
+    {
+      "path": "assets/ui/icons/node.svg",
+      "name": "node.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 346
+    },
+    {
+      "path": "assets/ui/icons/parallel.svg",
+      "name": "parallel.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 329
+    },
+    {
+      "path": "assets/ui/icons/play.svg",
+      "name": "play.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 290
+    },
+    {
+      "path": "assets/ui/icons/plus.svg",
+      "name": "plus.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 289
+    },
+    {
+      "path": "assets/ui/icons/repair.svg",
+      "name": "repair.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 321
+    },
+    {
+      "path": "assets/ui/icons/run.svg",
+      "name": "run.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 324
+    },
+    {
+      "path": "assets/ui/icons/search.svg",
+      "name": "search.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 314
+    },
+    {
+      "path": "assets/ui/icons/settings.svg",
+      "name": "settings.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 392
+    },
+    {
+      "path": "assets/ui/icons/skills.svg",
+      "name": "skills.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 407
+    },
+    {
+      "path": "assets/ui/icons/stop.svg",
+      "name": "stop.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 346
+    },
+    {
+      "path": "assets/ui/icons/toolkit.svg",
+      "name": "toolkit.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 359
+    },
+    {
+      "path": "assets/ui/icons/upload.svg",
+      "name": "upload.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 301
+    },
+    {
+      "path": "assets/ui/status/dry.svg",
+      "name": "dry.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 464
+    },
+    {
+      "path": "assets/ui/status/fail.svg",
+      "name": "fail.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 334
+    },
+    {
+      "path": "assets/ui/status/live.svg",
+      "name": "live.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 347
+    },
+    {
+      "path": "assets/ui/status/pass.svg",
+      "name": "pass.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 336
+    },
+    {
+      "path": "assets/ui/status/queued.svg",
+      "name": "queued.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 327
+    },
+    {
+      "path": "assets/ui/status/running.svg",
+      "name": "running.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 350
+    },
+    {
+      "path": "assets/ui/status/warn.svg",
+      "name": "warn.svg",
+      "ext": ".svg",
+      "category": "ui",
+      "bytes": 387
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[package]
+name = "opgrok-sg-runtime"
+version.workspace = true
+edition.workspace = true
+description = "SuperGrok registry, intent routing, skill load, binary dispatch"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }

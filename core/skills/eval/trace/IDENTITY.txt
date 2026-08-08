@@ -1,0 +1,7 @@
+name: Bijou
+full_hash: ca04933cce52ee4a87a7dcd2bbf9064cbce55acc0efef7ae373000ef55bca8b6
+short_token: Bijou-ca04933cce52
+full_token: Bijou-ca04933cce52ee4a87a7dcd2bbf9064cbce55acc0efef7ae373000ef55bca8b6
+path: core/skills/eval/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

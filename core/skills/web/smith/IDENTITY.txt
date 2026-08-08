@@ -1,0 +1,7 @@
+name: Henna
+full_hash: 1ba20650c3f4bcfc349a8e2e676f1b0061ac2c036b67f6fc8026ce8c2e10faec
+short_token: Henna-1ba20650c3f4
+full_token: Henna-1ba20650c3f4bcfc349a8e2e676f1b0061ac2c036b67f6fc8026ce8c2e10faec
+path: core/skills/web/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

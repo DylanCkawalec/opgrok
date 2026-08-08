@@ -1,0 +1,7 @@
+name: Alpheus
+full_hash: 92dbeeba225433d82d39f70b2745e4da99351349659effb97a6fe8e70b2aed9c
+short_token: Alpheus-92dbeeba2254
+full_token: Alpheus-92dbeeba225433d82d39f70b2745e4da99351349659effb97a6fe8e70b2aed9c
+path: core/skills/code/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Gaspard
+full_hash: 336817c2d73dffbee7946c9573b633ac388431faa2aa7924119d742a2ad7a5d1
+short_token: Gaspard-336817c2d73d
+full_token: Gaspard-336817c2d73dffbee7946c9573b633ac388431faa2aa7924119d742a2ad7a5d1
+path: core/skills/test/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

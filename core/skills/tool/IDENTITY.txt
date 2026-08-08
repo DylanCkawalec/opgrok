@@ -1,0 +1,7 @@
+name: Gertrude
+full_hash: bb37e5626415fdd15222a484b4fc539ec007725f0e5db9b597b03ddde532204b
+short_token: Gertrude-bb37e5626415
+full_token: Gertrude-bb37e5626415fdd15222a484b4fc539ec007725f0e5db9b597b03ddde532204b
+path: core/skills/tool/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

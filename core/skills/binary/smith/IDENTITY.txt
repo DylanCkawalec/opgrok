@@ -1,0 +1,7 @@
+name: Alec
+full_hash: 1a6d73349a8a6559f834c368d646a7a9040435a85b0ba83c4269f76613bde656
+short_token: Alec-1a6d73349a8a
+full_token: Alec-1a6d73349a8a6559f834c368d646a7a9040435a85b0ba83c4269f76613bde656
+path: core/skills/binary/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

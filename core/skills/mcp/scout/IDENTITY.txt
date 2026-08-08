@@ -1,0 +1,7 @@
+name: Charlotta
+full_hash: cb8c2c09832fb8c12ba2565e91d19faf9878728d2cc712054e8fcb037153f4ba
+short_token: Charlotta-cb8c2c09832f
+full_token: Charlotta-cb8c2c09832fb8c12ba2565e91d19faf9878728d2cc712054e8fcb037153f4ba
+path: core/skills/mcp/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

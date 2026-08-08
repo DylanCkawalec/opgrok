@@ -1,0 +1,7 @@
+name: Georgios
+full_hash: b76ea959a5b864545454965992bdabcc9db9d8f4415b8661e82d2c1cdbbe0dd4
+short_token: Georgios-b76ea959a5b8
+full_token: Georgios-b76ea959a5b864545454965992bdabcc9db9d8f4415b8661e82d2c1cdbbe0dd4
+path: core/skills/test/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

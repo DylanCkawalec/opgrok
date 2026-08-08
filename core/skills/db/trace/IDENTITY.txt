@@ -1,0 +1,7 @@
+name: Ashanti
+full_hash: ce051a8841a9e92cb13727e5357b04c2f185239e9915bc645b7491fc60983d80
+short_token: Ashanti-ce051a8841a9
+full_token: Ashanti-ce051a8841a9e92cb13727e5357b04c2f185239e9915bc645b7491fc60983d80
+path: core/skills/db/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

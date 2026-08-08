@@ -1,0 +1,7 @@
+name: Destin
+full_hash: 64e73e053879f3ba0cb39e15c970d29564b0c02c12177e19c41e8a3ca47d7832
+short_token: Destin-64e73e053879
+full_token: Destin-64e73e053879f3ba0cb39e15c970d29564b0c02c12177e19c41e8a3ca47d7832
+path: core/skills/product/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Honesty
+full_hash: 6ff84a7b1e1d2aff7712f9f9c60966f0b9e7d3108130131b62dd698b151b6824
+short_token: Honesty-6ff84a7b1e1d
+full_token: Honesty-6ff84a7b1e1d2aff7712f9f9c60966f0b9e7d3108130131b62dd698b151b6824
+path: core/skills/workflow/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

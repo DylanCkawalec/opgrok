@@ -1,0 +1,7 @@
+name: Amilcar
+full_hash: 5636187f9180ddd85829f78b0139c4c9c8548c26a85af867e2fe026bc71de904
+short_token: Amilcar-5636187f9180
+full_token: Amilcar-5636187f9180ddd85829f78b0139c4c9c8548c26a85af867e2fe026bc71de904
+path: core/skills/code/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

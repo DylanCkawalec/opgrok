@@ -1,0 +1,7 @@
+name: Azalea
+full_hash: e70bcdd9b08fc9d644cc08952b2630ca595212ef5e6f93e3ee4950e0097bff63
+short_token: Azalea-e70bcdd9b08f
+full_token: Azalea-e70bcdd9b08fc9d644cc08952b2630ca595212ef5e6f93e3ee4950e0097bff63
+path: core/skills/devops/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

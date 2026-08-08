@@ -1,0 +1,7 @@
+name: Bennett
+full_hash: 81e6eb08f24f8f99bc72ad1ce8449c33f5ff6ff695121e494152c2611b4d753a
+short_token: Bennett-81e6eb08f24f
+full_token: Bennett-81e6eb08f24f8f99bc72ad1ce8449c33f5ff6ff695121e494152c2611b4d753a
+path: core/skills/eval/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

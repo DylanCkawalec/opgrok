@@ -1,0 +1,7 @@
+name: Beau
+full_hash: 5fb446a56440693be8d42ca9e27116e761d0b21869bbf0b076e337fa65b33f6b
+short_token: Beau-5fb446a56440
+full_token: Beau-5fb446a56440693be8d42ca9e27116e761d0b21869bbf0b076e337fa65b33f6b
+path: core/skills/docs/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

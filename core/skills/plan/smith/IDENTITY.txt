@@ -1,0 +1,7 @@
+name: Darren
+full_hash: 5b386a54c20bdfd50079858998aa4489088614db4fef8838e7007b92818bc90b
+short_token: Darren-5b386a54c20b
+full_token: Darren-5b386a54c20bdfd50079858998aa4489088614db4fef8838e7007b92818bc90b
+path: core/skills/plan/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Clark
+full_hash: d1c3d6b8785089cdea2ed87d9571af131728d44e8997b94330ecd71021afe4ff
+short_token: Clark-d1c3d6b87850
+full_token: Clark-d1c3d6b8785089cdea2ed87d9571af131728d44e8997b94330ecd71021afe4ff
+path: core/skills/meta/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

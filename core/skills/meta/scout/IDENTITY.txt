@@ -1,0 +1,7 @@
+name: Claire
+full_hash: 38b8f46c3076ee0e203a3c4e3a4cf3996e23f2aefe5c15cf945a4199cc8a8082
+short_token: Claire-38b8f46c3076
+full_token: Claire-38b8f46c3076ee0e203a3c4e3a4cf3996e23f2aefe5c15cf945a4199cc8a8082
+path: core/skills/meta/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

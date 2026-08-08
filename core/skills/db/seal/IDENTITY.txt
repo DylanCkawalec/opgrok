@@ -1,0 +1,7 @@
+name: Asa
+full_hash: 635bfc8c9eeb70baa28f79074799811c9086fed5227030c2ad7df00b89f5227b
+short_token: Asa-635bfc8c9eeb
+full_token: Asa-635bfc8c9eeb70baa28f79074799811c9086fed5227030c2ad7df00b89f5227b
+path: core/skills/db/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

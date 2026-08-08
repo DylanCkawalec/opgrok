@@ -1,0 +1,7 @@
+name: Hannah
+full_hash: 8bcb2bacac34d05d1e42659d0f637a33745e6b996eb6d5b54223e89ad32f2b8c
+short_token: Hannah-8bcb2bacac34
+full_token: Hannah-8bcb2bacac34d05d1e42659d0f637a33745e6b996eb6d5b54223e89ad32f2b8c
+path: core/skills/vision/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

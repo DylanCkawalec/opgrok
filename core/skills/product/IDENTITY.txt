@@ -1,0 +1,7 @@
+name: Dennis
+full_hash: 9ee80812d9e060ed12cf8ad16f2b622e46a95805e95bacbf2155e9f5f9e32e83
+short_token: Dennis-9ee80812d9e0
+full_token: Dennis-9ee80812d9e060ed12cf8ad16f2b622e46a95805e95bacbf2155e9f5f9e32e83
+path: core/skills/product/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

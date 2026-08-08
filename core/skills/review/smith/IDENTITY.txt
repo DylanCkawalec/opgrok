@@ -1,0 +1,7 @@
+name: Eloisa
+full_hash: 5f6e671a880900d48eb5e2e265199f0d393287c83ec230ad3a7c6226dc4d78c8
+short_token: Eloisa-5f6e671a8809
+full_token: Eloisa-5f6e671a880900d48eb5e2e265199f0d393287c83ec230ad3a7c6226dc4d78c8
+path: core/skills/review/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

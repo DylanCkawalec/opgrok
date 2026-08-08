@@ -1,0 +1,7 @@
+name: Ava
+full_hash: 331f63a96b5ddac8a9325a91f86ce8428502b7b59e8d76e8356f365c76088814
+short_token: Ava-331f63a96b5d
+full_token: Ava-331f63a96b5ddac8a9325a91f86ce8428502b7b59e8d76e8356f365c76088814
+path: core/skills/devops/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

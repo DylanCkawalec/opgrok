@@ -1,0 +1,7 @@
+name: Adriana
+full_hash: 9d5801538d19dcbb13ecef67b2ae35dcbdbed2f8f0f39cfe819a437499dcd66d
+short_token: Adriana-9d5801538d19
+full_token: Adriana-9d5801538d19dcbb13ecef67b2ae35dcbdbed2f8f0f39cfe819a437499dcd66d
+path: core/skills/agent/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

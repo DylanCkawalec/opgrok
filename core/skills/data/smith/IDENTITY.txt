@@ -1,0 +1,7 @@
+name: Aria
+full_hash: 2e2e2c71241d245efa3b6c6adbe6834d7ec1f065cd3baa50ae8a179c53fc80f4
+short_token: Aria-2e2e2c71241d
+full_token: Aria-2e2e2c71241d245efa3b6c6adbe6834d7ec1f065cd3baa50ae8a179c53fc80f4
+path: core/skills/data/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

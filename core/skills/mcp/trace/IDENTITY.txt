@@ -1,0 +1,7 @@
+name: Chen
+full_hash: 6a37353fa9ebfcba5301941eb986d1acc9b80aba3b3dac6af3d5b10191a7a44a
+short_token: Chen-6a37353fa9eb
+full_token: Chen-6a37353fa9ebfcba5301941eb986d1acc9b80aba3b3dac6af3d5b10191a7a44a
+path: core/skills/mcp/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

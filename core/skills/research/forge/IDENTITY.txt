@@ -1,0 +1,7 @@
+name: Edwin
+full_hash: 2a4f03e583b2652f8b6324d2403a0581e3a086b61c9e4fb75fa381f38a114afe
+short_token: Edwin-2a4f03e583b2
+full_token: Edwin-2a4f03e583b2652f8b6324d2403a0581e3a086b61c9e4fb75fa381f38a114afe
+path: core/skills/research/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Gunnar
+full_hash: b1c76f17d175fafebe3bc7573137c592f5347ac6b6924db57e676f630236ccf9
+short_token: Gunnar-b1c76f17d175
+full_token: Gunnar-b1c76f17d175fafebe3bc7573137c592f5347ac6b6924db57e676f630236ccf9
+path: core/skills/ui/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

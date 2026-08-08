@@ -1,0 +1,7 @@
+name: Antonia
+full_hash: 10516b2f7727574c1254d30c9215976321b238e1c0605ba995fede76b4b2269a
+short_token: Antonia-10516b2f7727
+full_token: Antonia-10516b2f7727574c1254d30c9215976321b238e1c0605ba995fede76b4b2269a
+path: core/skills/data/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

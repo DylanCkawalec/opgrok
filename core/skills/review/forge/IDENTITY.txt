@@ -1,0 +1,7 @@
+name: Elisa
+full_hash: d0db6f8b83ce6af23292cbd93b7614444cc92fa57e5dc8a3e554c6f5e25cf4a9
+short_token: Elisa-d0db6f8b83ce
+full_token: Elisa-d0db6f8b83ce6af23292cbd93b7614444cc92fa57e5dc8a3e554c6f5e25cf4a9
+path: core/skills/review/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Arvid
+full_hash: 3ee94bb1b456fe6d0df69906bca2ecc39ffdf678ccde748cd3be401274126456
+short_token: Arvid-3ee94bb1b456
+full_token: Arvid-3ee94bb1b456fe6d0df69906bca2ecc39ffdf678ccde748cd3be401274126456
+path: core/skills/db/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

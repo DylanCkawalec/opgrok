@@ -1,0 +1,7 @@
+name: Dimitrios
+full_hash: 30194f408c02c25ebc2342b6383d7607d0d3413e086f35b551f5dc3ad10a7ab7
+short_token: Dimitrios-30194f408c02
+full_token: Dimitrios-30194f408c02c25ebc2342b6383d7607d0d3413e086f35b551f5dc3ad10a7ab7
+path: core/skills/product/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

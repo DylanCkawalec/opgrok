@@ -1,0 +1,7 @@
+name: Hedy
+full_hash: 9941709ff83ce162fb752c1bc16a66fa28c51335fb4fe782981a12d9142479e4
+short_token: Hedy-9941709ff83c
+full_token: Hedy-9941709ff83ce162fb752c1bc16a66fa28c51335fb4fe782981a12d9142479e4
+path: core/skills/web/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

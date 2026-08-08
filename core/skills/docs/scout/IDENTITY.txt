@@ -1,0 +1,7 @@
+name: Beatriz
+full_hash: 2923e9e2de4ba56fe2aec20693d0e1aec942a397f31f5ae5f003cc76b9d2a043
+short_token: Beatriz-2923e9e2de4b
+full_token: Beatriz-2923e9e2de4ba56fe2aec20693d0e1aec942a397f31f5ae5f003cc76b9d2a043
+path: core/skills/docs/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

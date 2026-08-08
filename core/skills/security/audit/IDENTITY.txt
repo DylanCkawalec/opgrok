@@ -1,0 +1,7 @@
+name: Fajr
+full_hash: 72e53283ff85d0622d4983ab7a317d7146cc3659576c36b761b5a8b3756e8e41
+short_token: Fajr-72e53283ff85
+full_token: Fajr-72e53283ff85d0622d4983ab7a317d7146cc3659576c36b761b5a8b3756e8e41
+path: core/skills/security/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

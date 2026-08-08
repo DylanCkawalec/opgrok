@@ -1,0 +1,7 @@
+name: Emmanuelle
+full_hash: 4d372bf8732929ae438ab7daba026c222219eebeffba10bc2e50c26754692a81
+short_token: Emmanuelle-4d372bf87329
+full_token: Emmanuelle-4d372bf8732929ae438ab7daba026c222219eebeffba10bc2e50c26754692a81
+path: core/skills/rust/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

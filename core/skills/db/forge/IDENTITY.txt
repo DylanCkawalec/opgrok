@@ -1,0 +1,7 @@
+name: Armani
+full_hash: 88a9220a8f77840f9b3a13a7584462b30a94bd39e89577f40768e4e37b38114d
+short_token: Armani-88a9220a8f77
+full_token: Armani-88a9220a8f77840f9b3a13a7584462b30a94bd39e89577f40768e4e37b38114d
+path: core/skills/db/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

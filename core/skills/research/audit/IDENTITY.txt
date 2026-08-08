@@ -1,0 +1,7 @@
+name: Edouard
+full_hash: c3e797feb6d8eb7eba383f3a1b0a41eae9fcc62a38a8a27decfaad5ff5601c34
+short_token: Edouard-c3e797feb6d8
+full_token: Edouard-c3e797feb6d8eb7eba383f3a1b0a41eae9fcc62a38a8a27decfaad5ff5601c34
+path: core/skills/research/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

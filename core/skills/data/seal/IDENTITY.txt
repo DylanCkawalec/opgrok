@@ -1,0 +1,7 @@
+name: Ari
+full_hash: 8ae8567ef4fc1bfbe54262d3137f3f16d0dd8f534429ab4430752d4405272ae1
+short_token: Ari-8ae8567ef4fc
+full_token: Ari-8ae8567ef4fc1bfbe54262d3137f3f16d0dd8f534429ab4430752d4405272ae1
+path: core/skills/data/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

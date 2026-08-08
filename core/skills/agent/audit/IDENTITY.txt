@@ -1,0 +1,7 @@
+name: Abbas
+full_hash: 5b4f91486f937d65db48f71b19b56edb3032491a00d618d7a9570eb063a7e0fd
+short_token: Abbas-5b4f91486f93
+full_token: Abbas-5b4f91486f937d65db48f71b19b56edb3032491a00d618d7a9570eb063a7e0fd
+path: core/skills/agent/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

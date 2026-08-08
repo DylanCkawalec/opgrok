@@ -1,0 +1,7 @@
+name: Aileen
+full_hash: 48a918231603b068d9ff1783d675b4fdcfe03c0913d921714026628cde51f8a7
+short_token: Aileen-48a918231603
+full_token: Aileen-48a918231603b068d9ff1783d675b4fdcfe03c0913d921714026628cde51f8a7
+path: core/skills/binary/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

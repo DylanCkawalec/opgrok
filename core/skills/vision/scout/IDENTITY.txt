@@ -1,0 +1,7 @@
+name: Hasan
+full_hash: 8906cc4d858b71f7bd8f2321eb2b59d041321d0480ca70036391de86e6a8665e
+short_token: Hasan-8906cc4d858b
+full_token: Hasan-8906cc4d858b71f7bd8f2321eb2b59d041321d0480ca70036391de86e6a8665e
+path: core/skills/vision/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

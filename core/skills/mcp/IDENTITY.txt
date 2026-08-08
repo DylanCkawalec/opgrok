@@ -1,0 +1,7 @@
+name: Celeste
+full_hash: 7f6f2b9f219218b2844c80c895daa86522e13c35ef7bb261f8e503d017fff0e1
+short_token: Celeste-7f6f2b9f2192
+full_token: Celeste-7f6f2b9f219218b2844c80c895daa86522e13c35ef7bb261f8e503d017fff0e1
+path: core/skills/mcp/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

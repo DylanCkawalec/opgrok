@@ -1,0 +1,7 @@
+name: Asaf
+full_hash: ba679ef89cd0fcda213b85db64d6648977cdc10842bcbbb77590d77355df72d0
+short_token: Asaf-ba679ef89cd0
+full_token: Asaf-ba679ef89cd0fcda213b85db64d6648977cdc10842bcbbb77590d77355df72d0
+path: core/skills/db/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1
