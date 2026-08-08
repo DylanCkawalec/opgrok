@@ -23,7 +23,7 @@ OPGROK is a **framework for Grok itself**.
 It does not replace Grok. It multiplies Grok by:
 
 1. **Hiring SuperGroks** — 150 specialist agents (25 categories x 6 roles) + navigators + core skills
-2. **Sealing a plan with Leslie** — falsifiable Winning Condition (spec only, no implementation code)
+2. **Sealing a plan** — falsifiable Winning Condition (spec only, no implementation code)
 3. **Building a work tree** — n8n-style graph of agents (IPO + OODA per node)
 4. **Packaging one harness** — **one binary** + **one README** under `core/binaries/`
 5. **Running the graph** — each node injects its skill and calls the **xAI Grok API**
@@ -45,7 +45,7 @@ Think of it as: *Grok hires Grok specialists, wires them into a pipeline, and fr
               └────────────┬───────────┘
                            ▼
               ┌────────────────────────┐
-              │  Leslie Winning Cond.  │  1 binary + 1 README law
+              │  Winning Condition     │  1 binary + 1 README law
               └────────────┬───────────┘
                            ▼
               ┌────────────────────────┐
@@ -84,14 +84,14 @@ Call name is flat: `/rust-smith`, `/plan-scout`, `/review-audit`.
 |------|------:|---------|
 | SuperGroks | 150 | `/rust-smith`, `/plan-scout` |
 | Category navigators | 25 | `/cat-code`, `/cat-agent` |
-| Core | 2 | `/opgrok`, `/leslie` |
+| Core | 2 | `/opgrok`, `/seal` |
 | Special | 1 | `/meta-asset-creator` |
 
 Each SuperGrok has a human **Name-Hash** identity (`core/registry/named-hashes.json`).
 
 Indexes: `core/skills/_framework/REGISTRY.json`, `MCP_CATALOG.json`, `NAVIGATION.md`, `AGENT_GLOSSARY.md`
 
-### Harness package (Leslie winning condition)
+### Harness package (winning condition)
 
 Every crafted OPGROK must deliver:
 
@@ -99,7 +99,7 @@ Every crafted OPGROK must deliver:
 |----------|---------|
 | `bin/opgrok-<slug>` | Runnable entrypoint |
 | `README.md` | The only harness readme |
-| `WINNING_CONDITION.md` | Leslie seal (falsifiable) |
+| `WINNING_CONDITION.md` | Falsifiable acceptance seal |
 | `graph.json` | Agent DAG |
 | `skills_cache/` | Injected SuperGrok contracts |
 | `crate/` | Rust sources for real compile |
@@ -190,7 +190,7 @@ Then:
 
 ```text
 @opgrok design a CLI architecture for a log shipper
-/leslie seal <slug>
+/opgrok seal <slug>
 ```
 
 ---
@@ -200,7 +200,7 @@ Then:
 ```text
 opgrok/
 ├── core/                 # primary product
-│   ├── skills/           # SuperGroks + /opgrok + /leslie
+│   ├── skills/           # SuperGroks + /opgrok + /seal
 │   ├── toolkit/          # Grok-native runtime enhancements
 │   ├── harness/          # harness law + graph schema
 │   ├── binaries/         # crafted harness packages (gitignored)
@@ -224,12 +224,12 @@ opgrok/
 
 | Command | Action |
 |---------|--------|
-| `./opgrok craft "goal"` | Hire SuperGroks, Leslie WC, graph, build package |
+| `./opgrok craft "goal"` | Hire SuperGroks, winning condition, graph, build package |
 | `./opgrok run <slug> [--dry-run]` | Execute harness |
 | `./opgrok build <slug> [--install]` | Cargo release or Python entrypoint + optional global install |
 | `./opgrok route "intent"` | Preview SuperGrok matches |
 | `./opgrok harnesses` | List `core/binaries/registry.json` |
-| `./opgrok validate` | Leslie Gate on SuperGrok catalog |
+| `./opgrok validate` | Validate SuperGrok catalog |
 | `./opgrok start` | Optional app shell (web + n8n on :420 / :5678) |
 | `./opgrok stop` | Stop app shell |
 
@@ -305,14 +305,13 @@ Grok/xAI-themed library (SVG + PNG):
 | [assets/README.md](assets/README.md) | Visual component library |
 | [apps/README.md](apps/README.md) | Optional application shell |
 | [docs/README.md](docs/README.md) | Doc index |
-| [Leslie (upstream)](https://github.com/DylanCkawalec/Leslie) | Specification-master protocol |
 
 ---
 
 ## Design principles
 
 1. **Grok is the brain** — OPGROK is structure, memory, and packaging.
-2. **Leslie specifies; builders implement** — Winning Conditions, not silent code dumps.
+2. **Spec before code** — Winning Conditions, not silent code dumps.
 3. **One harness = one binary + one README** — no doc sprawl per package.
 4. **SuperGroks are contracts** — independent, composable, binary-ready.
 5. **Apps are optional** — the kernel runs from CLI and Grok Build without the web UI.
