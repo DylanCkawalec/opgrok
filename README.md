@@ -12,6 +12,14 @@
 
 ---
 
+## Why this exists
+
+If you run Grok Build local, you already write prompts that do real work — code reviews, security audits, data pipelines, site builds. Every time you want similar work done, you re-prompt from scratch. OPGROK fixes that: it takes a workflow or project prompt and freezes it into a binary you can run again and again. Your past prompts become reusable tools.
+
+One prompt in. One binary out. Run it whenever you want, through the xAI API or the Grok terminal.
+
+---
+
 ## What it does
 
 Give it a goal. It hires the right specialist agents, wires them into a pipeline, and packages that pipeline as a single binary you can run again without re-planning.
@@ -20,6 +28,20 @@ Give it a goal. It hires the right specialist agents, wires them into a pipeline
 ./opgrok craft "build a landing page with hero and pricing"
 ./opgrok run build-a-landing-page-with-hero-and-pricing
 ```
+
+### Examples
+
+A binary can be as simple or as intricate as your goal demands — from a single-pass review to a multi-stage pipeline with parallel branches, memory across runs, and a judge node that reviews the final output.
+
+| Goal | What the binary does |
+|------|---------------------|
+| `audit a Python codebase for security issues` | Scout maps the repo → smith isolates each module → audit checks against a security checklist → seal produces a report with severity ratings |
+| `build a marketing site with hero, pricing, and wireframes` | Scout drafts structure → forge writes copy and layout → smith generates components → review audits consistency → docs produces a handoff README |
+| `review a Rust crate for correctness and performance` | Scout maps the crate → trace profiles hot paths → audit checks idioms → forge proposes fixes → seal gates the final review |
+| `generate a data pipeline spec with dry-run counts` | Plan scouts requirements → data smith designs the schema → data forge writes the transform → data audit verifies counts → docs ships the spec |
+| `triage a failing CI pipeline` | Debug scout reads the logs → debug trace isolates the root cause → code smith writes the fix → test seal verifies green CI |
+
+Each row is one craft command. Each binary is reusable — run it on a new repo, a new codebase, a new dataset, without re-planning.
 
 ---
 
