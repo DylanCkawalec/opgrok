@@ -1,0 +1,7 @@
+name: Cato
+full_hash: ed402b697166f5e0092e049df3896d695cd2718186cd1694f3d91682e1aa5cff
+short_token: Cato-ed402b697166
+full_token: Cato-ed402b697166f5e0092e049df3896d695cd2718186cd1694f3d91682e1aa5cff
+path: core/skills/math/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Fenella
+full_hash: b400fb3256ec2adf8c9f36c910e77ae1cf79e1dc3f352454f60a4682fb38ddb0
+short_token: Fenella-b400fb3256ec
+full_token: Fenella-b400fb3256ec2adf8c9f36c910e77ae1cf79e1dc3f352454f60a4682fb38ddb0
+path: core/skills/security/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

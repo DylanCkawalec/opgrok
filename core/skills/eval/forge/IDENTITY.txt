@@ -1,0 +1,7 @@
+name: Berenice
+full_hash: 50e63a4e2722fdea51a9e53f23e333f5f5cc781cf681fccb04a17b8aaf1c636b
+short_token: Berenice-50e63a4e2722
+full_token: Berenice-50e63a4e2722fdea51a9e53f23e333f5f5cc781cf681fccb04a17b8aaf1c636b
+path: core/skills/eval/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Dimitri
+full_hash: e5020cf6d985a5911b9e4fd1e0ab82046fcbc68eaaa7763ba10bacf8f0915285
+short_token: Dimitri-e5020cf6d985
+full_token: Dimitri-e5020cf6d985a5911b9e4fd1e0ab82046fcbc68eaaa7763ba10bacf8f0915285
+path: core/skills/product/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

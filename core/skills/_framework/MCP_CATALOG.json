@@ -1,0 +1,1765 @@
+{
+  "version": "2.1.0",
+  "description": "Compact SuperGrok catalog for MCP / opgrok inference routing",
+  "tools_hint": [
+    "sg_list",
+    "sg_route",
+    "sg_describe",
+    "sg_load",
+    "sg_categories",
+    "sg_nav"
+  ],
+  "core": [
+    {
+      "name": "leslie",
+      "call": "/leslie",
+      "path": "core/skills/leslie/SKILL.md",
+      "intent": "Authors falsifiable Winning Conditions and refusal gates for OPGROK harness packages and SuperGrok catalog law. Activates on /leslie, harness sealing, catalog v"
+    },
+    {
+      "name": "opgrok",
+      "call": "/opgrok",
+      "path": "core/skills/opgrok/SKILL.md",
+      "intent": "Builds a sealed SuperGrok multi-agent harness from a natural-language goal: selects specialists, locks a Leslie Winning Condition, emits graph.json + one bin/op"
+    }
+  ],
+  "special": [
+    {
+      "name": "meta-asset-creator",
+      "call": "/meta-asset-creator",
+      "path": "core/skills/meta/asset-creator/SKILL.md",
+      "intent": "Owns the OPGROK Grok/xAI visual system under assets/: design tokens, deterministic SVG generation, and Grok Imagine atmospheric PNGs. Use for brand kits, UI ico"
+    }
+  ],
+  "navigators": [
+    {
+      "name": "cat-agent",
+      "call": "/cat-agent",
+      "category": "agent",
+      "path": "core/skills/agent/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-binary",
+      "call": "/cat-binary",
+      "category": "binary",
+      "path": "core/skills/binary/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-code",
+      "call": "/cat-code",
+      "category": "code",
+      "path": "core/skills/code/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-data",
+      "call": "/cat-data",
+      "category": "data",
+      "path": "core/skills/data/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-db",
+      "call": "/cat-db",
+      "category": "db",
+      "path": "core/skills/db/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-debug",
+      "call": "/cat-debug",
+      "category": "debug",
+      "path": "core/skills/debug/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-devops",
+      "call": "/cat-devops",
+      "category": "devops",
+      "path": "core/skills/devops/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-docs",
+      "call": "/cat-docs",
+      "category": "docs",
+      "path": "core/skills/docs/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-eval",
+      "call": "/cat-eval",
+      "category": "eval",
+      "path": "core/skills/eval/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-math",
+      "call": "/cat-math",
+      "category": "math",
+      "path": "core/skills/math/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-mcp",
+      "call": "/cat-mcp",
+      "category": "mcp",
+      "path": "core/skills/mcp/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-meta",
+      "call": "/cat-meta",
+      "category": "meta",
+      "path": "core/skills/meta/SKILL.md",
+      "roles": 7
+    },
+    {
+      "name": "cat-plan",
+      "call": "/cat-plan",
+      "category": "plan",
+      "path": "core/skills/plan/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-product",
+      "call": "/cat-product",
+      "category": "product",
+      "path": "core/skills/product/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-python",
+      "call": "/cat-python",
+      "category": "python",
+      "path": "core/skills/python/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-research",
+      "call": "/cat-research",
+      "category": "research",
+      "path": "core/skills/research/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-review",
+      "call": "/cat-review",
+      "category": "review",
+      "path": "core/skills/review/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-rust",
+      "call": "/cat-rust",
+      "category": "rust",
+      "path": "core/skills/rust/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-security",
+      "call": "/cat-security",
+      "category": "security",
+      "path": "core/skills/security/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-test",
+      "call": "/cat-test",
+      "category": "test",
+      "path": "core/skills/test/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-tool",
+      "call": "/cat-tool",
+      "category": "tool",
+      "path": "core/skills/tool/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-ui",
+      "call": "/cat-ui",
+      "category": "ui",
+      "path": "core/skills/ui/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-vision",
+      "call": "/cat-vision",
+      "category": "vision",
+      "path": "core/skills/vision/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-web",
+      "call": "/cat-web",
+      "category": "web",
+      "path": "core/skills/web/SKILL.md",
+      "roles": 6
+    },
+    {
+      "name": "cat-workflow",
+      "call": "/cat-workflow",
+      "category": "workflow",
+      "path": "core/skills/workflow/SKILL.md",
+      "roles": 6
+    }
+  ],
+  "supergroks_by_category": {
+    "agent": [
+      {
+        "name": "agent-audit",
+        "call": "/agent-audit",
+        "role": "audit",
+        "tier": "frontier",
+        "intent": "agent/audit (checklist): Compose a 6-node harness for a landing page goal; Route a goal to category roles with I/O contr",
+        "purpose": "Plan and run multi-agent SuperGrok compositions. Method (checklist): check against an explicit checklist; record pass/fa",
+        "path": "core/skills/agent/audit/SKILL.md",
+        "binary_id": "opgrok.sg.agent-audit"
+      },
+      {
+        "name": "agent-forge",
+        "call": "/agent-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "agent/forge (e2e path): Compose a 6-node harness for a landing page goal; Route a goal to category roles with I/O contra",
+        "purpose": "Plan and run multi-agent SuperGrok compositions. Method (e2e path): build the full end-to-end path first, then harden ed",
+        "path": "core/skills/agent/forge/SKILL.md",
+        "binary_id": "opgrok.sg.agent-forge"
+      },
+      {
+        "name": "agent-scout",
+        "call": "/agent-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "agent/scout (map): Compose a 6-node harness for a landing page goal; Route a goal to category roles with I/O contracts; ",
+        "purpose": "Plan and run multi-agent SuperGrok compositions. Method (map): map structure and constraints before committing to edits.",
+        "path": "core/skills/agent/scout/SKILL.md",
+        "binary_id": "opgrok.sg.agent-scout"
+      },
+      {
+        "name": "agent-seal",
+        "call": "/agent-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "agent/seal (finalize): Compose a 6-node harness for a landing page goal; Route a goal to category roles with I/O contrac",
+        "purpose": "Plan and run multi-agent SuperGrok compositions. Method (finalize): verify the win gate; freeze outputs; mark ready for ",
+        "path": "core/skills/agent/seal/SKILL.md",
+        "binary_id": "opgrok.sg.agent-seal"
+      },
+      {
+        "name": "agent-smith",
+        "call": "/agent-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "agent/smith (build unit): Compose a 6-node harness for a landing page goal; Route a goal to category roles with I/O cont",
+        "purpose": "Plan and run multi-agent SuperGrok compositions. Method (build unit): build the smallest correct unit that meets the bri",
+        "path": "core/skills/agent/smith/SKILL.md",
+        "binary_id": "opgrok.sg.agent-smith"
+      },
+      {
+        "name": "agent-trace",
+        "call": "/agent-trace",
+        "role": "trace",
+        "tier": "frontier",
+        "intent": "agent/trace (RCA): Compose a 6-node harness for a landing page goal; Route a goal to category roles with I/O contracts; ",
+        "purpose": "Plan and run multi-agent SuperGrok compositions. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domai",
+        "path": "core/skills/agent/trace/SKILL.md",
+        "binary_id": "opgrok.sg.agent-trace"
+      }
+    ],
+    "binary": [
+      {
+        "name": "binary-audit",
+        "call": "/binary-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "binary/audit (checklist): Add a CLI subcommand with --help text; Package a release artifact with version flag; Fix FFI b",
+        "purpose": "Build and package native binaries. Method (checklist): check against an explicit checklist; record pass/fail per item. D",
+        "path": "core/skills/binary/audit/SKILL.md",
+        "binary_id": "opgrok.sg.binary-audit"
+      },
+      {
+        "name": "binary-forge",
+        "call": "/binary-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "binary/forge (e2e path): Add a CLI subcommand with --help text; Package a release artifact with version flag; Fix FFI bo",
+        "purpose": "Build and package native binaries. Method (e2e path): build the full end-to-end path first, then harden edges. Domain: R",
+        "path": "core/skills/binary/forge/SKILL.md",
+        "binary_id": "opgrok.sg.binary-forge"
+      },
+      {
+        "name": "binary-scout",
+        "call": "/binary-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "binary/scout (map): Add a CLI subcommand with --help text; Package a release artifact with version flag; Fix FFI boundar",
+        "purpose": "Build and package native binaries. Method (map): map structure and constraints before committing to edits. Domain: Rust/",
+        "path": "core/skills/binary/scout/SKILL.md",
+        "binary_id": "opgrok.sg.binary-scout"
+      },
+      {
+        "name": "binary-seal",
+        "call": "/binary-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "binary/seal (finalize): Add a CLI subcommand with --help text; Package a release artifact with version flag; Fix FFI bou",
+        "purpose": "Build and package native binaries. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. Domai",
+        "path": "core/skills/binary/seal/SKILL.md",
+        "binary_id": "opgrok.sg.binary-seal"
+      },
+      {
+        "name": "binary-smith",
+        "call": "/binary-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "binary/smith (build unit): Add a CLI subcommand with --help text; Package a release artifact with version flag; Fix FFI ",
+        "purpose": "Build and package native binaries. Method (build unit): build the smallest correct unit that meets the brief. Domain: Ru",
+        "path": "core/skills/binary/smith/SKILL.md",
+        "binary_id": "opgrok.sg.binary-smith"
+      },
+      {
+        "name": "binary-trace",
+        "call": "/binary-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "binary/trace (RCA): Add a CLI subcommand with --help text; Package a release artifact with version flag; Fix FFI boundar",
+        "purpose": "Build and package native binaries. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: Rust/native",
+        "path": "core/skills/binary/trace/SKILL.md",
+        "binary_id": "opgrok.sg.binary-trace"
+      }
+    ],
+    "code": [
+      {
+        "name": "code-audit",
+        "call": "/code-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "code/audit (checklist): Add a pure function + unit tests without touching the HTTP layer; Refactor a module boundary whi",
+        "purpose": "Implement and change application code. Method (checklist): check against an explicit checklist; record pass/fail per ite",
+        "path": "core/skills/code/audit/SKILL.md",
+        "binary_id": "opgrok.sg.code-audit"
+      },
+      {
+        "name": "code-forge",
+        "call": "/code-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "code/forge (e2e path): Add a pure function + unit tests without touching the HTTP layer; Refactor a module boundary whil",
+        "purpose": "Implement and change application code. Method (e2e path): build the full end-to-end path first, then harden edges. Domai",
+        "path": "core/skills/code/forge/SKILL.md",
+        "binary_id": "opgrok.sg.code-forge"
+      },
+      {
+        "name": "code-scout",
+        "call": "/code-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "code/scout (map): Add a pure function + unit tests without touching the HTTP layer; Refactor a module boundary while kee",
+        "purpose": "Implement and change application code. Method (map): map structure and constraints before committing to edits. Domain: a",
+        "path": "core/skills/code/scout/SKILL.md",
+        "binary_id": "opgrok.sg.code-scout"
+      },
+      {
+        "name": "code-seal",
+        "call": "/code-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "code/seal (finalize): Add a pure function + unit tests without touching the HTTP layer; Refactor a module boundary while",
+        "purpose": "Implement and change application code. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. D",
+        "path": "core/skills/code/seal/SKILL.md",
+        "binary_id": "opgrok.sg.code-seal"
+      },
+      {
+        "name": "code-smith",
+        "call": "/code-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "code/smith (build unit): Add a pure function + unit tests without touching the HTTP layer; Refactor a module boundary wh",
+        "purpose": "Implement and change application code. Method (build unit): build the smallest correct unit that meets the brief. Domain",
+        "path": "core/skills/code/smith/SKILL.md",
+        "binary_id": "opgrok.sg.code-smith"
+      },
+      {
+        "name": "code-trace",
+        "call": "/code-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "code/trace (RCA): Add a pure function + unit tests without touching the HTTP layer; Refactor a module boundary while kee",
+        "purpose": "Implement and change application code. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: applica",
+        "path": "core/skills/code/trace/SKILL.md",
+        "binary_id": "opgrok.sg.code-trace"
+      }
+    ],
+    "data": [
+      {
+        "name": "data-audit",
+        "call": "/data-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "data/audit (checklist): Add an ETL step with schema validation and reject logging; Reshape CSV\u2192JSON with explicit field ",
+        "purpose": "Build and fix data pipelines and schemas. Method (checklist): check against an explicit checklist; record pass/fail per ",
+        "path": "core/skills/data/audit/SKILL.md",
+        "binary_id": "opgrok.sg.data-audit"
+      },
+      {
+        "name": "data-forge",
+        "call": "/data-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "data/forge (e2e path): Add an ETL step with schema validation and reject logging; Reshape CSV\u2192JSON with explicit field m",
+        "purpose": "Build and fix data pipelines and schemas. Method (e2e path): build the full end-to-end path first, then harden edges. Do",
+        "path": "core/skills/data/forge/SKILL.md",
+        "binary_id": "opgrok.sg.data-forge"
+      },
+      {
+        "name": "data-scout",
+        "call": "/data-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "data/scout (map): Add an ETL step with schema validation and reject logging; Reshape CSV\u2192JSON with explicit field map; F",
+        "purpose": "Build and fix data pipelines and schemas. Method (map): map structure and constraints before committing to edits. Domain",
+        "path": "core/skills/data/scout/SKILL.md",
+        "binary_id": "opgrok.sg.data-scout"
+      },
+      {
+        "name": "data-seal",
+        "call": "/data-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "data/seal (finalize): Add an ETL step with schema validation and reject logging; Reshape CSV\u2192JSON with explicit field ma",
+        "purpose": "Build and fix data pipelines and schemas. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff",
+        "path": "core/skills/data/seal/SKILL.md",
+        "binary_id": "opgrok.sg.data-seal"
+      },
+      {
+        "name": "data-smith",
+        "call": "/data-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "data/smith (build unit): Add an ETL step with schema validation and reject logging; Reshape CSV\u2192JSON with explicit field",
+        "purpose": "Build and fix data pipelines and schemas. Method (build unit): build the smallest correct unit that meets the brief. Dom",
+        "path": "core/skills/data/smith/SKILL.md",
+        "binary_id": "opgrok.sg.data-smith"
+      },
+      {
+        "name": "data-trace",
+        "call": "/data-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "data/trace (RCA): Add an ETL step with schema validation and reject logging; Reshape CSV\u2192JSON with explicit field map; F",
+        "purpose": "Build and fix data pipelines and schemas. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: pipe",
+        "path": "core/skills/data/trace/SKILL.md",
+        "binary_id": "opgrok.sg.data-trace"
+      }
+    ],
+    "db": [
+      {
+        "name": "db-audit",
+        "call": "/db-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "db/audit (checklist): Write a forward migration adding a column + index; Fix a slow query with a justified index; Add a ",
+        "purpose": "Design and fix database schemas and queries. Method (checklist): check against an explicit checklist; record pass/fail p",
+        "path": "core/skills/db/audit/SKILL.md",
+        "binary_id": "opgrok.sg.db-audit"
+      },
+      {
+        "name": "db-forge",
+        "call": "/db-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "db/forge (e2e path): Write a forward migration adding a column + index; Fix a slow query with a justified index; Add a f",
+        "purpose": "Design and fix database schemas and queries. Method (e2e path): build the full end-to-end path first, then harden edges.",
+        "path": "core/skills/db/forge/SKILL.md",
+        "binary_id": "opgrok.sg.db-forge"
+      },
+      {
+        "name": "db-scout",
+        "call": "/db-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "db/scout (map): Write a forward migration adding a column + index; Fix a slow query with a justified index; Add a foreig",
+        "purpose": "Design and fix database schemas and queries. Method (map): map structure and constraints before committing to edits. Dom",
+        "path": "core/skills/db/scout/SKILL.md",
+        "binary_id": "opgrok.sg.db-scout"
+      },
+      {
+        "name": "db-seal",
+        "call": "/db-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "db/seal (finalize): Write a forward migration adding a column + index; Fix a slow query with a justified index; Add a fo",
+        "purpose": "Design and fix database schemas and queries. Method (finalize): verify the win gate; freeze outputs; mark ready for hand",
+        "path": "core/skills/db/seal/SKILL.md",
+        "binary_id": "opgrok.sg.db-seal"
+      },
+      {
+        "name": "db-smith",
+        "call": "/db-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "db/smith (build unit): Write a forward migration adding a column + index; Fix a slow query with a justified index; Add a",
+        "purpose": "Design and fix database schemas and queries. Method (build unit): build the smallest correct unit that meets the brief. ",
+        "path": "core/skills/db/smith/SKILL.md",
+        "binary_id": "opgrok.sg.db-smith"
+      },
+      {
+        "name": "db-trace",
+        "call": "/db-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "db/trace (RCA): Write a forward migration adding a column + index; Fix a slow query with a justified index; Add a foreig",
+        "purpose": "Design and fix database schemas and queries. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: S",
+        "path": "core/skills/db/trace/SKILL.md",
+        "binary_id": "opgrok.sg.db-trace"
+      }
+    ],
+    "debug": [
+      {
+        "name": "debug-audit",
+        "call": "/debug-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "debug/audit (checklist): RCA a crash from a stack trace to a one-line root fix; Stabilize a flaky test by removing share",
+        "purpose": "Find root cause and apply minimal fixes. Method (checklist): check against an explicit checklist; record pass/fail per i",
+        "path": "core/skills/debug/audit/SKILL.md",
+        "binary_id": "opgrok.sg.debug-audit"
+      },
+      {
+        "name": "debug-forge",
+        "call": "/debug-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "debug/forge (e2e path): RCA a crash from a stack trace to a one-line root fix; Stabilize a flaky test by removing shared",
+        "purpose": "Find root cause and apply minimal fixes. Method (e2e path): build the full end-to-end path first, then harden edges. Dom",
+        "path": "core/skills/debug/forge/SKILL.md",
+        "binary_id": "opgrok.sg.debug-forge"
+      },
+      {
+        "name": "debug-scout",
+        "call": "/debug-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "debug/scout (map): RCA a crash from a stack trace to a one-line root fix; Stabilize a flaky test by removing shared stat",
+        "purpose": "Find root cause and apply minimal fixes. Method (map): map structure and constraints before committing to edits. Domain:",
+        "path": "core/skills/debug/scout/SKILL.md",
+        "binary_id": "opgrok.sg.debug-scout"
+      },
+      {
+        "name": "debug-seal",
+        "call": "/debug-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "debug/seal (finalize): RCA a crash from a stack trace to a one-line root fix; Stabilize a flaky test by removing shared ",
+        "purpose": "Find root cause and apply minimal fixes. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff.",
+        "path": "core/skills/debug/seal/SKILL.md",
+        "binary_id": "opgrok.sg.debug-seal"
+      },
+      {
+        "name": "debug-smith",
+        "call": "/debug-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "debug/smith (build unit): RCA a crash from a stack trace to a one-line root fix; Stabilize a flaky test by removing shar",
+        "purpose": "Find root cause and apply minimal fixes. Method (build unit): build the smallest correct unit that meets the brief. Doma",
+        "path": "core/skills/debug/smith/SKILL.md",
+        "binary_id": "opgrok.sg.debug-smith"
+      },
+      {
+        "name": "debug-trace",
+        "call": "/debug-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "debug/trace (RCA): RCA a crash from a stack trace to a one-line root fix; Stabilize a flaky test by removing shared stat",
+        "purpose": "Find root cause and apply minimal fixes. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: failu",
+        "path": "core/skills/debug/trace/SKILL.md",
+        "binary_id": "opgrok.sg.debug-trace"
+      }
+    ],
+    "devops": [
+      {
+        "name": "devops-audit",
+        "call": "/devops-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "devops/audit (checklist): Fix a failing GitHub Actions job; Add a Dockerfile with non-root user; Write a deploy runbook ",
+        "purpose": "Build and fix delivery and platform automation. Method (checklist): check against an explicit checklist; record pass/fai",
+        "path": "core/skills/devops/audit/SKILL.md",
+        "binary_id": "opgrok.sg.devops-audit"
+      },
+      {
+        "name": "devops-forge",
+        "call": "/devops-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "devops/forge (e2e path): Fix a failing GitHub Actions job; Add a Dockerfile with non-root user; Write a deploy runbook w",
+        "purpose": "Build and fix delivery and platform automation. Method (e2e path): build the full end-to-end path first, then harden edg",
+        "path": "core/skills/devops/forge/SKILL.md",
+        "binary_id": "opgrok.sg.devops-forge"
+      },
+      {
+        "name": "devops-scout",
+        "call": "/devops-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "devops/scout (map): Fix a failing GitHub Actions job; Add a Dockerfile with non-root user; Write a deploy runbook with r",
+        "purpose": "Build and fix delivery and platform automation. Method (map): map structure and constraints before committing to edits. ",
+        "path": "core/skills/devops/scout/SKILL.md",
+        "binary_id": "opgrok.sg.devops-scout"
+      },
+      {
+        "name": "devops-seal",
+        "call": "/devops-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "devops/seal (finalize): Fix a failing GitHub Actions job; Add a Dockerfile with non-root user; Write a deploy runbook wi",
+        "purpose": "Build and fix delivery and platform automation. Method (finalize): verify the win gate; freeze outputs; mark ready for h",
+        "path": "core/skills/devops/seal/SKILL.md",
+        "binary_id": "opgrok.sg.devops-seal"
+      },
+      {
+        "name": "devops-smith",
+        "call": "/devops-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "devops/smith (build unit): Fix a failing GitHub Actions job; Add a Dockerfile with non-root user; Write a deploy runbook",
+        "purpose": "Build and fix delivery and platform automation. Method (build unit): build the smallest correct unit that meets the brie",
+        "path": "core/skills/devops/smith/SKILL.md",
+        "binary_id": "opgrok.sg.devops-smith"
+      },
+      {
+        "name": "devops-trace",
+        "call": "/devops-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "devops/trace (RCA): Fix a failing GitHub Actions job; Add a Dockerfile with non-root user; Write a deploy runbook with r",
+        "purpose": "Build and fix delivery and platform automation. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain",
+        "path": "core/skills/devops/trace/SKILL.md",
+        "binary_id": "opgrok.sg.devops-trace"
+      }
+    ],
+    "docs": [
+      {
+        "name": "docs-audit",
+        "call": "/docs-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "docs/audit (checklist): Rewrite README quickstart with verified commands; Document an API route with request/response ex",
+        "purpose": "Write docs grounded in actual repo behavior. Method (checklist): check against an explicit checklist; record pass/fail p",
+        "path": "core/skills/docs/audit/SKILL.md",
+        "binary_id": "opgrok.sg.docs-audit"
+      },
+      {
+        "name": "docs-forge",
+        "call": "/docs-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "docs/forge (e2e path): Rewrite README quickstart with verified commands; Document an API route with request/response exa",
+        "purpose": "Write docs grounded in actual repo behavior. Method (e2e path): build the full end-to-end path first, then harden edges.",
+        "path": "core/skills/docs/forge/SKILL.md",
+        "binary_id": "opgrok.sg.docs-forge"
+      },
+      {
+        "name": "docs-scout",
+        "call": "/docs-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "docs/scout (map): Rewrite README quickstart with verified commands; Document an API route with request/response examples",
+        "purpose": "Write docs grounded in actual repo behavior. Method (map): map structure and constraints before committing to edits. Dom",
+        "path": "core/skills/docs/scout/SKILL.md",
+        "binary_id": "opgrok.sg.docs-scout"
+      },
+      {
+        "name": "docs-seal",
+        "call": "/docs-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "docs/seal (finalize): Rewrite README quickstart with verified commands; Document an API route with request/response exam",
+        "purpose": "Write docs grounded in actual repo behavior. Method (finalize): verify the win gate; freeze outputs; mark ready for hand",
+        "path": "core/skills/docs/seal/SKILL.md",
+        "binary_id": "opgrok.sg.docs-seal"
+      },
+      {
+        "name": "docs-smith",
+        "call": "/docs-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "docs/smith (build unit): Rewrite README quickstart with verified commands; Document an API route with request/response e",
+        "purpose": "Write docs grounded in actual repo behavior. Method (build unit): build the smallest correct unit that meets the brief. ",
+        "path": "core/skills/docs/smith/SKILL.md",
+        "binary_id": "opgrok.sg.docs-smith"
+      },
+      {
+        "name": "docs-trace",
+        "call": "/docs-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "docs/trace (RCA): Rewrite README quickstart with verified commands; Document an API route with request/response examples",
+        "purpose": "Write docs grounded in actual repo behavior. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: R",
+        "path": "core/skills/docs/trace/SKILL.md",
+        "binary_id": "opgrok.sg.docs-trace"
+      }
+    ],
+    "eval": [
+      {
+        "name": "eval-audit",
+        "call": "/eval-audit",
+        "role": "audit",
+        "tier": "frontier",
+        "intent": "eval/audit (checklist): Build a 4-dimension rubric for a harness run; Score an artifact against a frozen threshold; Desi",
+        "purpose": "Design and run evaluations with measurable scores. Method (checklist): check against an explicit checklist; record pass/",
+        "path": "core/skills/eval/audit/SKILL.md",
+        "binary_id": "opgrok.sg.eval-audit"
+      },
+      {
+        "name": "eval-forge",
+        "call": "/eval-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "eval/forge (e2e path): Build a 4-dimension rubric for a harness run; Score an artifact against a frozen threshold; Desig",
+        "purpose": "Design and run evaluations with measurable scores. Method (e2e path): build the full end-to-end path first, then harden ",
+        "path": "core/skills/eval/forge/SKILL.md",
+        "binary_id": "opgrok.sg.eval-forge"
+      },
+      {
+        "name": "eval-scout",
+        "call": "/eval-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "eval/scout (map): Build a 4-dimension rubric for a harness run; Score an artifact against a frozen threshold; Design a j",
+        "purpose": "Design and run evaluations with measurable scores. Method (map): map structure and constraints before committing to edit",
+        "path": "core/skills/eval/scout/SKILL.md",
+        "binary_id": "opgrok.sg.eval-scout"
+      },
+      {
+        "name": "eval-seal",
+        "call": "/eval-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "eval/seal (finalize): Build a 4-dimension rubric for a harness run; Score an artifact against a frozen threshold; Design",
+        "purpose": "Design and run evaluations with measurable scores. Method (finalize): verify the win gate; freeze outputs; mark ready fo",
+        "path": "core/skills/eval/seal/SKILL.md",
+        "binary_id": "opgrok.sg.eval-seal"
+      },
+      {
+        "name": "eval-smith",
+        "call": "/eval-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "eval/smith (build unit): Build a 4-dimension rubric for a harness run; Score an artifact against a frozen threshold; Des",
+        "purpose": "Design and run evaluations with measurable scores. Method (build unit): build the smallest correct unit that meets the b",
+        "path": "core/skills/eval/smith/SKILL.md",
+        "binary_id": "opgrok.sg.eval-smith"
+      },
+      {
+        "name": "eval-trace",
+        "call": "/eval-trace",
+        "role": "trace",
+        "tier": "frontier",
+        "intent": "eval/trace (RCA): Build a 4-dimension rubric for a harness run; Score an artifact against a frozen threshold; Design a j",
+        "purpose": "Design and run evaluations with measurable scores. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Dom",
+        "path": "core/skills/eval/trace/SKILL.md",
+        "binary_id": "opgrok.sg.eval-trace"
+      }
+    ],
+    "leslie": [],
+    "math": [
+      {
+        "name": "math-audit",
+        "call": "/math-audit",
+        "role": "audit",
+        "tier": "frontier",
+        "intent": "math/audit (checklist): Derive time complexity of a concrete algorithm; Implement an algorithm with test vectors; Verify",
+        "purpose": "Solve and verify mathematical and algorithmic problems. Method (checklist): check against an explicit checklist; record ",
+        "path": "core/skills/math/audit/SKILL.md",
+        "binary_id": "opgrok.sg.math-audit"
+      },
+      {
+        "name": "math-forge",
+        "call": "/math-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "math/forge (e2e path): Derive time complexity of a concrete algorithm; Implement an algorithm with test vectors; Verify ",
+        "purpose": "Solve and verify mathematical and algorithmic problems. Method (e2e path): build the full end-to-end path first, then ha",
+        "path": "core/skills/math/forge/SKILL.md",
+        "binary_id": "opgrok.sg.math-forge"
+      },
+      {
+        "name": "math-scout",
+        "call": "/math-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "math/scout (map): Derive time complexity of a concrete algorithm; Implement an algorithm with test vectors; Verify a for",
+        "purpose": "Solve and verify mathematical and algorithmic problems. Method (map): map structure and constraints before committing to",
+        "path": "core/skills/math/scout/SKILL.md",
+        "binary_id": "opgrok.sg.math-scout"
+      },
+      {
+        "name": "math-seal",
+        "call": "/math-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "math/seal (finalize): Derive time complexity of a concrete algorithm; Implement an algorithm with test vectors; Verify a",
+        "purpose": "Solve and verify mathematical and algorithmic problems. Method (finalize): verify the win gate; freeze outputs; mark rea",
+        "path": "core/skills/math/seal/SKILL.md",
+        "binary_id": "opgrok.sg.math-seal"
+      },
+      {
+        "name": "math-smith",
+        "call": "/math-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "math/smith (build unit): Derive time complexity of a concrete algorithm; Implement an algorithm with test vectors; Verif",
+        "purpose": "Solve and verify mathematical and algorithmic problems. Method (build unit): build the smallest correct unit that meets ",
+        "path": "core/skills/math/smith/SKILL.md",
+        "binary_id": "opgrok.sg.math-smith"
+      },
+      {
+        "name": "math-trace",
+        "call": "/math-trace",
+        "role": "trace",
+        "tier": "frontier",
+        "intent": "math/trace (RCA): Derive time complexity of a concrete algorithm; Implement an algorithm with test vectors; Verify a for",
+        "purpose": "Solve and verify mathematical and algorithmic problems. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain",
+        "path": "core/skills/math/trace/SKILL.md",
+        "binary_id": "opgrok.sg.math-trace"
+      }
+    ],
+    "mcp": [
+      {
+        "name": "mcp-audit",
+        "call": "/mcp-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "mcp/audit (checklist): Discover and call a Linear/GitHub MCP tool correctly; Report schema gap when tool missing fields;",
+        "purpose": "Wire and use MCP tools correctly. Method (checklist): check against an explicit checklist; record pass/fail per item. Do",
+        "path": "core/skills/mcp/audit/SKILL.md",
+        "binary_id": "opgrok.sg.mcp-audit"
+      },
+      {
+        "name": "mcp-forge",
+        "call": "/mcp-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "mcp/forge (e2e path): Discover and call a Linear/GitHub MCP tool correctly; Report schema gap when tool missing fields; ",
+        "purpose": "Wire and use MCP tools correctly. Method (e2e path): build the full end-to-end path first, then harden edges. Domain: MC",
+        "path": "core/skills/mcp/forge/SKILL.md",
+        "binary_id": "opgrok.sg.mcp-forge"
+      },
+      {
+        "name": "mcp-scout",
+        "call": "/mcp-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "mcp/scout (map): Discover and call a Linear/GitHub MCP tool correctly; Report schema gap when tool missing fields; Wire ",
+        "purpose": "Wire and use MCP tools correctly. Method (map): map structure and constraints before committing to edits. Domain: MCP se",
+        "path": "core/skills/mcp/scout/SKILL.md",
+        "binary_id": "opgrok.sg.mcp-scout"
+      },
+      {
+        "name": "mcp-seal",
+        "call": "/mcp-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "mcp/seal (finalize): Discover and call a Linear/GitHub MCP tool correctly; Report schema gap when tool missing fields; W",
+        "purpose": "Wire and use MCP tools correctly. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. Domain",
+        "path": "core/skills/mcp/seal/SKILL.md",
+        "binary_id": "opgrok.sg.mcp-seal"
+      },
+      {
+        "name": "mcp-smith",
+        "call": "/mcp-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "mcp/smith (build unit): Discover and call a Linear/GitHub MCP tool correctly; Report schema gap when tool missing fields",
+        "purpose": "Wire and use MCP tools correctly. Method (build unit): build the smallest correct unit that meets the brief. Domain: MCP",
+        "path": "core/skills/mcp/smith/SKILL.md",
+        "binary_id": "opgrok.sg.mcp-smith"
+      },
+      {
+        "name": "mcp-trace",
+        "call": "/mcp-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "mcp/trace (RCA): Discover and call a Linear/GitHub MCP tool correctly; Report schema gap when tool missing fields; Wire ",
+        "purpose": "Wire and use MCP tools correctly. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: MCP servers,",
+        "path": "core/skills/mcp/trace/SKILL.md",
+        "binary_id": "opgrok.sg.mcp-trace"
+      }
+    ],
+    "meta": [
+      {
+        "name": "meta-audit",
+        "call": "/meta-audit",
+        "role": "audit",
+        "tier": "frontier",
+        "intent": "meta/audit (checklist): Regenerate catalog after role change; Rebind identities after bulk skill edit; Fix registry afte",
+        "purpose": "Maintain SuperGrok skills, registry, and program hygiene. Method (checklist): check against an explicit checklist; recor",
+        "path": "core/skills/meta/audit/SKILL.md",
+        "binary_id": "opgrok.sg.meta-audit"
+      },
+      {
+        "name": "meta-forge",
+        "call": "/meta-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "meta/forge (e2e path): Regenerate catalog after role change; Rebind identities after bulk skill edit; Fix registry after",
+        "purpose": "Maintain SuperGrok skills, registry, and program hygiene. Method (e2e path): build the full end-to-end path first, then ",
+        "path": "core/skills/meta/forge/SKILL.md",
+        "binary_id": "opgrok.sg.meta-forge"
+      },
+      {
+        "name": "meta-scout",
+        "call": "/meta-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "meta/scout (map): Regenerate catalog after role change; Rebind identities after bulk skill edit; Fix registry after addi",
+        "purpose": "Maintain SuperGrok skills, registry, and program hygiene. Method (map): map structure and constraints before committing ",
+        "path": "core/skills/meta/scout/SKILL.md",
+        "binary_id": "opgrok.sg.meta-scout"
+      },
+      {
+        "name": "meta-seal",
+        "call": "/meta-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "meta/seal (finalize): Regenerate catalog after role change; Rebind identities after bulk skill edit; Fix registry after ",
+        "purpose": "Maintain SuperGrok skills, registry, and program hygiene. Method (finalize): verify the win gate; freeze outputs; mark r",
+        "path": "core/skills/meta/seal/SKILL.md",
+        "binary_id": "opgrok.sg.meta-seal"
+      },
+      {
+        "name": "meta-smith",
+        "call": "/meta-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "meta/smith (build unit): Regenerate catalog after role change; Rebind identities after bulk skill edit; Fix registry aft",
+        "purpose": "Maintain SuperGrok skills, registry, and program hygiene. Method (build unit): build the smallest correct unit that meet",
+        "path": "core/skills/meta/smith/SKILL.md",
+        "binary_id": "opgrok.sg.meta-smith"
+      },
+      {
+        "name": "meta-trace",
+        "call": "/meta-trace",
+        "role": "trace",
+        "tier": "frontier",
+        "intent": "meta/trace (RCA): Regenerate catalog after role change; Rebind identities after bulk skill edit; Fix registry after addi",
+        "purpose": "Maintain SuperGrok skills, registry, and program hygiene. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal cha",
+        "path": "core/skills/meta/trace/SKILL.md",
+        "binary_id": "opgrok.sg.meta-trace"
+      }
+    ],
+    "opgrok": [],
+    "plan": [
+      {
+        "name": "plan-audit",
+        "call": "/plan-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "plan/audit (checklist): ADR for storage choice with options and decision; PR plan for a multi-package feature; Migration",
+        "purpose": "Produce implementable plans and architecture decisions. Method (checklist): check against an explicit checklist; record ",
+        "path": "core/skills/plan/audit/SKILL.md",
+        "binary_id": "opgrok.sg.plan-audit"
+      },
+      {
+        "name": "plan-forge",
+        "call": "/plan-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "plan/forge (e2e path): ADR for storage choice with options and decision; PR plan for a multi-package feature; Migration ",
+        "purpose": "Produce implementable plans and architecture decisions. Method (e2e path): build the full end-to-end path first, then ha",
+        "path": "core/skills/plan/forge/SKILL.md",
+        "binary_id": "opgrok.sg.plan-forge"
+      },
+      {
+        "name": "plan-scout",
+        "call": "/plan-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "plan/scout (map): ADR for storage choice with options and decision; PR plan for a multi-package feature; Migration seque",
+        "purpose": "Produce implementable plans and architecture decisions. Method (map): map structure and constraints before committing to",
+        "path": "core/skills/plan/scout/SKILL.md",
+        "binary_id": "opgrok.sg.plan-scout"
+      },
+      {
+        "name": "plan-seal",
+        "call": "/plan-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "plan/seal (finalize): ADR for storage choice with options and decision; PR plan for a multi-package feature; Migration s",
+        "purpose": "Produce implementable plans and architecture decisions. Method (finalize): verify the win gate; freeze outputs; mark rea",
+        "path": "core/skills/plan/seal/SKILL.md",
+        "binary_id": "opgrok.sg.plan-seal"
+      },
+      {
+        "name": "plan-smith",
+        "call": "/plan-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "plan/smith (build unit): ADR for storage choice with options and decision; PR plan for a multi-package feature; Migratio",
+        "purpose": "Produce implementable plans and architecture decisions. Method (build unit): build the smallest correct unit that meets ",
+        "path": "core/skills/plan/smith/SKILL.md",
+        "binary_id": "opgrok.sg.plan-smith"
+      },
+      {
+        "name": "plan-trace",
+        "call": "/plan-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "plan/trace (RCA): ADR for storage choice with options and decision; PR plan for a multi-package feature; Migration seque",
+        "purpose": "Produce implementable plans and architecture decisions. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain",
+        "path": "core/skills/plan/trace/SKILL.md",
+        "binary_id": "opgrok.sg.plan-trace"
+      }
+    ],
+    "product": [
+      {
+        "name": "product-audit",
+        "call": "/product-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "product/audit (checklist): Write a one-pager with must/should/could and non-goals; Turn a vague ask into acceptance crit",
+        "purpose": "Clarify product requirements and priorities. Method (checklist): check against an explicit checklist; record pass/fail p",
+        "path": "core/skills/product/audit/SKILL.md",
+        "binary_id": "opgrok.sg.product-audit"
+      },
+      {
+        "name": "product-forge",
+        "call": "/product-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "product/forge (e2e path): Write a one-pager with must/should/could and non-goals; Turn a vague ask into acceptance crite",
+        "purpose": "Clarify product requirements and priorities. Method (e2e path): build the full end-to-end path first, then harden edges.",
+        "path": "core/skills/product/forge/SKILL.md",
+        "binary_id": "opgrok.sg.product-forge"
+      },
+      {
+        "name": "product-scout",
+        "call": "/product-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "product/scout (map): Write a one-pager with must/should/could and non-goals; Turn a vague ask into acceptance criteria f",
+        "purpose": "Clarify product requirements and priorities. Method (map): map structure and constraints before committing to edits. Dom",
+        "path": "core/skills/product/scout/SKILL.md",
+        "binary_id": "opgrok.sg.product-scout"
+      },
+      {
+        "name": "product-seal",
+        "call": "/product-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "product/seal (finalize): Write a one-pager with must/should/could and non-goals; Turn a vague ask into acceptance criter",
+        "purpose": "Clarify product requirements and priorities. Method (finalize): verify the win gate; freeze outputs; mark ready for hand",
+        "path": "core/skills/product/seal/SKILL.md",
+        "binary_id": "opgrok.sg.product-seal"
+      },
+      {
+        "name": "product-smith",
+        "call": "/product-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "product/smith (build unit): Write a one-pager with must/should/could and non-goals; Turn a vague ask into acceptance cri",
+        "purpose": "Clarify product requirements and priorities. Method (build unit): build the smallest correct unit that meets the brief. ",
+        "path": "core/skills/product/smith/SKILL.md",
+        "binary_id": "opgrok.sg.product-smith"
+      },
+      {
+        "name": "product-trace",
+        "call": "/product-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "product/trace (RCA): Write a one-pager with must/should/could and non-goals; Turn a vague ask into acceptance criteria f",
+        "purpose": "Clarify product requirements and priorities. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: s",
+        "path": "core/skills/product/trace/SKILL.md",
+        "binary_id": "opgrok.sg.product-trace"
+      }
+    ],
+    "python": [
+      {
+        "name": "python-audit",
+        "call": "/python-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "python/audit (checklist): Add a typed FastAPI route with dependency injection; Fix an async race where a coroutine was n",
+        "purpose": "Write and fix Python packages and services. Method (checklist): check against an explicit checklist; record pass/fail pe",
+        "path": "core/skills/python/audit/SKILL.md",
+        "binary_id": "opgrok.sg.python-audit"
+      },
+      {
+        "name": "python-forge",
+        "call": "/python-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "python/forge (e2e path): Add a typed FastAPI route with dependency injection; Fix an async race where a coroutine was no",
+        "purpose": "Write and fix Python packages and services. Method (e2e path): build the full end-to-end path first, then harden edges. ",
+        "path": "core/skills/python/forge/SKILL.md",
+        "binary_id": "opgrok.sg.python-forge"
+      },
+      {
+        "name": "python-scout",
+        "call": "/python-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "python/scout (map): Add a typed FastAPI route with dependency injection; Fix an async race where a coroutine was not awa",
+        "purpose": "Write and fix Python packages and services. Method (map): map structure and constraints before committing to edits. Doma",
+        "path": "core/skills/python/scout/SKILL.md",
+        "binary_id": "opgrok.sg.python-scout"
+      },
+      {
+        "name": "python-seal",
+        "call": "/python-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "python/seal (finalize): Add a typed FastAPI route with dependency injection; Fix an async race where a coroutine was not",
+        "purpose": "Write and fix Python packages and services. Method (finalize): verify the win gate; freeze outputs; mark ready for hando",
+        "path": "core/skills/python/seal/SKILL.md",
+        "binary_id": "opgrok.sg.python-seal"
+      },
+      {
+        "name": "python-smith",
+        "call": "/python-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "python/smith (build unit): Add a typed FastAPI route with dependency injection; Fix an async race where a coroutine was ",
+        "purpose": "Write and fix Python packages and services. Method (build unit): build the smallest correct unit that meets the brief. D",
+        "path": "core/skills/python/smith/SKILL.md",
+        "binary_id": "opgrok.sg.python-smith"
+      },
+      {
+        "name": "python-trace",
+        "call": "/python-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "python/trace (RCA): Add a typed FastAPI route with dependency injection; Fix an async race where a coroutine was not awa",
+        "purpose": "Write and fix Python packages and services. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: Py",
+        "path": "core/skills/python/trace/SKILL.md",
+        "binary_id": "opgrok.sg.python-trace"
+      }
+    ],
+    "research": [
+      {
+        "name": "research-audit",
+        "call": "/research-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "research/audit (checklist): Competitive landscape with dated sources; Codebase search answering 'where is X handled?'; S",
+        "purpose": "Research topics and synthesize cited findings. Method (checklist): check against an explicit checklist; record pass/fail",
+        "path": "core/skills/research/audit/SKILL.md",
+        "binary_id": "opgrok.sg.research-audit"
+      },
+      {
+        "name": "research-forge",
+        "call": "/research-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "research/forge (e2e path): Competitive landscape with dated sources; Codebase search answering 'where is X handled?'; Sy",
+        "purpose": "Research topics and synthesize cited findings. Method (e2e path): build the full end-to-end path first, then harden edge",
+        "path": "core/skills/research/forge/SKILL.md",
+        "binary_id": "opgrok.sg.research-forge"
+      },
+      {
+        "name": "research-scout",
+        "call": "/research-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "research/scout (map): Competitive landscape with dated sources; Codebase search answering 'where is X handled?'; Synthes",
+        "purpose": "Research topics and synthesize cited findings. Method (map): map structure and constraints before committing to edits. D",
+        "path": "core/skills/research/scout/SKILL.md",
+        "binary_id": "opgrok.sg.research-scout"
+      },
+      {
+        "name": "research-seal",
+        "call": "/research-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "research/seal (finalize): Competitive landscape with dated sources; Codebase search answering 'where is X handled?'; Syn",
+        "purpose": "Research topics and synthesize cited findings. Method (finalize): verify the win gate; freeze outputs; mark ready for ha",
+        "path": "core/skills/research/seal/SKILL.md",
+        "binary_id": "opgrok.sg.research-seal"
+      },
+      {
+        "name": "research-smith",
+        "call": "/research-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "research/smith (build unit): Competitive landscape with dated sources; Codebase search answering 'where is X handled?'; ",
+        "purpose": "Research topics and synthesize cited findings. Method (build unit): build the smallest correct unit that meets the brief",
+        "path": "core/skills/research/smith/SKILL.md",
+        "binary_id": "opgrok.sg.research-smith"
+      },
+      {
+        "name": "research-trace",
+        "call": "/research-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "research/trace (RCA): Competitive landscape with dated sources; Codebase search answering 'where is X handled?'; Synthes",
+        "purpose": "Research topics and synthesize cited findings. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain:",
+        "path": "core/skills/research/trace/SKILL.md",
+        "binary_id": "opgrok.sg.research-trace"
+      }
+    ],
+    "review": [
+      {
+        "name": "review-audit",
+        "call": "/review-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "review/audit (checklist): Review a PR for correctness and test gaps; Design review of an ADR with ranked risks; Critique",
+        "purpose": "Review work and report severity-ordered issues. Method (checklist): check against an explicit checklist; record pass/fai",
+        "path": "core/skills/review/audit/SKILL.md",
+        "binary_id": "opgrok.sg.review-audit"
+      },
+      {
+        "name": "review-forge",
+        "call": "/review-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "review/forge (e2e path): Review a PR for correctness and test gaps; Design review of an ADR with ranked risks; Critique ",
+        "purpose": "Review work and report severity-ordered issues. Method (e2e path): build the full end-to-end path first, then harden edg",
+        "path": "core/skills/review/forge/SKILL.md",
+        "binary_id": "opgrok.sg.review-forge"
+      },
+      {
+        "name": "review-scout",
+        "call": "/review-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "review/scout (map): Review a PR for correctness and test gaps; Design review of an ADR with ranked risks; Critique a pat",
+        "purpose": "Review work and report severity-ordered issues. Method (map): map structure and constraints before committing to edits. ",
+        "path": "core/skills/review/scout/SKILL.md",
+        "binary_id": "opgrok.sg.review-scout"
+      },
+      {
+        "name": "review-seal",
+        "call": "/review-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "review/seal (finalize): Review a PR for correctness and test gaps; Design review of an ADR with ranked risks; Critique a",
+        "purpose": "Review work and report severity-ordered issues. Method (finalize): verify the win gate; freeze outputs; mark ready for h",
+        "path": "core/skills/review/seal/SKILL.md",
+        "binary_id": "opgrok.sg.review-seal"
+      },
+      {
+        "name": "review-smith",
+        "call": "/review-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "review/smith (build unit): Review a PR for correctness and test gaps; Design review of an ADR with ranked risks; Critiqu",
+        "purpose": "Review work and report severity-ordered issues. Method (build unit): build the smallest correct unit that meets the brie",
+        "path": "core/skills/review/smith/SKILL.md",
+        "binary_id": "opgrok.sg.review-smith"
+      },
+      {
+        "name": "review-trace",
+        "call": "/review-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "review/trace (RCA): Review a PR for correctness and test gaps; Design review of an ADR with ranked risks; Critique a pat",
+        "purpose": "Review work and report severity-ordered issues. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain",
+        "path": "core/skills/review/trace/SKILL.md",
+        "binary_id": "opgrok.sg.review-trace"
+      }
+    ],
+    "rust": [
+      {
+        "name": "rust-audit",
+        "call": "/rust-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "rust/audit (checklist): Fix a borrow checker error without unsafe; Add a library module with Result-based API and unit t",
+        "purpose": "Write and fix Rust code safely. Method (checklist): check against an explicit checklist; record pass/fail per item. Doma",
+        "path": "core/skills/rust/audit/SKILL.md",
+        "binary_id": "opgrok.sg.rust-audit"
+      },
+      {
+        "name": "rust-forge",
+        "call": "/rust-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "rust/forge (e2e path): Fix a borrow checker error without unsafe; Add a library module with Result-based API and unit te",
+        "purpose": "Write and fix Rust code safely. Method (e2e path): build the full end-to-end path first, then harden edges. Domain: Rust",
+        "path": "core/skills/rust/forge/SKILL.md",
+        "binary_id": "opgrok.sg.rust-forge"
+      },
+      {
+        "name": "rust-scout",
+        "call": "/rust-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "rust/scout (map): Fix a borrow checker error without unsafe; Add a library module with Result-based API and unit tests; ",
+        "purpose": "Write and fix Rust code safely. Method (map): map structure and constraints before committing to edits. Domain: Rust cra",
+        "path": "core/skills/rust/scout/SKILL.md",
+        "binary_id": "opgrok.sg.rust-scout"
+      },
+      {
+        "name": "rust-seal",
+        "call": "/rust-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "rust/seal (finalize): Fix a borrow checker error without unsafe; Add a library module with Result-based API and unit tes",
+        "purpose": "Write and fix Rust code safely. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. Domain: ",
+        "path": "core/skills/rust/seal/SKILL.md",
+        "binary_id": "opgrok.sg.rust-seal"
+      },
+      {
+        "name": "rust-smith",
+        "call": "/rust-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "rust/smith (build unit): Fix a borrow checker error without unsafe; Add a library module with Result-based API and unit ",
+        "purpose": "Write and fix Rust code safely. Method (build unit): build the smallest correct unit that meets the brief. Domain: Rust ",
+        "path": "core/skills/rust/smith/SKILL.md",
+        "binary_id": "opgrok.sg.rust-smith"
+      },
+      {
+        "name": "rust-trace",
+        "call": "/rust-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "rust/trace (RCA): Fix a borrow checker error without unsafe; Add a library module with Result-based API and unit tests; ",
+        "purpose": "Write and fix Rust code safely. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: Rust crates, o",
+        "path": "core/skills/rust/trace/SKILL.md",
+        "binary_id": "opgrok.sg.rust-trace"
+      }
+    ],
+    "security": [
+      {
+        "name": "security-audit",
+        "call": "/security-audit",
+        "role": "audit",
+        "tier": "frontier",
+        "intent": "security/audit (checklist): Threat model a new public API; Audit authz on object access paths; Harden secrets handling i",
+        "purpose": "Audit and harden systems without writing exploits. Method (checklist): check against an explicit checklist; record pass/",
+        "path": "core/skills/security/audit/SKILL.md",
+        "binary_id": "opgrok.sg.security-audit"
+      },
+      {
+        "name": "security-forge",
+        "call": "/security-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "security/forge (e2e path): Threat model a new public API; Audit authz on object access paths; Harden secrets handling in",
+        "purpose": "Audit and harden systems without writing exploits. Method (e2e path): build the full end-to-end path first, then harden ",
+        "path": "core/skills/security/forge/SKILL.md",
+        "binary_id": "opgrok.sg.security-forge"
+      },
+      {
+        "name": "security-scout",
+        "call": "/security-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "security/scout (map): Threat model a new public API; Audit authz on object access paths; Harden secrets handling in conf",
+        "purpose": "Audit and harden systems without writing exploits. Method (map): map structure and constraints before committing to edit",
+        "path": "core/skills/security/scout/SKILL.md",
+        "binary_id": "opgrok.sg.security-scout"
+      },
+      {
+        "name": "security-seal",
+        "call": "/security-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "security/seal (finalize): Threat model a new public API; Audit authz on object access paths; Harden secrets handling in ",
+        "purpose": "Audit and harden systems without writing exploits. Method (finalize): verify the win gate; freeze outputs; mark ready fo",
+        "path": "core/skills/security/seal/SKILL.md",
+        "binary_id": "opgrok.sg.security-seal"
+      },
+      {
+        "name": "security-smith",
+        "call": "/security-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "security/smith (build unit): Threat model a new public API; Audit authz on object access paths; Harden secrets handling ",
+        "purpose": "Audit and harden systems without writing exploits. Method (build unit): build the smallest correct unit that meets the b",
+        "path": "core/skills/security/smith/SKILL.md",
+        "binary_id": "opgrok.sg.security-smith"
+      },
+      {
+        "name": "security-trace",
+        "call": "/security-trace",
+        "role": "trace",
+        "tier": "frontier",
+        "intent": "security/trace (RCA): Threat model a new public API; Audit authz on object access paths; Harden secrets handling in conf",
+        "purpose": "Audit and harden systems without writing exploits. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Dom",
+        "path": "core/skills/security/trace/SKILL.md",
+        "binary_id": "opgrok.sg.security-trace"
+      }
+    ],
+    "test": [
+      {
+        "name": "test-audit",
+        "call": "/test-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "test/audit (checklist): Add unit tests for a pure function edge cases; Fix a flaky test by isolating shared state; Write",
+        "purpose": "Add and repair tests that prove behavior. Method (checklist): check against an explicit checklist; record pass/fail per ",
+        "path": "core/skills/test/audit/SKILL.md",
+        "binary_id": "opgrok.sg.test-audit"
+      },
+      {
+        "name": "test-forge",
+        "call": "/test-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "test/forge (e2e path): Add unit tests for a pure function edge cases; Fix a flaky test by isolating shared state; Write ",
+        "purpose": "Add and repair tests that prove behavior. Method (e2e path): build the full end-to-end path first, then harden edges. Do",
+        "path": "core/skills/test/forge/SKILL.md",
+        "binary_id": "opgrok.sg.test-forge"
+      },
+      {
+        "name": "test-scout",
+        "call": "/test-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "test/scout (map): Add unit tests for a pure function edge cases; Fix a flaky test by isolating shared state; Write an in",
+        "purpose": "Add and repair tests that prove behavior. Method (map): map structure and constraints before committing to edits. Domain",
+        "path": "core/skills/test/scout/SKILL.md",
+        "binary_id": "opgrok.sg.test-scout"
+      },
+      {
+        "name": "test-seal",
+        "call": "/test-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "test/seal (finalize): Add unit tests for a pure function edge cases; Fix a flaky test by isolating shared state; Write a",
+        "purpose": "Add and repair tests that prove behavior. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff",
+        "path": "core/skills/test/seal/SKILL.md",
+        "binary_id": "opgrok.sg.test-seal"
+      },
+      {
+        "name": "test-smith",
+        "call": "/test-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "test/smith (build unit): Add unit tests for a pure function edge cases; Fix a flaky test by isolating shared state; Writ",
+        "purpose": "Add and repair tests that prove behavior. Method (build unit): build the smallest correct unit that meets the brief. Dom",
+        "path": "core/skills/test/smith/SKILL.md",
+        "binary_id": "opgrok.sg.test-smith"
+      },
+      {
+        "name": "test-trace",
+        "call": "/test-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "test/trace (RCA): Add unit tests for a pure function edge cases; Fix a flaky test by isolating shared state; Write an in",
+        "purpose": "Add and repair tests that prove behavior. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: unit",
+        "path": "core/skills/test/trace/SKILL.md",
+        "binary_id": "opgrok.sg.test-trace"
+      }
+    ],
+    "tool": [
+      {
+        "name": "tool-audit",
+        "call": "/tool-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "tool/audit (checklist): Orchestrate a multi-step CLI verify path; Scrape and assert a status page section; Chain build t",
+        "purpose": "Orchestrate tools and verify outcomes. Method (checklist): check against an explicit checklist; record pass/fail per ite",
+        "path": "core/skills/tool/audit/SKILL.md",
+        "binary_id": "opgrok.sg.tool-audit"
+      },
+      {
+        "name": "tool-forge",
+        "call": "/tool-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "tool/forge (e2e path): Orchestrate a multi-step CLI verify path; Scrape and assert a status page section; Chain build th",
+        "purpose": "Orchestrate tools and verify outcomes. Method (e2e path): build the full end-to-end path first, then harden edges. Domai",
+        "path": "core/skills/tool/forge/SKILL.md",
+        "binary_id": "opgrok.sg.tool-forge"
+      },
+      {
+        "name": "tool-scout",
+        "call": "/tool-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "tool/scout (map): Orchestrate a multi-step CLI verify path; Scrape and assert a status page section; Chain build then sm",
+        "purpose": "Orchestrate tools and verify outcomes. Method (map): map structure and constraints before committing to edits. Domain: C",
+        "path": "core/skills/tool/scout/SKILL.md",
+        "binary_id": "opgrok.sg.tool-scout"
+      },
+      {
+        "name": "tool-seal",
+        "call": "/tool-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "tool/seal (finalize): Orchestrate a multi-step CLI verify path; Scrape and assert a status page section; Chain build the",
+        "purpose": "Orchestrate tools and verify outcomes. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. D",
+        "path": "core/skills/tool/seal/SKILL.md",
+        "binary_id": "opgrok.sg.tool-seal"
+      },
+      {
+        "name": "tool-smith",
+        "call": "/tool-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "tool/smith (build unit): Orchestrate a multi-step CLI verify path; Scrape and assert a status page section; Chain build ",
+        "purpose": "Orchestrate tools and verify outcomes. Method (build unit): build the smallest correct unit that meets the brief. Domain",
+        "path": "core/skills/tool/smith/SKILL.md",
+        "binary_id": "opgrok.sg.tool-smith"
+      },
+      {
+        "name": "tool-trace",
+        "call": "/tool-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "tool/trace (RCA): Orchestrate a multi-step CLI verify path; Scrape and assert a status page section; Chain build then sm",
+        "purpose": "Orchestrate tools and verify outcomes. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: CLI, AP",
+        "path": "core/skills/tool/trace/SKILL.md",
+        "binary_id": "opgrok.sg.tool-trace"
+      }
+    ],
+    "ui": [
+      {
+        "name": "ui-audit",
+        "call": "/ui-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "ui/audit (checklist): Add button states (default/hover/disabled/loading); Fix missing label on icon control; Build a set",
+        "purpose": "Implement and improve UI/UX surfaces. Method (checklist): check against an explicit checklist; record pass/fail per item",
+        "path": "core/skills/ui/audit/SKILL.md",
+        "binary_id": "opgrok.sg.ui-audit"
+      },
+      {
+        "name": "ui-forge",
+        "call": "/ui-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "ui/forge (e2e path): Add button states (default/hover/disabled/loading); Fix missing label on icon control; Build a sett",
+        "purpose": "Implement and improve UI/UX surfaces. Method (e2e path): build the full end-to-end path first, then harden edges. Domain",
+        "path": "core/skills/ui/forge/SKILL.md",
+        "binary_id": "opgrok.sg.ui-forge"
+      },
+      {
+        "name": "ui-scout",
+        "call": "/ui-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "ui/scout (map): Add button states (default/hover/disabled/loading); Fix missing label on icon control; Build a settings ",
+        "purpose": "Implement and improve UI/UX surfaces. Method (map): map structure and constraints before committing to edits. Domain: in",
+        "path": "core/skills/ui/scout/SKILL.md",
+        "binary_id": "opgrok.sg.ui-scout"
+      },
+      {
+        "name": "ui-seal",
+        "call": "/ui-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "ui/seal (finalize): Add button states (default/hover/disabled/loading); Fix missing label on icon control; Build a setti",
+        "purpose": "Implement and improve UI/UX surfaces. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. Do",
+        "path": "core/skills/ui/seal/SKILL.md",
+        "binary_id": "opgrok.sg.ui-seal"
+      },
+      {
+        "name": "ui-smith",
+        "call": "/ui-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "ui/smith (build unit): Add button states (default/hover/disabled/loading); Fix missing label on icon control; Build a se",
+        "purpose": "Implement and improve UI/UX surfaces. Method (build unit): build the smallest correct unit that meets the brief. Domain:",
+        "path": "core/skills/ui/smith/SKILL.md",
+        "binary_id": "opgrok.sg.ui-smith"
+      },
+      {
+        "name": "ui-trace",
+        "call": "/ui-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "ui/trace (RCA): Add button states (default/hover/disabled/loading); Fix missing label on icon control; Build a settings ",
+        "purpose": "Implement and improve UI/UX surfaces. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: interfac",
+        "path": "core/skills/ui/trace/SKILL.md",
+        "binary_id": "opgrok.sg.ui-trace"
+      }
+    ],
+    "vision": [
+      {
+        "name": "vision-audit",
+        "call": "/vision-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "vision/audit (checklist): Describe a UI screenshot with element-level grounding; Generate an icon set matching brand tok",
+        "purpose": "Interpret or produce visual artifacts with grounding. Method (checklist): check against an explicit checklist; record pa",
+        "path": "core/skills/vision/audit/SKILL.md",
+        "binary_id": "opgrok.sg.vision-audit"
+      },
+      {
+        "name": "vision-forge",
+        "call": "/vision-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "vision/forge (e2e path): Describe a UI screenshot with element-level grounding; Generate an icon set matching brand toke",
+        "purpose": "Interpret or produce visual artifacts with grounding. Method (e2e path): build the full end-to-end path first, then hard",
+        "path": "core/skills/vision/forge/SKILL.md",
+        "binary_id": "opgrok.sg.vision-forge"
+      },
+      {
+        "name": "vision-scout",
+        "call": "/vision-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "vision/scout (map): Describe a UI screenshot with element-level grounding; Generate an icon set matching brand tokens; E",
+        "purpose": "Interpret or produce visual artifacts with grounding. Method (map): map structure and constraints before committing to e",
+        "path": "core/skills/vision/scout/SKILL.md",
+        "binary_id": "opgrok.sg.vision-scout"
+      },
+      {
+        "name": "vision-seal",
+        "call": "/vision-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "vision/seal (finalize): Describe a UI screenshot with element-level grounding; Generate an icon set matching brand token",
+        "purpose": "Interpret or produce visual artifacts with grounding. Method (finalize): verify the win gate; freeze outputs; mark ready",
+        "path": "core/skills/vision/seal/SKILL.md",
+        "binary_id": "opgrok.sg.vision-seal"
+      },
+      {
+        "name": "vision-smith",
+        "call": "/vision-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "vision/smith (build unit): Describe a UI screenshot with element-level grounding; Generate an icon set matching brand to",
+        "purpose": "Interpret or produce visual artifacts with grounding. Method (build unit): build the smallest correct unit that meets th",
+        "path": "core/skills/vision/smith/SKILL.md",
+        "binary_id": "opgrok.sg.vision-smith"
+      },
+      {
+        "name": "vision-trace",
+        "call": "/vision-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "vision/trace (RCA): Describe a UI screenshot with element-level grounding; Generate an icon set matching brand tokens; E",
+        "purpose": "Interpret or produce visual artifacts with grounding. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. ",
+        "path": "core/skills/vision/trace/SKILL.md",
+        "binary_id": "opgrok.sg.vision-trace"
+      }
+    ],
+    "web": [
+      {
+        "name": "web-audit",
+        "call": "/web-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "web/audit (checklist): Add a REST endpoint with validation and 4xx mapping; Fix CORS preflight for a SPA origin; Wire a ",
+        "purpose": "Build and repair web application paths. Method (checklist): check against an explicit checklist; record pass/fail per it",
+        "path": "core/skills/web/audit/SKILL.md",
+        "binary_id": "opgrok.sg.web-audit"
+      },
+      {
+        "name": "web-forge",
+        "call": "/web-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "web/forge (e2e path): Add a REST endpoint with validation and 4xx mapping; Fix CORS preflight for a SPA origin; Wire a f",
+        "purpose": "Build and repair web application paths. Method (e2e path): build the full end-to-end path first, then harden edges. Doma",
+        "path": "core/skills/web/forge/SKILL.md",
+        "binary_id": "opgrok.sg.web-forge"
+      },
+      {
+        "name": "web-scout",
+        "call": "/web-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "web/scout (map): Add a REST endpoint with validation and 4xx mapping; Fix CORS preflight for a SPA origin; Wire a form p",
+        "purpose": "Build and repair web application paths. Method (map): map structure and constraints before committing to edits. Domain: ",
+        "path": "core/skills/web/scout/SKILL.md",
+        "binary_id": "opgrok.sg.web-scout"
+      },
+      {
+        "name": "web-seal",
+        "call": "/web-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "web/seal (finalize): Add a REST endpoint with validation and 4xx mapping; Fix CORS preflight for a SPA origin; Wire a fo",
+        "purpose": "Build and repair web application paths. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. ",
+        "path": "core/skills/web/seal/SKILL.md",
+        "binary_id": "opgrok.sg.web-seal"
+      },
+      {
+        "name": "web-smith",
+        "call": "/web-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "web/smith (build unit): Add a REST endpoint with validation and 4xx mapping; Fix CORS preflight for a SPA origin; Wire a",
+        "purpose": "Build and repair web application paths. Method (build unit): build the smallest correct unit that meets the brief. Domai",
+        "path": "core/skills/web/smith/SKILL.md",
+        "binary_id": "opgrok.sg.web-smith"
+      },
+      {
+        "name": "web-trace",
+        "call": "/web-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "web/trace (RCA): Add a REST endpoint with validation and 4xx mapping; Fix CORS preflight for a SPA origin; Wire a form p",
+        "purpose": "Build and repair web application paths. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: HTTP A",
+        "path": "core/skills/web/trace/SKILL.md",
+        "binary_id": "opgrok.sg.web-trace"
+      }
+    ],
+    "workflow": [
+      {
+        "name": "workflow-audit",
+        "call": "/workflow-audit",
+        "role": "audit",
+        "tier": "advanced",
+        "intent": "workflow/audit (checklist): Add a failure branch to a DAG node; Fix invalid workflow JSON schema; Automate a multi-step ",
+        "purpose": "Design and fix automation workflows. Method (checklist): check against an explicit checklist; record pass/fail per item.",
+        "path": "core/skills/workflow/audit/SKILL.md",
+        "binary_id": "opgrok.sg.workflow-audit"
+      },
+      {
+        "name": "workflow-forge",
+        "call": "/workflow-forge",
+        "role": "forge",
+        "tier": "advanced",
+        "intent": "workflow/forge (e2e path): Add a failure branch to a DAG node; Fix invalid workflow JSON schema; Automate a multi-step p",
+        "purpose": "Design and fix automation workflows. Method (e2e path): build the full end-to-end path first, then harden edges. Domain:",
+        "path": "core/skills/workflow/forge/SKILL.md",
+        "binary_id": "opgrok.sg.workflow-forge"
+      },
+      {
+        "name": "workflow-scout",
+        "call": "/workflow-scout",
+        "role": "scout",
+        "tier": "frontier",
+        "intent": "workflow/scout (map): Add a failure branch to a DAG node; Fix invalid workflow JSON schema; Automate a multi-step pipeli",
+        "purpose": "Design and fix automation workflows. Method (map): map structure and constraints before committing to edits. Domain: DAG",
+        "path": "core/skills/workflow/scout/SKILL.md",
+        "binary_id": "opgrok.sg.workflow-scout"
+      },
+      {
+        "name": "workflow-seal",
+        "call": "/workflow-seal",
+        "role": "seal",
+        "tier": "frontier",
+        "intent": "workflow/seal (finalize): Add a failure branch to a DAG node; Fix invalid workflow JSON schema; Automate a multi-step pi",
+        "purpose": "Design and fix automation workflows. Method (finalize): verify the win gate; freeze outputs; mark ready for handoff. Dom",
+        "path": "core/skills/workflow/seal/SKILL.md",
+        "binary_id": "opgrok.sg.workflow-seal"
+      },
+      {
+        "name": "workflow-smith",
+        "call": "/workflow-smith",
+        "role": "smith",
+        "tier": "core",
+        "intent": "workflow/smith (build unit): Add a failure branch to a DAG node; Fix invalid workflow JSON schema; Automate a multi-step",
+        "purpose": "Design and fix automation workflows. Method (build unit): build the smallest correct unit that meets the brief. Domain: ",
+        "path": "core/skills/workflow/smith/SKILL.md",
+        "binary_id": "opgrok.sg.workflow-smith"
+      },
+      {
+        "name": "workflow-trace",
+        "call": "/workflow-trace",
+        "role": "trace",
+        "tier": "core",
+        "intent": "workflow/trace (RCA): Add a failure branch to a DAG node; Fix invalid workflow JSON schema; Automate a multi-step pipeli",
+        "purpose": "Design and fix automation workflows. Method (RCA): build symptom \u2192 evidence \u2192 root \u2192 fix causal chain. Domain: DAGs, n8n",
+        "path": "core/skills/workflow/trace/SKILL.md",
+        "binary_id": "opgrok.sg.workflow-trace"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+name: Cecily
+full_hash: 948b3e290ff25a5607f6a151b9c44574e62a6679837af933c6f1af33a8d251c2
+short_token: Cecily-948b3e290ff2
+full_token: Cecily-948b3e290ff25a5607f6a151b9c44574e62a6679837af933c6f1af33a8d251c2
+path: core/skills/math/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

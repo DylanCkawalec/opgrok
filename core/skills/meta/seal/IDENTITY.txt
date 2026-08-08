@@ -1,0 +1,7 @@
+name: Clara
+full_hash: 6413b3494b29d9fee6a584e6cb710837f6c3a800c7e4a13c1efc0c9370b22b5f
+short_token: Clara-6413b3494b29
+full_token: Clara-6413b3494b29d9fee6a584e6cb710837f6c3a800c7e4a13c1efc0c9370b22b5f
+path: core/skills/meta/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

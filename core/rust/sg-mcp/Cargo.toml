@@ -1,0 +1,16 @@
+[package]
+name = "opgrok-sg-mcp"
+version.workspace = true
+edition.workspace = true
+description = "MCP tool surface for SuperGrok list/route/load (stdio JSON-lines prototype)"
+
+[[bin]]
+name = "opgrok-sg-mcp"
+path = "src/main.rs"
+
+[dependencies]
+opgrok-sg-runtime = { path = "../sg-runtime" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true }

@@ -1,0 +1,7 @@
+name: Ed
+full_hash: 73f1e8e67c7f1fb2e08d8adf802247ca853af8ffb92e543011320ea7bb7e49d2
+short_token: Ed-73f1e8e67c7f
+full_token: Ed-73f1e8e67c7f1fb2e08d8adf802247ca853af8ffb92e543011320ea7bb7e49d2
+path: core/skills/python/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

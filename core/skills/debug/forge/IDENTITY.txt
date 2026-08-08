@@ -1,0 +1,7 @@
+name: Astraea
+full_hash: df800cae61d8073aa0e01744903cc858a090edc215399aee4d2d5329d09d4c28
+short_token: Astraea-df800cae61d8
+full_token: Astraea-df800cae61d8073aa0e01744903cc858a090edc215399aee4d2d5329d09d4c28
+path: core/skills/debug/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

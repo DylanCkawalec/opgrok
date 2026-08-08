@@ -1,0 +1,7 @@
+name: Arlette
+full_hash: b00fca3798adbf9aa028fe89df65bdedeb12a1b642891f9baa29c2ed9f44e801
+short_token: Arlette-b00fca3798ad
+full_token: Arlette-b00fca3798adbf9aa028fe89df65bdedeb12a1b642891f9baa29c2ed9f44e801
+path: core/skills/db/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

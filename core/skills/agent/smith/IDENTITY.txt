@@ -1,0 +1,7 @@
+name: Agata
+full_hash: d13fac51e4b987682edd33a899691622f51ce55d44c71572e31bfa477b70eee3
+short_token: Agata-d13fac51e4b9
+full_token: Agata-d13fac51e4b987682edd33a899691622f51ce55d44c71572e31bfa477b70eee3
+path: core/skills/agent/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

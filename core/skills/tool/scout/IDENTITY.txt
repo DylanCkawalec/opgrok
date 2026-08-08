@@ -1,0 +1,7 @@
+name: Gitte
+full_hash: f7f652d44567ecffd8485212378dac20408437573e2fd2461b1df21cec02c5ca
+short_token: Gitte-f7f652d44567
+full_token: Gitte-f7f652d44567ecffd8485212378dac20408437573e2fd2461b1df21cec02c5ca
+path: core/skills/tool/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Darius
+full_hash: 54497e9dc632d585085070affa776280a5a1733bf7670705d9a667bfc7f8e58c
+short_token: Darius-54497e9dc632
+full_token: Darius-54497e9dc632d585085070affa776280a5a1733bf7670705d9a667bfc7f8e58c
+path: core/skills/plan/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

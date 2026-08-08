@@ -1,0 +1,7 @@
+name: Edina
+full_hash: 93a4d031b9b13e7654dc1dc422fe1db1030eb98402d4d22a8430dc8d84758cb7
+short_token: Edina-93a4d031b9b1
+full_token: Edina-93a4d031b9b13e7654dc1dc422fe1db1030eb98402d4d22a8430dc8d84758cb7
+path: core/skills/research/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

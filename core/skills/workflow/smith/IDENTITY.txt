@@ -1,0 +1,7 @@
+name: Honora
+full_hash: bcd6f99eacf6f73f22f365c9a150e3d20cd6c024e5901997418aab4c102f7d6d
+short_token: Honora-bcd6f99eacf6
+full_token: Honora-bcd6f99eacf6f73f22f365c9a150e3d20cd6c024e5901997418aab4c102f7d6d
+path: core/skills/workflow/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

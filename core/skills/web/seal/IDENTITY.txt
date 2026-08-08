@@ -1,0 +1,7 @@
+name: Hendrikx
+full_hash: 3ccc43f1d0db6633590453b98403f719e1816da75e63eccc9d1197b859de4793
+short_token: Hendrikx-3ccc43f1d0db
+full_token: Hendrikx-3ccc43f1d0db6633590453b98403f719e1816da75e63eccc9d1197b859de4793
+path: core/skills/web/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

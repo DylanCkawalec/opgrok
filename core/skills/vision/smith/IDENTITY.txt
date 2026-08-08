@@ -1,0 +1,7 @@
+name: Hattie
+full_hash: a9b2427303ebd6cd4fd7c89dea3fcad779326e60f5f0e75e2c6edbd537858a84
+short_token: Hattie-a9b2427303eb
+full_token: Hattie-a9b2427303ebd6cd4fd7c89dea3fcad779326e60f5f0e75e2c6edbd537858a84
+path: core/skills/vision/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

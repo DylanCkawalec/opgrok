@@ -1,0 +1,7 @@
+name: Herve
+full_hash: 363cbc85e83cfb89ae313f8409b4a50b02bd859f23ea15309ad73003811be46c
+short_token: Herve-363cbc85e83c
+full_token: Herve-363cbc85e83cfb89ae313f8409b4a50b02bd859f23ea15309ad73003811be46c
+path: core/skills/workflow/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

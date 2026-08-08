@@ -1,0 +1,7 @@
+name: Ashton
+full_hash: 87b11b2fe561401af83a93259e972074bb206fbc900cd62b036bfad75527b89e
+short_token: Ashton-87b11b2fe561
+full_token: Ashton-87b11b2fe561401af83a93259e972074bb206fbc900cd62b036bfad75527b89e
+path: core/skills/debug/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

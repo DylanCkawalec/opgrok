@@ -1,0 +1,7 @@
+name: Bahar
+full_hash: 0ea8d09e70842686cb22c290584771a80f24669d427969063f69d396f1a1de80
+short_token: Bahar-0ea8d09e7084
+full_token: Bahar-0ea8d09e70842686cb22c290584771a80f24669d427969063f69d396f1a1de80
+path: core/skills/docs/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

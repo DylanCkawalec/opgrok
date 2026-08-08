@@ -1,0 +1,16 @@
+[package]
+name = "opgrok-sg-cli"
+version.workspace = true
+edition.workspace = true
+description = "CLI for SuperGrok: list, route, load, categories"
+
+[[bin]]
+name = "opgrok-sg"
+path = "src/main.rs"
+
+[dependencies]
+opgrok-sg-runtime = { path = "../sg-runtime" }
+opgrok-sg-harness = { path = "../sg-harness" }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true }

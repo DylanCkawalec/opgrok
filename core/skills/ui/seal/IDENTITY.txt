@@ -1,0 +1,7 @@
+name: Hamish
+full_hash: a88aa82431b865f36cf7518395bad90a8629e21b06f23e6aed3bbd905007927f
+short_token: Hamish-a88aa82431b8
+full_token: Hamish-a88aa82431b865f36cf7518395bad90a8629e21b06f23e6aed3bbd905007927f
+path: core/skills/ui/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

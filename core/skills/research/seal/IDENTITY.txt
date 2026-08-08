@@ -1,0 +1,7 @@
+name: Elden
+full_hash: c153e685d719071057cf05f021a45eddf7420af52d4b9bca3c576a25edd960f7
+short_token: Elden-c153e685d719
+full_token: Elden-c153e685d719071057cf05f021a45eddf7420af52d4b9bca3c576a25edd960f7
+path: core/skills/research/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

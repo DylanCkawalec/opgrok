@@ -1,0 +1,7 @@
+name: Elsie
+full_hash: 03025d6e590d8994b30049efc339057275c063b82cd47a13ee49802bbcf0d420
+short_token: Elsie-03025d6e590d
+full_token: Elsie-03025d6e590d8994b30049efc339057275c063b82cd47a13ee49802bbcf0d420
+path: core/skills/rust/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

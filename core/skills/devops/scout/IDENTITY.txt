@@ -1,0 +1,7 @@
+name: Aylin
+full_hash: c0d300fc817bdd66e9f8ce25946794184273e22b46f948af11293449e7415a8d
+short_token: Aylin-c0d300fc817b
+full_token: Aylin-c0d300fc817bdd66e9f8ce25946794184273e22b46f948af11293449e7415a8d
+path: core/skills/devops/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Aurelio
+full_hash: d2f5e85041dfac53756b633679b54f593215e096754af15b0533b9b9a5482b17
+short_token: Aurelio-d2f5e85041df
+full_token: Aurelio-d2f5e85041dfac53756b633679b54f593215e096754af15b0533b9b9a5482b17
+path: core/skills/devops/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

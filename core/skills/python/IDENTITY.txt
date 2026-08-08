@@ -1,0 +1,7 @@
+name: Draco
+full_hash: 7a29444cc570940b31d9f7b041271a3215e98f93dcc68066428860ea18604e27
+short_token: Draco-7a29444cc570
+full_token: Draco-7a29444cc570940b31d9f7b041271a3215e98f93dcc68066428860ea18604e27
+path: core/skills/python/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

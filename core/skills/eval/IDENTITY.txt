@@ -1,0 +1,7 @@
+name: Benedict
+full_hash: 086cc36e0cdb08c767912c8b424c44f16cb43eaff785d485c45ae27bef49cb68
+short_token: Benedict-086cc36e0cdb
+full_token: Benedict-086cc36e0cdb08c767912c8b424c44f16cb43eaff785d485c45ae27bef49cb68
+path: core/skills/eval/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

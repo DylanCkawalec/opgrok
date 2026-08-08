@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opgrok.dev/harness/graph.schema.json",
+  "title": "OPGROKHarnessGraph",
+  "type": "object",
+  "required": ["version", "slug", "goal", "nodes", "edges"],
+  "properties": {
+    "version": { "type": "string", "const": "1.0.0" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "goal": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string" },
+    "leslie_wc_path": { "type": "string" },
+    "toolkit": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "required": ["id", "sg_name", "binary_id", "ipo", "ooda"],
+        "properties": {
+          "id": { "type": "string" },
+          "sg_name": { "type": "string" },
+          "sg_id": { "type": "string" },
+          "binary_id": { "type": "string" },
+          "skill_path": { "type": "string" },
+          "category": { "type": "string" },
+          "role": { "type": "string" },
+          "intent": { "type": "string" },
+          "purpose": { "type": "string" },
+          "sink": { "type": "boolean", "default": false },
+          "judge": { "type": "boolean" },
+          "model_tier": { "type": "string", "enum": ["fast", "strong", "judge"] },
+          "model": { "type": "string" },
+          "ipo": {
+            "type": "object",
+            "required": ["inputs", "process", "outputs"],
+            "properties": {
+              "inputs": { "type": "array", "items": { "type": "string" } },
+              "process": { "type": "string" },
+              "outputs": { "type": "array", "items": { "type": "string" } }
+            }
+          },
+          "ooda": {
+            "type": "object",
+            "required": ["observe", "orient", "decide", "act"],
+            "properties": {
+              "observe": { "type": "string" },
+              "orient": { "type": "string" },
+              "decide": { "type": "string" },
+              "act": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "key": { "type": "string" }
+        }
+      }
+    }
+  }
+}

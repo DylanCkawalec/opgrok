@@ -1,0 +1,7 @@
+name: Carolina
+full_hash: edba1e6e7280f6b7cdf2e1f56828cef1caed710f27c81a7a2cb20e613d78e7d1
+short_token: Carolina-edba1e6e7280
+full_token: Carolina-edba1e6e7280f6b7cdf2e1f56828cef1caed710f27c81a7a2cb20e613d78e7d1
+path: core/skills/math/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Fen
+full_hash: d57c236418c4d81d438b783aa42ac49b781214043cb828abe6413ee58b64290b
+short_token: Fen-d57c236418c4
+full_token: Fen-d57c236418c4d81d438b783aa42ac49b781214043cb828abe6413ee58b64290b
+path: core/skills/security/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Chiyo
+full_hash: 13bad292bb8a38d447bb3b90e93f7c8a21c380b489a2c7cc814825d94f47cd07
+short_token: Chiyo-13bad292bb8a
+full_token: Chiyo-13bad292bb8a38d447bb3b90e93f7c8a21c380b489a2c7cc814825d94f47cd07
+path: core/skills/meta/asset-creator/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

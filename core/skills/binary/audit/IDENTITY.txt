@@ -1,0 +1,7 @@
+name: Aisha
+full_hash: 954fe0625f3beab94c720ee5b8d982bf9f4f930c224092093dfa924aae4c6500
+short_token: Aisha-954fe0625f3b
+full_token: Aisha-954fe0625f3beab94c720ee5b8d982bf9f4f930c224092093dfa924aae4c6500
+path: core/skills/binary/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

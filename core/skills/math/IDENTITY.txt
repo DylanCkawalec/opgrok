@@ -1,0 +1,7 @@
+name: Carmelo
+full_hash: c8f6228600e5f744db02cd5fe3742cbb3f7abc643cfb7bffdc9aadfee81a1037
+short_token: Carmelo-c8f6228600e5
+full_token: Carmelo-c8f6228600e5f744db02cd5fe3742cbb3f7abc643cfb7bffdc9aadfee81a1037
+path: core/skills/math/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

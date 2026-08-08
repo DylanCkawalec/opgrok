@@ -1,0 +1,7 @@
+name: Gilda
+full_hash: 1ebc4a4bbb02839d20f54574c95a228144be8dfb1aef8ce8dcd611e00b7bf716
+short_token: Gilda-1ebc4a4bbb02
+full_token: Gilda-1ebc4a4bbb02839d20f54574c95a228144be8dfb1aef8ce8dcd611e00b7bf716
+path: core/skills/tool/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

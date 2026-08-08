@@ -1,0 +1,7 @@
+name: Elouan
+full_hash: 5142c919404149eb2170d330919daf81aafb64e2df2444ed974cb1e6c40b4e46
+short_token: Elouan-5142c9194041
+full_token: Elouan-5142c919404149eb2170d330919daf81aafb64e2df2444ed974cb1e6c40b4e46
+path: core/skills/review/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

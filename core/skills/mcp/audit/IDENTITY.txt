@@ -1,0 +1,7 @@
+name: Celio
+full_hash: 93b5d03f205ceefcb76cb4aced66435e3502a747e892c9518529c39ce29e6eea
+short_token: Celio-93b5d03f205c
+full_token: Celio-93b5d03f205ceefcb76cb4aced66435e3502a747e892c9518529c39ce29e6eea
+path: core/skills/mcp/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

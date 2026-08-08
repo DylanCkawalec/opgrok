@@ -1,0 +1,7 @@
+name: Eleni
+full_hash: 5c8e1590459df2abb26ee3db8097c7f39e5e09a398ee169cb4394bc8b439b9af
+short_token: Eleni-5c8e1590459d
+full_token: Eleni-5c8e1590459df2abb26ee3db8097c7f39e5e09a398ee169cb4394bc8b439b9af
+path: core/skills/research/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

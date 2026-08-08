@@ -1,0 +1,7 @@
+name: Asim
+full_hash: 6392c3fd6515a79d54f000997f45fe7c6bd655a9c423de3b701436cde79c217e
+short_token: Asim-6392c3fd6515
+full_token: Asim-6392c3fd6515a79d54f000997f45fe7c6bd655a9c423de3b701436cde79c217e
+path: core/skills/debug/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

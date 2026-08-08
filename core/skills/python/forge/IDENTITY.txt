@@ -1,0 +1,7 @@
+name: Duke
+full_hash: 2c798219792ff61c6630664f168a134bba86e6333c5d8e9c553d176a8a11c2cb
+short_token: Duke-2c798219792f
+full_token: Duke-2c798219792ff61c6630664f168a134bba86e6333c5d8e9c553d176a8a11c2cb
+path: core/skills/python/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Aoi
+full_hash: 4f406c80ca7e1b7728fb8dc9cc96526e5af503fa0392cca3b6ee0da4c8bb023b
+short_token: Aoi-4f406c80ca7e
+full_token: Aoi-4f406c80ca7e1b7728fb8dc9cc96526e5af503fa0392cca3b6ee0da4c8bb023b
+path: core/skills/data/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

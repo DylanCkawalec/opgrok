@@ -1,0 +1,7 @@
+name: Catalina
+full_hash: a949111f7a91fe4a3da89b9c2cf7007ac0cab7b143e47519dff8bb67a7e61526
+short_token: Catalina-a949111f7a91
+full_token: Catalina-a949111f7a91fe4a3da89b9c2cf7007ac0cab7b143e47519dff8bb67a7e61526
+path: core/skills/math/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

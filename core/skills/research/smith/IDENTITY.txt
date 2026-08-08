@@ -1,0 +1,7 @@
+name: Eleanor
+full_hash: 01e8959aaa5e32276e233fba2a969d4555b7cf473e1aa55560f1fe6918c3668f
+short_token: Eleanor-01e8959aaa5e
+full_token: Eleanor-01e8959aaa5e32276e233fba2a969d4555b7cf473e1aa55560f1fe6918c3668f
+path: core/skills/research/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Dasha
+full_hash: 40585d725fbf609434647c45574c512d32d2bbfca4342e91476d99a4c52a5448
+short_token: Dasha-40585d725fbf
+full_token: Dasha-40585d725fbf609434647c45574c512d32d2bbfca4342e91476d99a4c52a5448
+path: core/skills/plan/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

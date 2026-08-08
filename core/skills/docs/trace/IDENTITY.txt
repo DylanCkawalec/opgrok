@@ -1,0 +1,7 @@
+name: Bella
+full_hash: b9d82f82f1afc06ebfcdc82fd87ac51db1376affe3e7f924030ba993011f302e
+short_token: Bella-b9d82f82f1af
+full_token: Bella-b9d82f82f1afc06ebfcdc82fd87ac51db1376affe3e7f924030ba993011f302e
+path: core/skills/docs/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

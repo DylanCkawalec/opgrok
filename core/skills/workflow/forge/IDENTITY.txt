@@ -1,0 +1,7 @@
+name: Hilal
+full_hash: 47c25de7c5d13a0392d44348c1664ecf12dda6e7ddb0bda255997085e2f9879b
+short_token: Hilal-47c25de7c5d1
+full_token: Hilal-47c25de7c5d13a0392d44348c1664ecf12dda6e7ddb0bda255997085e2f9879b
+path: core/skills/workflow/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

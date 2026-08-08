@@ -1,0 +1,7 @@
+name: Gwyneth
+full_hash: ec55158475779957a222b09fa8907b7a74a36a730737139d12e4b7834825ebe1
+short_token: Gwyneth-ec5515847577
+full_token: Gwyneth-ec55158475779957a222b09fa8907b7a74a36a730737139d12e4b7834825ebe1
+path: core/skills/ui/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Hal
+full_hash: 624b2627a26634492dfc95963c9da8921b1cdddc025a423766e5a9a0864fe92c
+short_token: Hal-624b2627a266
+full_token: Hal-624b2627a26634492dfc95963c9da8921b1cdddc025a423766e5a9a0864fe92c
+path: core/skills/ui/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

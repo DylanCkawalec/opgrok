@@ -1,0 +1,7 @@
+name: Holly
+full_hash: a62b357f6894a9e5e07cea4f5a534fe0f2cbcb23189e33fe818735b09aa8f001
+short_token: Holly-a62b357f6894
+full_token: Holly-a62b357f6894a9e5e07cea4f5a534fe0f2cbcb23189e33fe818735b09aa8f001
+path: core/skills/workflow/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

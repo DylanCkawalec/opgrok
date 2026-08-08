@@ -1,0 +1,7 @@
+name: Hamza
+full_hash: 73f36d94c7fe015a39f0abc578a606ff08a687e22c6d96d8a2d062caa42309e8
+short_token: Hamza-73f36d94c7fe
+full_token: Hamza-73f36d94c7fe015a39f0abc578a606ff08a687e22c6d96d8a2d062caa42309e8
+path: core/skills/ui/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

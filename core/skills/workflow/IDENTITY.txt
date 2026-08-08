@@ -1,0 +1,7 @@
+name: Herbert
+full_hash: de1945dd95fc7cdf02227c62fd773420a6bfc798cbee301aa168e3ce3c80a896
+short_token: Herbert-de1945dd95fc
+full_token: Herbert-de1945dd95fc7cdf02227c62fd773420a6bfc798cbee301aa168e3ce3c80a896
+path: core/skills/workflow/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Faisal
+full_hash: 1255038b1c0d114fda8a063d4ed50c9ba708d8d701e77359b7f2564da4ed18d9
+short_token: Faisal-1255038b1c0d
+full_token: Faisal-1255038b1c0d114fda8a063d4ed50c9ba708d8d701e77359b7f2564da4ed18d9
+path: core/skills/security/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

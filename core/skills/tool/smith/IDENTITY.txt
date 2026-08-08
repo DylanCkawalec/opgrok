@@ -1,0 +1,7 @@
+name: Glen
+full_hash: 106e18eb4ff205185c1202c2c549cf94d9f0fab5d98b23c8b4b6b41c28c7107d
+short_token: Glen-106e18eb4ff2
+full_token: Glen-106e18eb4ff205185c1202c2c549cf94d9f0fab5d98b23c8b4b6b41c28c7107d
+path: core/skills/tool/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

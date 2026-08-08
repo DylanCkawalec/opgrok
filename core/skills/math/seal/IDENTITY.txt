@@ -1,0 +1,7 @@
+name: Cathy
+full_hash: 3dfcb21ee95ec020b1d83b2cbab47f33737a421f29ca59d4a07a70659373d957
+short_token: Cathy-3dfcb21ee95e
+full_token: Cathy-3dfcb21ee95ec020b1d83b2cbab47f33737a421f29ca59d4a07a70659373d957
+path: core/skills/math/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

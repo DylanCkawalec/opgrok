@@ -1,0 +1,7 @@
+name: Elodie
+full_hash: 2b037494cdb0f02337738c9e1c0170fd1f8ec3f75c38d9c4135467e938c281f9
+short_token: Elodie-2b037494cdb0
+full_token: Elodie-2b037494cdb0f02337738c9e1c0170fd1f8ec3f75c38d9c4135467e938c281f9
+path: core/skills/review/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

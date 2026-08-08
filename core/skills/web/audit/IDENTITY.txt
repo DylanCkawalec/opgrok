@@ -1,0 +1,7 @@
+name: Hazel
+full_hash: 7d9d7ce73a0854fd33cdf0b9437661ccd959b89ad79ac318d670b4ab479fb0e6
+short_token: Hazel-7d9d7ce73a08
+full_token: Hazel-7d9d7ce73a0854fd33cdf0b9437661ccd959b89ad79ac318d670b4ab479fb0e6
+path: core/skills/web/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

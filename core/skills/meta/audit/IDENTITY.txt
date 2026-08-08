@@ -1,0 +1,7 @@
+name: Chloe
+full_hash: 682c40cd2a0e5c91fba151353e0d834912b1f5f760882b52b3245b6317bc8606
+short_token: Chloe-682c40cd2a0e
+full_token: Chloe-682c40cd2a0e5c91fba151353e0d834912b1f5f760882b52b3245b6317bc8606
+path: core/skills/meta/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

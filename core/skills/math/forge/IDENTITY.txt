@@ -1,0 +1,7 @@
+name: Carson
+full_hash: 3cc07027d4d141afcffadb87ffef9a5d95c0f6501919774587864ac2c2c9c2bc
+short_token: Carson-3cc07027d4d1
+full_token: Carson-3cc07027d4d141afcffadb87ffef9a5d95c0f6501919774587864ac2c2c9c2bc
+path: core/skills/math/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Amelia
+full_hash: 1e24159385c269ac10e7ebf8ec175782054f69fd03bca4cd16b5725393695452
+short_token: Amelia-1e24159385c2
+full_token: Amelia-1e24159385c269ac10e7ebf8ec175782054f69fd03bca4cd16b5725393695452
+path: core/skills/code/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

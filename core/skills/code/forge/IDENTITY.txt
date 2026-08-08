@@ -1,0 +1,7 @@
+name: Alvin
+full_hash: 84891e68b4805f008c393749692c582c61231b522e84ba4b07b9b7dade9b09f6
+short_token: Alvin-84891e68b480
+full_token: Alvin-84891e68b4805f008c393749692c582c61231b522e84ba4b07b9b7dade9b09f6
+path: core/skills/code/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

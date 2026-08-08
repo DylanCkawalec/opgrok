@@ -1,0 +1,7 @@
+name: Corinne
+full_hash: 21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e
+short_token: Corinne-21b314c2fe78
+full_token: Corinne-21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e
+path: core/skills/opgrok/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

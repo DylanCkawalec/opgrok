@@ -1,0 +1,7 @@
+name: Cheryl
+full_hash: 9e6e2768b447a1401155b7de97b3333a65d606de095269b23e978ba4ecb3ff41
+short_token: Cheryl-9e6e2768b447
+full_token: Cheryl-9e6e2768b447a1401155b7de97b3333a65d606de095269b23e978ba4ecb3ff41
+path: core/skills/meta/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

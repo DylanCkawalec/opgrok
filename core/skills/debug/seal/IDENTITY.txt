@@ -1,0 +1,7 @@
+name: August
+full_hash: a22ef4c49deed65d5ae20e8d355310c5fb26bc6f851c36d1b46fb4f91867dbed
+short_token: August-a22ef4c49dee
+full_token: August-a22ef4c49deed65d5ae20e8d355310c5fb26bc6f851c36d1b46fb4f91867dbed
+path: core/skills/debug/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

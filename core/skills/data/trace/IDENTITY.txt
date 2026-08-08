@@ -1,0 +1,7 @@
+name: Ariana
+full_hash: 349b8da08e61263ee28e7ed7cf224bbe81fa2fb404be827009083550c3b88eab
+short_token: Ariana-349b8da08e61
+full_token: Ariana-349b8da08e61263ee28e7ed7cf224bbe81fa2fb404be827009083550c3b88eab
+path: core/skills/data/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

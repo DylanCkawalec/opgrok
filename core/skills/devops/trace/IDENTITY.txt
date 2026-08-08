@@ -1,0 +1,7 @@
+name: Aziza
+full_hash: 7ac205f60575318cc215297ca8ca9d3543e17871d359daa55f7da6b28bcd0d36
+short_token: Aziza-7ac205f60575
+full_token: Aziza-7ac205f60575318cc215297ca8ca9d3543e17871d359daa55f7da6b28bcd0d36
+path: core/skills/devops/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

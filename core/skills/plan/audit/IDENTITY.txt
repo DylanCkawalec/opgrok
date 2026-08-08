@@ -1,0 +1,7 @@
+name: Dana
+full_hash: 644e38c25017a5c7a4ee28e6203ad1196e00550baa005ac6c8bd2051cbe76826
+short_token: Dana-644e38c25017
+full_token: Dana-644e38c25017a5c7a4ee28e6203ad1196e00550baa005ac6c8bd2051cbe76826
+path: core/skills/plan/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

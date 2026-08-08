@@ -1,0 +1,7 @@
+name: Emanuel
+full_hash: d226c22fefc3899283a8d6c5c311c70e7d34fb15e6a31bd6b1068ad50be5d24a
+short_token: Emanuel-d226c22fefc3
+full_token: Emanuel-d226c22fefc3899283a8d6c5c311c70e7d34fb15e6a31bd6b1068ad50be5d24a
+path: core/skills/rust/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Elara
+full_hash: e36e85cc1b1ab5bfc72888c62648202434a5ed89213a820ac8d9509b7e2310cf
+short_token: Elara-e36e85cc1b1a
+full_token: Elara-e36e85cc1b1ab5bfc72888c62648202434a5ed89213a820ac8d9509b7e2310cf
+path: core/skills/research/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

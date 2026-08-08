@@ -1,0 +1,7 @@
+name: Elliot
+full_hash: e57ce444209e64055b2d17ef1da202fbb82677dfb604b781ac2d95350973164a
+short_token: Elliot-e57ce444209e
+full_token: Elliot-e57ce444209e64055b2d17ef1da202fbb82677dfb604b781ac2d95350973164a
+path: core/skills/review/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

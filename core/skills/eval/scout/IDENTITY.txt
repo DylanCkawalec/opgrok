@@ -1,0 +1,7 @@
+name: Betty
+full_hash: 644cbfa1d66cf737420d190f1d77dae3e5e8270d41a0d9370072df9495e806d9
+short_token: Betty-644cbfa1d66c
+full_token: Betty-644cbfa1d66cf737420d190f1d77dae3e5e8270d41a0d9370072df9495e806d9
+path: core/skills/eval/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

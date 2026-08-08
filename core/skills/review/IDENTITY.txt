@@ -1,0 +1,7 @@
+name: Eliana
+full_hash: f1a026be79240e61b15b88437bbcd937eb59ab7c39821a8f637e11bc33720f92
+short_token: Eliana-f1a026be7924
+full_token: Eliana-f1a026be79240e61b15b88437bbcd937eb59ab7c39821a8f637e11bc33720f92
+path: core/skills/review/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Geraldine
+full_hash: b5cb83ce4217465ce919a071bcc3c91562c8ce1633b47dd9db8e8a4ec8283f12
+short_token: Geraldine-b5cb83ce4217
+full_token: Geraldine-b5cb83ce4217465ce919a071bcc3c91562c8ce1633b47dd9db8e8a4ec8283f12
+path: core/skills/test/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

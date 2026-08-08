@@ -1,0 +1,7 @@
+name: Enda
+full_hash: 009012c4109adac0600e771f30764172edf46d052f5297e1d76e86f91c6e7b9c
+short_token: Enda-009012c4109a
+full_token: Enda-009012c4109adac0600e771f30764172edf46d052f5297e1d76e86f91c6e7b9c
+path: core/skills/rust/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

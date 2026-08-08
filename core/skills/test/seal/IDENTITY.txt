@@ -1,0 +1,7 @@
+name: Georgina
+full_hash: 102611944ba12f50ce0bd46297891ad6496c27771b7992a924b8f48f0e1f75bf
+short_token: Georgina-102611944ba1
+full_token: Georgina-102611944ba12f50ce0bd46297891ad6496c27771b7992a924b8f48f0e1f75bf
+path: core/skills/test/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

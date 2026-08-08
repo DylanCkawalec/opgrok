@@ -1,0 +1,7 @@
+name: Diogo
+full_hash: 81ebb2c3762983d6749018eb6d09b10e4b8a02c8c881f03a42392d46b9d109c3
+short_token: Diogo-81ebb2c37629
+full_token: Diogo-81ebb2c3762983d6749018eb6d09b10e4b8a02c8c881f03a42392d46b9d109c3
+path: core/skills/product/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

@@ -1,0 +1,7 @@
+name: Belen
+full_hash: 306d7050cb3537c86345e16cdf233c64e7a4894778f1ae3e8adb1ea3dc34179b
+short_token: Belen-306d7050cb35
+full_token: Belen-306d7050cb3537c86345e16cdf233c64e7a4894778f1ae3e8adb1ea3dc34179b
+path: core/skills/docs/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

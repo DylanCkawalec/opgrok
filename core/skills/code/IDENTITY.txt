@@ -1,0 +1,7 @@
+name: Almudena
+full_hash: 19dddc82c09f03bff3b7019171826eb78110f5ddd0914f9eb8b4ad86d83c1c65
+short_token: Almudena-19dddc82c09f
+full_token: Almudena-19dddc82c09f03bff3b7019171826eb78110f5ddd0914f9eb8b4ad86d83c1c65
+path: core/skills/code/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

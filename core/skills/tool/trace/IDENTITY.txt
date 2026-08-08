@@ -1,0 +1,7 @@
+name: Glenn
+full_hash: 401d6900e609387335090da3f4bdb1716d37c1ebb709387c844c42997f7386c5
+short_token: Glenn-401d6900e609
+full_token: Glenn-401d6900e609387335090da3f4bdb1716d37c1ebb709387c844c42997f7386c5
+path: core/skills/tool/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

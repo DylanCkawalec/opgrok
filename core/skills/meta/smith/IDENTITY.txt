@@ -1,0 +1,7 @@
+name: Clarence
+full_hash: 87b59d55b92d0acb147adef5e35cb4cddd7213e09911cb1bd6e4fd979ffe73c5
+short_token: Clarence-87b59d55b92d
+full_token: Clarence-87b59d55b92d0acb147adef5e35cb4cddd7213e09911cb1bd6e4fd979ffe73c5
+path: core/skills/meta/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

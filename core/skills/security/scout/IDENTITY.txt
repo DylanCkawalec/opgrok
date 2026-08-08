@@ -1,0 +1,7 @@
+name: Felipe
+full_hash: e7bf37bfeed5b23e3058594abff7e6ae4c4bf30aa49102838edf2d80d7eb46ba
+short_token: Felipe-e7bf37bfeed5
+full_token: Felipe-e7bf37bfeed5b23e3058594abff7e6ae4c4bf30aa49102838edf2d80d7eb46ba
+path: core/skills/security/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

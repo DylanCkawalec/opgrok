@@ -1,0 +1,7 @@
+name: Henri
+full_hash: 195e15450a6c25ea24a92d0b07f49e59f79294557abbb36c25a22a3881a89100
+short_token: Henri-195e15450a6c
+full_token: Henri-195e15450a6c25ea24a92d0b07f49e59f79294557abbb36c25a22a3881a89100
+path: core/skills/web/trace/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

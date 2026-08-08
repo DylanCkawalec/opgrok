@@ -1,0 +1,7 @@
+name: Emma
+full_hash: c03ca8245437124754996f42406546ac929448ebfcd9b049c05006d27102d6e2
+short_token: Emma-c03ca8245437
+full_token: Emma-c03ca8245437124754996f42406546ac929448ebfcd9b049c05006d27102d6e2
+path: core/skills/rust/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

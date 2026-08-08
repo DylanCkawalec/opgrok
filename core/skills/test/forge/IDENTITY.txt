@@ -1,0 +1,7 @@
+name: Gavriel
+full_hash: 753b2efa09cc14d9f15c0a7689ad5f6dc5873105a94b71e9aa0c00e128d46c4c
+short_token: Gavriel-753b2efa09cc
+full_token: Gavriel-753b2efa09cc14d9f15c0a7689ad5f6dc5873105a94b71e9aa0c00e128d46c4c
+path: core/skills/test/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

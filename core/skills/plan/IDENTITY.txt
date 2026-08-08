@@ -1,0 +1,7 @@
+name: Damien
+full_hash: ebefbc92c3c752964182e6f9774c181998030a44a6d490026fde611dc64fcf1e
+short_token: Damien-ebefbc92c3c7
+full_token: Damien-ebefbc92c3c752964182e6f9774c181998030a44a6d490026fde611dc64fcf1e
+path: core/skills/plan/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

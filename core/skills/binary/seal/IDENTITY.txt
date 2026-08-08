@@ -1,0 +1,7 @@
+name: Aldo
+full_hash: f25e1eb59cdf3fef0181a6787f7ee1b2c1eeb8c688022605f2cad700edaa42d2
+short_token: Aldo-f25e1eb59cdf
+full_token: Aldo-f25e1eb59cdf3fef0181a6787f7ee1b2c1eeb8c688022605f2cad700edaa42d2
+path: core/skills/binary/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

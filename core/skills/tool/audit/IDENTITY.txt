@@ -1,0 +1,7 @@
+name: Gianna
+full_hash: 53f8a66e2ad7ed2657aad88836dbf6f4d99675ffa4557941db2cd35be41655c1
+short_token: Gianna-53f8a66e2ad7
+full_token: Gianna-53f8a66e2ad7ed2657aad88836dbf6f4d99675ffa4557941db2cd35be41655c1
+path: core/skills/tool/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

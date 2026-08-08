@@ -1,0 +1,7 @@
+name: Harlow
+full_hash: aef6051dffc55a5855587c801b12e5281cf6eaa69d9f91e0953358a0788d9885
+short_token: Harlow-aef6051dffc5
+full_token: Harlow-aef6051dffc55a5855587c801b12e5281cf6eaa69d9f91e0953358a0788d9885
+path: core/skills/vision/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

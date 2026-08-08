@@ -1,0 +1,7 @@
+name: Albina
+full_hash: ac1c5b12e8829f2e23d8577f60faa35ac1c07117f02d65ffb9fbd793659c5346
+short_token: Albina-ac1c5b12e882
+full_token: Albina-ac1c5b12e8829f2e23d8577f60faa35ac1c07117f02d65ffb9fbd793659c5346
+path: core/skills/binary/scout/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

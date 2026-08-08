@@ -1,0 +1,7 @@
+name: Barbara
+full_hash: 313ecad06a3222559981b8b83f6e979f55c90a8331d6f990edb0e0339e8434d6
+short_token: Barbara-313ecad06a32
+full_token: Barbara-313ecad06a3222559981b8b83f6e979f55c90a8331d6f990edb0e0339e8434d6
+path: core/skills/docs/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

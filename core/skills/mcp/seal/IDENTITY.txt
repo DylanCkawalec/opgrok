@@ -1,0 +1,7 @@
+name: Chase
+full_hash: 2d5f1da90354317bae736612d077914198fc0cd9008adae7a474e54018c49e05
+short_token: Chase-2d5f1da90354
+full_token: Chase-2d5f1da90354317bae736612d077914198fc0cd9008adae7a474e54018c49e05
+path: core/skills/mcp/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

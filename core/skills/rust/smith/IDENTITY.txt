@@ -1,0 +1,7 @@
+name: Emmett
+full_hash: 65321e22928aa37a3fdd893be2eeb62ad00c3a896547aa21b7c7fa95ff8cd2d9
+short_token: Emmett-65321e22928a
+full_token: Emmett-65321e22928aa37a3fdd893be2eeb62ad00c3a896547aa21b7c7fa95ff8cd2d9
+path: core/skills/rust/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

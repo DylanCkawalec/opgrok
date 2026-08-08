@@ -1,0 +1,7 @@
+name: Faris
+full_hash: a3e19be4bc3e793e729a5e2e7248fe2091136182263391defb58f65daac61374
+short_token: Faris-a3e19be4bc3e
+full_token: Faris-a3e19be4bc3e793e729a5e2e7248fe2091136182263391defb58f65daac61374
+path: core/skills/security/forge/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

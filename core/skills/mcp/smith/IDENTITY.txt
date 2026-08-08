@@ -1,0 +1,7 @@
+name: Chaya
+full_hash: 0936911359605acc754b5e47c0ae120c0d59aeb77f936c842207992bf348011a
+short_token: Chaya-093691135960
+full_token: Chaya-0936911359605acc754b5e47c0ae120c0d59aeb77f936c842207992bf348011a
+path: core/skills/mcp/smith/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

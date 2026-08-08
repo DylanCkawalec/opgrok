@@ -1,0 +1,7 @@
+name: Elvira
+full_hash: 9c58f3a227ba4f602580f37a71c914941881e950800151befcdbaf52af25a479
+short_token: Elvira-9c58f3a227ba
+full_token: Elvira-9c58f3a227ba4f602580f37a71c914941881e950800151befcdbaf52af25a479
+path: core/skills/rust/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

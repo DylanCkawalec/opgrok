@@ -1,0 +1,7 @@
+name: Hassan
+full_hash: afcf7b9143b054d8cd36943863eae523a2535b9d7005c97f083bf17ac8b0b54f
+short_token: Hassan-afcf7b9143b0
+full_token: Hassan-afcf7b9143b054d8cd36943863eae523a2535b9d7005c97f083bf17ac8b0b54f
+path: core/skills/vision/seal/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1

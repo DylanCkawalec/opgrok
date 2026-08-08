@@ -1,0 +1,7 @@
+name: Elin
+full_hash: cbbbc25bd03f54113d3dc07d9199d6e15d8a1f978054c625754b33b7c3087bbe
+short_token: Elin-cbbbc25bd03f
+full_token: Elin-cbbbc25bd03f54113d3dc07d9199d6e15d8a1f978054c625754b33b7c3087bbe
+path: core/skills/review/audit/SKILL.md
+timestamp: 2026-08-08T18:51:49Z
+algorithm: sha256-fixed-width-identity-v1
