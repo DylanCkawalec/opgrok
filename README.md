@@ -43,6 +43,14 @@ A binary can be as simple or as intricate as your goal demands — from a single
 
 Each row is one craft command. Each binary is reusable — run it on a new repo, a new codebase, a new dataset, without re-planning.
 
+### Prefer a canvas?
+
+The point of OPGROK is the binary, not the app. But if you don't want to use Grok Build or the terminal for inference, there's an optional n8n workflow builder in `apps/`. It lets you manually arrange SuperGrok agents on a canvas, wire them yourself, and build the binary by hand. Useful if you want to learn how agent crafting works before automating it.
+
+```bash
+./opgrok start   # launches web UI on port 420
+```
+
 ---
 
 ## How it works
