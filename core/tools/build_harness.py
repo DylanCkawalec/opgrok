@@ -252,9 +252,31 @@ fn main() {
         node_results.push(json!({"id": id, "sg_name": sg, "output": output}));
     }
 
+    let fails = node_results
+        .iter()
+        .filter(|n| {
+            let o = &n["output"];
+            if o.get("error").is_some() {
+                return true;
+            }
+            let p = &o["parsed"];
+            let ok = p.is_object() && p.get("summary").is_some() && p.get("win").is_some();
+            if !ok {
+                return true;
+            }
+            p["win"].as_str() == Some("FAIL")
+        })
+        .count();
+    let win = if dry {
+        "DRY"
+    } else if fails == 0 {
+        "PASS"
+    } else {
+        "FAIL"
+    };
     let sink = node_results.last().cloned().unwrap_or(json!(null));
     let result = json!({
-        "win": "PASS",
+        "win": win,
         "slug": graph["slug"],
         "goal": goal,
         "dry_run": dry,

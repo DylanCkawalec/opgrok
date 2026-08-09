@@ -4,15 +4,19 @@ from __future__ import annotations
 from typing import Any
 
 
+CONTRACT_KEYS = ("summary", "artifacts", "win")
+
+
 def should_retry(output: dict[str, Any], attempt: int, max_retries: int) -> bool:
     if attempt >= max_retries:
         return False
     if output.get("error"):
         return True
     parsed = output.get("parsed")
-    if isinstance(parsed, dict) and str(parsed.get("win", "")).upper() == "FAIL":
+    # Contract violation: non-JSON junk or missing keys is retryable, not acceptable.
+    if not isinstance(parsed, dict) or not all(k in parsed for k in CONTRACT_KEYS):
         return True
-    return False
+    return str(parsed.get("win", "")).upper() == "FAIL"
 
 
 def repair_prompt(
@@ -27,7 +31,7 @@ def repair_prompt(
     if isinstance(parsed, dict):
         why = parsed.get("summary") or parsed.get("error") or ""
     else:
-        why = str(prev_content)[:800]
+        why = "CONTRACT VIOLATION: reply was not valid JSON with keys summary/artifacts/win. " + str(prev_content)[:800]
     return f"""REPAIR ATTEMPT {attempt + 1} for SuperGrok `{node.get('sg_name')}`.
 
 Original goal:

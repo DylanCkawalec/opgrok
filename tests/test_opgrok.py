@@ -69,7 +69,7 @@ def test_run_harness_dry() -> None:
     from run_harness import run_harness
 
     result = run_harness("test-harness-for-unit-checks", dry_run=True)
-    check("dry-run returns PASS", result.get("win") == "PASS", result.get("win", "?"))
+    check("dry-run seals DRY (I2 DryHonesty)", result.get("win") == "DRY", result.get("win", "?"))
     check("dry-run has node_results", len(result.get("node_results", [])) >= 1)
     check("dry-run has no failed nodes", len(result.get("failed_nodes", [])) == 0,
           str(result.get("failed_nodes")))
@@ -133,7 +133,8 @@ def test_toolkit() -> None:
 
     check("should_retry True on error", should_retry({"error": "x"}, 0, 1) is True)
     check("should_retry False over limit", should_retry({"error": "x"}, 1, 1) is False)
-    check("should_retry False on PASS", should_retry({"parsed": {"win": "PASS"}}, 0, 1) is False)
+    check("should_retry False on PASS",
+          should_retry({"parsed": {"summary": "s", "artifacts": [], "win": "PASS"}}, 0, 1) is False)
     rp = repair_prompt("goal", {"sg_name": "test", "purpose": "test"}, {"error": "bad"}, 0)
     check("repair_prompt returns string", isinstance(rp, str))
 

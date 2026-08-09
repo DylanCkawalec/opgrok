@@ -289,7 +289,8 @@ fn write_wc(path: &Path, slug: &str, goal: &str, graph: &HarnessGraph) -> Result
     let body = format!(
         r#"# Winning Condition — opgrok-{slug}
 
-**Leslie seal.** Specification only. No production code in this document.
+**Leslie seal.** Governed by the master seal `docs/WINNING_CONDITION.md`
+(module `HarnessRun`: I1 NoVacuousPass, I2 DryHonesty, I3 SingleVerdict).
 Upstream protocol: https://github.com/DylanCkawalec/Leslie
 
 ## Goal
@@ -326,10 +327,10 @@ core/binaries/{slug}/bin/opgrok-{slug} --goal "..."
 
 exits 0 and prints JSON where:
 
-1. `win` is `PASS` or dry-run documents why live API was skipped
-2. `slug` equals `{slug}`
-3. `nodes` length equals {n}
-4. `result` is non-empty string or object
+1. `win` is `PASS` only on a live run (`dry_run=false`); dry runs print `DRY` — package law only
+2. every node output is error-free and parses to JSON with `summary`, `artifacts`, `win`
+3. sink node `parsed.win` is `PASS` with a goal-specific summary
+4. `slug` equals `{slug}`; `nodes` length equals {n}; `result` non-empty
 
 ## Builder checklist (for harness crafter — not Leslie)
 
@@ -467,9 +468,31 @@ fn main() {
         }));
     }
 
+    let fails = node_results
+        .iter()
+        .filter(|n| {
+            let o = &n["output"];
+            if o.get("error").is_some() {
+                return true;
+            }
+            let p = &o["parsed"];
+            let ok = p.is_object() && p.get("summary").is_some() && p.get("win").is_some();
+            if !ok {
+                return !dry; // dry rows carry no parsed contract; live junk fails
+            }
+            p["win"].as_str() == Some("FAIL")
+        })
+        .count();
+    let win = if dry {
+        "DRY"
+    } else if fails == 0 {
+        "PASS"
+    } else {
+        "FAIL"
+    };
     let sink = node_results.last().cloned().unwrap_or(json!(null));
     let result = json!({
-        "win": "PASS",
+        "win": win,
         "slug": "@@SLUG@@",
         "goal": cli.goal,
         "dry_run": dry,

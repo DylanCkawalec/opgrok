@@ -83,6 +83,17 @@ def try_parse_json(text: str):
     return None
 
 
+CONTRACT_KEYS = ("summary", "artifacts", "win")
+
+
+def contract_ok(out: dict) -> bool:
+    """WC gate 2: error-free output whose parsed JSON carries the contract keys."""
+    if not isinstance(out, dict) or out.get("error"):
+        return False
+    p = out.get("parsed")
+    return isinstance(p, dict) and all(k in p for k in CONTRACT_KEYS)
+
+
 def call_grok(prompt: str, system: str, model: str, api_key: str, max_tokens: int) -> dict:
     body = {
         "model": model,
@@ -186,10 +197,13 @@ Tier: {node.get('model_tier') or 'auto'}
 {identity_line}
 You are one node in an OPGROK harness. Do only this node's job.
 Return a single JSON object with keys:
-  - summary (string)
-  - artifacts (array of strings or {{name, content, kind}} objects)
+  - summary (string — your actual analysis, not a restatement of this prompt)
+  - artifacts (array of {{name, content, kind}} holding the REAL deliverable: code, spec text,
+    patches, configs. Empty [] only for pure-analysis nodes, and then summary must carry the
+    full analysis. Producer roles (forge/smith/seal) must attach at least one artifact.)
   - next_hints (array of strings)
-  - win ("PASS" or "FAIL")
+  - win ("PASS" only if you fully produced this node's deliverable; otherwise "FAIL" — the
+    harness will repair-retry you. A hollow PASS is a contract violation.)
   - tool_calls (optional array)
 {tool_hint}
 {vision_system_addon(vision_refs) if (node.get('category') == 'vision' or vision_refs) else ''}
@@ -247,8 +261,31 @@ def run_harness(
     edges = graph.get("edges") or []
     by_id = {n["id"]: n for n in nodes}
 
-    api_key = os.environ.get("XAI_API_KEY", "")
+    api_key = (os.environ.get("XAI_API_KEY") or os.environ.get("xai_api_key") or "").strip()
+    require_live = os.environ.get("OPGROK_REQUIRE_LIVE", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
     dry = dry_run or not api_key
+    if dry and not dry_run and not api_key:
+        print(
+            "WARN: XAI_API_KEY missing/empty after load_repo_env — forcing dry-run. "
+            "Set a live key in monorepo .env or export XAI_API_KEY. "
+            "Use OPGROK_REQUIRE_LIVE=1 to fail instead of silent dry.",
+            file=sys.stderr,
+        )
+    if require_live and dry:
+        return {
+            "win": "FAIL",
+            "error": "OPGROK_REQUIRE_LIVE=1 but run would be dry "
+            f"(dry_run={dry_run}, api_key_present={bool(api_key)}). "
+            "Refuse silent dry-run.",
+            "slug": slug,
+            "dry_run": True,
+            "api_key_present": bool(api_key),
+        }
 
     journal = RunJournal(harness_root)
     ledger = TokenLedger(harness_root)
@@ -392,19 +429,34 @@ def run_harness(
     if sink and isinstance(sink.get("output"), dict):
         final = sink["output"].get("parsed") or sink["output"].get("content") or sink["output"]
 
-    fails = [
+    fails = [n for n in node_results if not contract_ok(n.get("output"))]
+    fails += [
         n
         for n in node_results
-        if isinstance(n.get("output"), dict)
-        and (
-            n["output"].get("error")
-            or (
-                isinstance(n["output"].get("parsed"), dict)
-                and n["output"]["parsed"].get("win") == "FAIL"
-            )
-        )
+        if n not in fails
+        and str((n["output"].get("parsed") or {}).get("win", "")).upper() == "FAIL"
     ]
-    win = "FAIL" if fails and not dry else "PASS"
+    artifacts_written = sum(
+        len(n["output"].get("artifacts_written") or [])
+        for n in node_results
+        if isinstance(n.get("output"), dict)
+    )
+    # Decisive node: last judge-flavored node, else sink (WC gate 4)
+    decisive = sink
+    for n in reversed(node_results):
+        nid_node = by_id.get(n["id"], {})
+        if nid_node.get("judge") or (nid_node.get("category") or "").lower() in {"eval", "crit", "review"}:
+            decisive = n
+            break
+    decisive_win = None
+    if decisive and isinstance(decisive.get("output"), dict):
+        p = decisive["output"].get("parsed")
+        if isinstance(p, dict):
+            decisive_win = str(p.get("win", "")).upper() or None
+    if dry:
+        win = "DRY"
+    else:
+        win = "PASS" if (not fails and decisive_win == "PASS") else "FAIL"
     error_hint = None
     if fails:
         fo = fails[0].get("output") or {}
@@ -429,6 +481,9 @@ def run_harness(
         "node_results": node_results,
         "result": final,
         "failed_nodes": [f["id"] for f in fails],
+        "decisive_node": decisive["id"] if decisive else None,
+        "decisive_win": decisive_win,
+        "artifacts_written": artifacts_written,
         "error_hint": error_hint,
         "api_key_present": bool(api_key),
         "ledger": ledger_payload["totals"],
@@ -476,7 +531,7 @@ def main() -> int:
         no_tools=args.no_tools,
     )
     print(json.dumps(payload, indent=2))
-    return 0 if payload.get("win") == "PASS" else 1
+    return 0 if payload.get("win") in {"PASS", "DRY"} else 1
 
 
 if __name__ == "__main__":

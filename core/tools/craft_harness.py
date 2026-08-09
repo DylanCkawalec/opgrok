@@ -22,7 +22,7 @@ def slugify(goal: str) -> str:
     return (s[:48] or f"harness-{int(time.time())}")
 
 
-def _best_in_category(skills: list[dict], cat: str, prefer_roles: list[str]) -> dict | None:
+def _best_in_category(skills: list[dict], cat: str, prefer_roles: list[str], tokens: tuple[str, ...] = ()) -> dict | None:
     cands = [s for s in skills if s.get("category") == cat and s.get("kind") in (None, "supergrok")]
     # rebuild marks kind=supergrok; generator-only rows may omit kind
     if not cands:
@@ -34,11 +34,18 @@ def _best_in_category(skills: list[dict], cat: str, prefer_roles: list[str]) -> 
         ]
     if not cands:
         return None
+
+    def relevance(s: dict) -> int:
+        blob = f"{s.get('name','')} {s.get('intent','')} {s.get('purpose','')}".lower()
+        return sum(1 for t in tokens if t in blob)
+
+    # ponytail: role sets pipeline stage order; goal-token overlap picks within the stage
+    # so different goals hire different SuperGroks instead of the same anchors.
     for role in prefer_roles:
-        for s in cands:
-            if s.get("role") == role or s.get("name", "").endswith(f"-{role}"):
-                return s
-    return cands[0]
+        role_cands = [s for s in cands if s.get("role") == role or s.get("name", "").endswith(f"-{role}")]
+        if role_cands:
+            return max(role_cands, key=lambda s: (relevance(s), s.get("name", "")))
+    return max(cands, key=lambda s: (relevance(s), s.get("name", "")))
 
 
 # Pipeline stage → preferred role
@@ -94,19 +101,19 @@ def route(goal: str, limit: int = 8) -> list[dict]:
     else:
         prefer = ["plan", "agent", "code", "review", "test", "docs"]
 
+    tokens = tuple(t for t in re.split(r"[^a-z0-9\-]+", g) if len(t) > 2)
     hired: list[dict] = []
     seen_cat: set[str] = set()
     for cat in prefer:
         if len(hired) >= limit:
             break
         roles = STAGE_ROLE.get(cat, ["forge", "smith", "scout", "audit", "seal", "trace"])
-        sk = _best_in_category(skills, cat, roles)
+        sk = _best_in_category(skills, cat, roles, tokens)
         if sk and cat not in seen_cat:
             hired.append(sk)
             seen_cat.add(cat)
 
     # Keyword fill for remaining slots
-    tokens = [t for t in re.split(r"[^a-z0-9\-]+", g) if len(t) > 2]
     scored = []
     for sk in skills:
         if sk.get("category") in seen_cat:
@@ -282,7 +289,8 @@ python3 core/tools/build_harness.py {slug} --install
     (root / "WINNING_CONDITION.md").write_text(
         f"""# Winning Condition — opgrok-{slug}
 
-**Leslie seal.** Spec only. https://github.com/DylanCkawalec/Leslie
+**Leslie seal.** Governed by the master seal `docs/WINNING_CONDITION.md`
+(module `HarnessRun`: invariants I1 NoVacuousPass, I2 DryHonesty, I3 SingleVerdict).
 
 ## Goal
 
@@ -292,6 +300,7 @@ python3 core/tools/build_harness.py {slug} --install
 
 - Delivering the full product without the harness graph
 - Multiple binaries/READMEs for this slug
+- Claiming PASS from a dry run, an error run, or a contract-violating run
 
 ## Hired SuperGroks
 
@@ -303,15 +312,26 @@ python3 core/tools/build_harness.py {slug} --install
 
 - Order: {" → ".join(n["id"] for n in nodes)}
 - Blackboard includes `goal`
-- One sink (last node)
+- One sink (last node); last judge-category node is decisive for the verdict
 
 ## Falsifiable PASS
 
 ```bash
-core/binaries/{slug}/bin/opgrok-{slug} --goal "..."
+OPGROK_REQUIRE_LIVE=1 core/binaries/{slug}/bin/opgrok-{slug} --goal "..."
 ```
 
-exits 0 with JSON: win=PASS, slug={slug}, nodes={len(nodes)}, non-empty result.
+Seals PASS only when the receipt shows **all** of:
+
+1. `dry_run=false`, `api_key_present=true` (a dry run seals `DRY` — package law only)
+2. every node output parses to JSON with keys `summary`, `artifacts`, `win`; no `error`
+3. `artifacts_written >= 1` with a non-empty file under `artifacts/` when any producer
+   role (forge/smith/seal) was hired
+4. decisive node `parsed.win="PASS"`, with a summary that analyzes the goal
+5. `ledger.totals.total_tokens > 0` with completion bulk consistent with the artifacts
+6. package law: one README, one `bin/opgrok-{slug}`, this WC, schema-valid `graph.json`,
+   registry entry
+
+Exit code: 0 for `PASS` or `DRY`, 1 for `FAIL`.
 
 ## Builder checklist
 
@@ -319,7 +339,7 @@ exits 0 with JSON: win=PASS, slug={slug}, nodes={len(nodes)}, non-empty result.
 2. single README.md
 3. crate + bin entrypoint
 4. registry.json entry
-5. dry or live run receipt
+5. live run receipt meeting gates 1–5 (dry receipt records `DRY`)
 """
     )
 

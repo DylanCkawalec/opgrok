@@ -6,17 +6,34 @@ from typing import Any
 
 
 def load_repo_env(repo: Path) -> None:
-    path = repo / ".env"
-    if not path.is_file():
-        return
-    for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
+    """Load monorepo root .env into os.environ.
+
+    Rules:
+    - Prefer monorepo root `.env` (never apps/ alone for harnesses).
+    - Fill missing keys from file.
+    - Also overwrite keys that are present but empty/whitespace — empty
+      `XAI_API_KEY=` in the shell otherwise silently forces dry-run and looks
+      like “API refused”.
+    """
+    candidates = [repo / ".env", repo / "apps" / "chat" / ".env"]
+    for path in candidates:
+        if not path.is_file():
             continue
-        k, _, v = line.partition("=")
-        k, v = k.strip(), v.strip().strip("'").strip('"')
-        if k and k not in os.environ:
-            os.environ[k] = v
+        for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            if line.startswith("export "):
+                line = line[len("export ") :].strip()
+            k, _, v = line.partition("=")
+            k, v = k.strip(), v.strip().strip("'").strip('"')
+            if not k:
+                continue
+            cur = os.environ.get(k)
+            if cur is None or str(cur).strip() == "":
+                os.environ[k] = v
+        # root .env wins for first file; still allow chat .env to fill gaps only
+        # (loop continues)
 
 
 def _flag(name: str, default: str = "0") -> bool:
@@ -41,6 +58,6 @@ def toolkit_flags() -> dict[str, Any]:
         "allow_net": _flag("OPGROK_ALLOW_NET", "1"),
         "memory": _flag("OPGROK_MEMORY", "1"),
         "judge": _flag("OPGROK_JUDGE", "1"),
-        "max_tokens": int(os.environ.get("OPGROK_MAX_TOKENS", "1200")),
+        "max_tokens": int(os.environ.get("OPGROK_MAX_TOKENS", "4096")),
         "tools": _flag("OPGROK_TOOLS", "1"),
     }
