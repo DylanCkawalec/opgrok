@@ -60,4 +60,9 @@ def toolkit_flags() -> dict[str, Any]:
         "judge": _flag("OPGROK_JUDGE", "1"),
         "max_tokens": int(os.environ.get("OPGROK_MAX_TOKENS", "4096")),
         "tools": _flag("OPGROK_TOOLS", "1"),
+        # Grok 4.5: low | medium | high (default high for aria-math-v3+)
+        "reasoning_effort": (
+            os.environ.get("OPGROK_REASONING_EFFORT") or "high"
+        ).strip().lower(),
+        "http_timeout": int(os.environ.get("OPGROK_HTTP_TIMEOUT", "600")),
     }

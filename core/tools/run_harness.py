@@ -94,28 +94,46 @@ def contract_ok(out: dict) -> bool:
     return isinstance(p, dict) and all(k in p for k in CONTRACT_KEYS)
 
 
-def call_grok(prompt: str, system: str, model: str, api_key: str, max_tokens: int) -> dict:
-    body = {
+def call_grok(
+    prompt: str,
+    system: str,
+    model: str,
+    api_key: str,
+    max_tokens: int,
+    reasoning_effort: str | None = None,
+    timeout_s: int | None = None,
+) -> dict:
+    """Chat Completions call. Grok 4.5: reasoning_effort in {low,medium,high} (default high)."""
+    body: dict = {
         "model": model,
         "messages": [
             {"role": "system", "content": system},
             {"role": "user", "content": prompt},
         ],
-        "temperature": 0.2,
         "max_tokens": max_tokens,
     }
+    # Reasoning models (grok-4.5): effort high|medium|low; avoid unsupported penalties
+    effort = (reasoning_effort or os.environ.get("OPGROK_REASONING_EFFORT") or "").strip().lower()
+    if effort in {"low", "medium", "high"}:
+        body["reasoning_effort"] = effort
+    elif model.startswith("grok-4.5") or model == "grok-4.5":
+        body["reasoning_effort"] = "high"
+    else:
+        body["temperature"] = 0.2
+
+    timeout = timeout_s or int(os.environ.get("OPGROK_HTTP_TIMEOUT", "600"))
     req = urllib.request.Request(
         "https://api.x.ai/v1/chat/completions",
         data=json.dumps(body).encode("utf-8"),
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
-            "User-Agent": "opgrok-harness/2.0",
+            "User-Agent": "opgrok-harness/3.0",
         },
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=120) as resp:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
             data = json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
         err = e.read().decode("utf-8", errors="ignore")
@@ -124,12 +142,16 @@ def call_grok(prompt: str, system: str, model: str, api_key: str, max_tokens: in
         return {"error": str(e)}
 
     try:
-        content = data["choices"][0]["message"]["content"]
+        msg = data["choices"][0]["message"]
+        content = msg.get("content") or ""
+        reasoning = msg.get("reasoning_content") or msg.get("reasoning")
     except Exception:  # noqa: BLE001
         return {"error": "bad_response", "raw": data}
 
     return {
         "content": content,
+        "reasoning_content": reasoning,
+        "reasoning_effort": body.get("reasoning_effort"),
         "parsed": try_parse_json(content),
         "usage": data.get("usage"),
         "model": data.get("model") or model,
@@ -338,12 +360,21 @@ def run_harness(
                 ledger.record(nid, node.get("sg_name") or "", model, None)
                 break
 
-            out = call_grok(user if attempt == 0 else repair_prompt(goal, node, out, attempt), system, model, api_key, flags["max_tokens"])
+            out = call_grok(
+                user if attempt == 0 else repair_prompt(goal, node, out, attempt),
+                system,
+                model,
+                api_key,
+                flags["max_tokens"],
+                reasoning_effort=flags.get("reasoning_effort") or "high",
+                timeout_s=flags.get("http_timeout") or 600,
+            )
             out["mode"] = "live" if attempt == 0 else f"repair_{attempt}"
             out["sg"] = node.get("sg_name")
             out["model"] = model
             out["model_tier"] = tier.value
             out["skill_chars"] = len(skill_text)
+            out["reasoning_effort"] = out.get("reasoning_effort") or flags.get("reasoning_effort")
             ledger.record(
                 nid,
                 node.get("sg_name") or "",
@@ -364,7 +395,15 @@ def run_harness(
                         + json.dumps(tool_results)[:8000]
                         + "\n\nIntegrate tool results and return final JSON for this node."
                     )
-                    out2 = call_grok(follow, system, model, api_key, flags["max_tokens"])
+                    out2 = call_grok(
+                        follow,
+                        system,
+                        model,
+                        api_key,
+                        flags["max_tokens"],
+                        reasoning_effort=flags.get("reasoning_effort") or "high",
+                        timeout_s=flags.get("http_timeout") or 600,
+                    )
                     out2["mode"] = "tool_followup"
                     out2["sg"] = node.get("sg_name")
                     out2["model"] = model
