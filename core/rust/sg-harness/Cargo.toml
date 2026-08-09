@@ -2,10 +2,17 @@
 name = "opgrok-sg-harness"
 version.workspace = true
 edition.workspace = true
-description = "Craft SuperGrok harness packages: graph, Leslie WC, README, Rust binary crate"
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Craft reusable Grok-agent harnesses from a single goal — hire SuperGrok specialists, seal a winning condition, and emit one binary crate + one README"
+keywords = ["grok", "xai", "llm", "agents", "codegen"]
+categories = ["development-tools", "development-tools::build-utils"]
+readme = "README.md"
 
 [dependencies]
-opgrok-sg-runtime = { path = "../sg-runtime" }
+opgrok-sg-runtime = { path = "../sg-runtime", version = "0.1.0" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }

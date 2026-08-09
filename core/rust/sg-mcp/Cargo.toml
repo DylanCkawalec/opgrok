@@ -2,14 +2,21 @@
 name = "opgrok-sg-mcp"
 version.workspace = true
 edition.workspace = true
-description = "MCP tool surface for SuperGrok list/route/load (stdio JSON-lines prototype)"
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "MCP-style tool surface for the OPGROK SuperGrok catalog — list, route, describe, and load Grok agent skills as machine-readable JSON"
+keywords = ["mcp", "grok", "xai", "agents", "llm"]
+categories = ["api-bindings", "development-tools"]
+readme = "README.md"
 
 [[bin]]
 name = "opgrok-sg-mcp"
 path = "src/main.rs"
 
 [dependencies]
-opgrok-sg-runtime = { path = "../sg-runtime" }
+opgrok-sg-runtime = { path = "../sg-runtime", version = "0.1.0" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }

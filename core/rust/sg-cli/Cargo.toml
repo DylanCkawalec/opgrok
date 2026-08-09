@@ -2,15 +2,22 @@
 name = "opgrok-sg-cli"
 version.workspace = true
 edition.workspace = true
-description = "CLI for SuperGrok: list, route, load, categories"
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Command-line control plane for OPGROK SuperGroks — route intents, browse the agent catalog, and craft & run reusable Grok-agent harnesses"
+keywords = ["grok", "xai", "cli", "agents", "llm"]
+categories = ["command-line-utilities", "development-tools"]
+readme = "README.md"
 
 [[bin]]
 name = "opgrok-sg"
 path = "src/main.rs"
 
 [dependencies]
-opgrok-sg-runtime = { path = "../sg-runtime" }
-opgrok-sg-harness = { path = "../sg-harness" }
+opgrok-sg-runtime = { path = "../sg-runtime", version = "0.1.0" }
+opgrok-sg-harness = { path = "../sg-harness", version = "0.1.0" }
 serde_json = { workspace = true }
 anyhow = { workspace = true }
 clap = { workspace = true }

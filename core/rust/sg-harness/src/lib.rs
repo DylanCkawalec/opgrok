@@ -13,7 +13,7 @@
 use anyhow::{bail, Context, Result};
 use opgrok_sg_runtime::{SuperGrokIndex, SuperGrokMeta};
 use serde::{Deserialize, Serialize};
-use serde_json::json;
+use serde_json::{json, Value};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -606,7 +606,6 @@ pub fn craft(repo_root: impl AsRef<Path>, goal: &str, hire_limit: usize) -> Resu
     let stub = format!(
         "#!/usr/bin/env bash\n# Stub until `cargo build --release` in crate/\nset -euo pipefail\nDIR=\"$(cd \"$(dirname \"$0\")/../crate\" && pwd)\"\nif command -v cargo >/dev/null 2>&1; then\n  cargo run --manifest-path \"$DIR/Cargo.toml\" -- --goal \"${{1:-{goal}}}\" \"${{@:2}}\"\nelse\n  echo '{{\"win\":\"FAIL\",\"error\":\"cargo not installed; open crate/ and build\"}}'\n  exit 1\nfi\n",
         goal = goal.replace('\'', ""),
-        slug = slug,
     );
     fs::write(&binary_hint, stub)?;
     #[cfg(unix)]

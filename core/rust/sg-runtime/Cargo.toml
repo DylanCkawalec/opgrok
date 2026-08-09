@@ -2,7 +2,14 @@
 name = "opgrok-sg-runtime"
 version.workspace = true
 edition.workspace = true
-description = "SuperGrok registry, intent routing, skill load, binary dispatch"
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "SuperGrok skill registry, intent routing, and agent-catalog runtime for OPGROK — route any goal to the right Grok specialist agents"
+keywords = ["grok", "xai", "llm", "agents", "mcp"]
+categories = ["api-bindings", "development-tools"]
+readme = "README.md"
 
 [dependencies]
 serde = { workspace = true }
