@@ -1,13 +1,16 @@
+# Patterns with a leading / are repo-root only.
+# Do not write a bare `docs/` — that would also hide core/skills/docs/.
+
 # ── Python ────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-.venv/
-venv/
-ENV/
-env/
+/.venv/
+/venv/
+/ENV/
+/env/
 
 # ── Rust ──────────────────────────────────────────────────────────────────
 /target/
@@ -22,6 +25,7 @@ Cargo.lock
 
 # ── Editors / OS ──────────────────────────────────────────────────────────
 .DS_Store
+**/.DS_Store
 .AppleDouble
 .LSOverride
 Thumbs.db
@@ -34,48 +38,49 @@ Thumbs.db
 
 # ── Logs / temp / DBs ─────────────────────────────────────────────────────
 *.log
-logs/
-tmp/
-temp/
+/logs/
+/tmp/
+/temp/
 *.tmp
 *.db
 *.sqlite
 *.sqlite3
 *.db-journal
 
-# ── Node (local only) ─────────────────────────────────────────────────────
+# ── Node ──────────────────────────────────────────────────────────────────
 node_modules/
 npm-debug.log*
 
 # ── Build artifacts ───────────────────────────────────────────────────────
-dist/
-build/
+/dist/
+/build/
 *.egg-info/
 
-# ── Per-clone factory output (not the published tree) ─────────────────────
-core/binaries/
+# ── Per-clone factory output ──────────────────────────────────────────────
+/core/binaries/
 
-# ── Personal / not part of the public CLI ─────────────────────────────────
-# Local tests, long-form notes, TLA+ specs, UI shells, and example oracles
-# stay on the author's machine. A clone should learn the factory from
-# README.md + core/skills/opgrok/SKILL.md.
-tests/
-docs/
-apps/
-webapp/
-examples/
-_analysis/
-.n8n/
-n8n_data/
-postgres_data/
+# ── Personal (not the public CLI) ─────────────────────────────────────────
+/tests/
+/docs/
+/apps/
+/webapp/
+/examples/
+/_analysis/
+/.n8n/
+/n8n_data/
+/postgres_data/
+/.grok-plugin/
+/.grok/workflows/
 
-# Local Grok Build plugin + experimental workflows
-.grok-plugin/
-.grok/workflows/
+# Web UI kit + planning notes (CLI ships brand marks only)
+/assets/ui/
+/assets/app/
+/assets/assets.md
+/assets/prompts/
 
-# n8n / web UI helper scripts (need apps/)
-ops/scripts/run.sh
-ops/scripts/run_n8n.sh
-ops/scripts/run_n8n_local.sh
-ops/scripts/run_genius_mode.sh
-ops/scripts/stop_n8n_local.sh
+# n8n / web helper scripts
+/ops/scripts/run.sh
+/ops/scripts/run_n8n.sh
+/ops/scripts/run_n8n_local.sh
+/ops/scripts/run_genius_mode.sh
+/ops/scripts/stop_n8n_local.sh

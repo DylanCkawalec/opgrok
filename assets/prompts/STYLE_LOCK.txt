@@ -1,5 +1,0 @@
-xAI Grok product aesthetic: void black #050506, sparse starfield, amber #F5A524 and cyan #22D3EE accents, geometric, premium developer tooling, cinematic soft light, no dense fake UI text, no watermarks, no clutter.
-
-Text/code planning: Grok 4.5
-Raster: Grok Imagine API (docs.x.ai image generation / quality mode)
-Exact logos & UI chrome: SVG via generate_assets_svg.py

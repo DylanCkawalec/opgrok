@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="72" height="24" viewBox="0 0 72 24" fill="none">
-  <rect x="0.5" y="0.5" width="71" height="23" rx="12" fill="#22D3EE22" stroke="#22D3EE" stroke-opacity="0.45"/>
-  <circle cx="12" cy="12" r="3" fill="#22D3EE"/>
-  <text x="22" y="16" fill="#22D3EE" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">LIVE</text>
-</svg>
