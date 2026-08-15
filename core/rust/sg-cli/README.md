@@ -1,5 +1,9 @@
 # opgrok-sg-cli
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/brand/logo-lockup-h.svg" alt="OPGROK" width="280" />
+</p>
+
 [![crates.io](https://img.shields.io/crates/v/opgrok-sg-cli.svg)](https://crates.io/crates/opgrok-sg-cli)
 [![docs.rs](https://docs.rs/opgrok-sg-cli/badge.svg)](https://docs.rs/opgrok-sg-cli)
 [![license](https://img.shields.io/crates/l/opgrok-sg-cli.svg)](https://github.com/DylanCkawalec/opgrok/blob/main/LICENSE)
@@ -7,6 +11,10 @@
 **The operator CLI for [OPGROK](https://github.com/DylanCkawalec/opgrok) — route intents, browse the SuperGrok agent catalog, and craft & run reusable Grok-agent harnesses from your terminal.**
 
 Installs the `opgrok-sg` binary: the control plane for 150+ specialist Grok agents.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/protocol/craft-pipeline.png" alt="Hire → seal → graph → binary" />
+</p>
 
 ## Install
 

@@ -1,5 +1,9 @@
 # Toolkit — Grok-native runtime
 
+<p align="center">
+  <img src="../../assets/protocol/toolkit-grid.png" alt="Toolkit modules as a crystal grid" />
+</p>
+
 Python library used by `core/tools/run_harness.py` to make multi-agent Grok runs practical.
 
 Does **not** change Leslie’s packaging law (still one binary + one README per harness). Does **not** author product code. Domain oracles do not live here.

@@ -1,7 +1,10 @@
 # OPGROK
 
 <p align="center">
-  <img src="assets/brand/readme-hero.png" alt="OPGROK" />
+  <img src="assets/brand/logo-lockup-h.svg" alt="OPGROK" width="320" />
+</p>
+<p align="center">
+  <img src="assets/brand/readme-hero.png" alt="A SuperGrok graph flowing into the amber seal" />
 </p>
 <p align="center">
   <strong>Turn any goal into a team of Grok agents — shipped as one reusable binary.</strong>
@@ -11,6 +14,10 @@
 </p>
 
 Give OPGROK a goal. It hires specialist SuperGroks, seals a Winning Condition, and packages that team as a binary you can run again. Clone this repo and work from the clone root — this is a **CLI factory**, not a folder to invent inside some other project.
+
+<p align="center">
+  <img src="assets/protocol/craft-pipeline.png" alt="Hire → seal → graph → binary" />
+</p>
 
 ---
 
@@ -107,6 +114,10 @@ Watch a live run:
 tail -f core/binaries/<slug>/STATUS
 ```
 
+<p align="center">
+  <img src="assets/protocol/inference-flow.png" alt="SuperGrok nodes calling Grok" />
+</p>
+
 ### What “done” means
 
 | You just did | What you have |
@@ -116,6 +127,10 @@ tail -f core/binaries/<slug>/STATUS
 | **Live** `run` | SuperGroks write sources into `product/`. If cargo `--require-cargo` succeeds, that is the **product** binary. |
 
 `craft` does not call the xAI API. `ledger.total_tokens == 0` or an empty `product/` means the product was not built.
+
+<p align="center">
+  <img src="assets/protocol/binary-package.png" alt="One binary + one README" width="720" />
+</p>
 
 The agent in Grok is the **foreman**. SuperGroks are the smiths. The foreman must not write `product/` or `crate/src/` by hand.
 
@@ -166,6 +181,19 @@ Do not pass `--max-tokens 8192` on producers. grok-4.6 reasoning can fill 8k bef
 
 ## SuperGroks
 
+<p align="center">
+  <img src="assets/supergroks/cat-agent.svg" width="28" alt="agent" />
+  <img src="assets/supergroks/cat-plan.svg" width="28" alt="plan" />
+  <img src="assets/supergroks/cat-code.svg" width="28" alt="code" />
+  <img src="assets/supergroks/cat-rust.svg" width="28" alt="rust" />
+  <img src="assets/supergroks/cat-binary.svg" width="28" alt="binary" />
+  <img src="assets/supergroks/cat-review.svg" width="28" alt="review" />
+  <img src="assets/supergroks/cat-security.svg" width="28" alt="security" />
+  <img src="assets/supergroks/cat-test.svg" width="28" alt="test" />
+  <img src="assets/supergroks/cat-web.svg" width="28" alt="web" />
+  <img src="assets/supergroks/cat-workflow.svg" width="28" alt="workflow" />
+</p>
+
 178 indexed skills under `core/skills/<category>/<role>/SKILL.md`:
 
 | Kind | Count | Example |
@@ -187,7 +215,12 @@ Foreman rules: [`core/skills/opgrok/SKILL.md`](core/skills/opgrok/SKILL.md).
 - [core/toolkit/README.md](core/toolkit/README.md) — runtime modules
 - [core/harness/SPEC.md](core/harness/SPEC.md) — harness law
 - [core/skills/README.md](core/skills/README.md) — catalog
+- [assets/README.md](assets/README.md) — brand + protocol marks
 
 **Principles:** Grok is the brain. Spec before code. One harness = one binary + one README. The CLI is the product.
 
 **Safety:** API keys stay in `.env`. Shell tools stay off unless `OPGROK_ALLOW_SHELL=1`. Security agents audit and harden — they do not author exploits.
+
+<p align="center">
+  <img src="assets/brand/powered-by-grok.svg" alt="Powered by Grok · xAI" />
+</p>

@@ -1,5 +1,9 @@
 # Ops
 
+<p align="center">
+  <img src="../assets/brand/logo-lockup-h.svg" alt="OPGROK" width="240" />
+</p>
+
 CLI wrapper for the factory. Resolve `./opgrok` from the clone root.
 
 | Path | Role |

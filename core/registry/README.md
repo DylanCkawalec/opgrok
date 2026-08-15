@@ -1,5 +1,9 @@
 # Agent identity registry
 
+<p align="center">
+  <img src="../../assets/protocol/leslie-seal.svg" alt="Leslie seal" width="120" />
+</p>
+
 Content-addressable, cryptographically bound human names for every OPGROK skill agent.
 
 | File | Role |

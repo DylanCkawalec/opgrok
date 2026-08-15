@@ -1,5 +1,9 @@
 # opgrok-sg-harness
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/brand/logo-lockup-h.svg" alt="OPGROK" width="280" />
+</p>
+
 [![crates.io](https://img.shields.io/crates/v/opgrok-sg-harness.svg)](https://crates.io/crates/opgrok-sg-harness)
 [![docs.rs](https://docs.rs/opgrok-sg-harness/badge.svg)](https://docs.rs/opgrok-sg-harness)
 [![license](https://img.shields.io/crates/l/opgrok-sg-harness.svg)](https://github.com/DylanCkawalec/opgrok/blob/main/LICENSE)
@@ -7,6 +11,13 @@
 **The harness crafter for [OPGROK](https://github.com/DylanCkawalec/opgrok) — turn one goal into a sealed, reusable Grok-agent pipeline: one binary package + one README.**
 
 Give it a goal. It hires the right SuperGrok specialists by intent, seals a falsifiable winning condition, wires the agents into an ordered graph, and packages everything as a compilable Rust crate under `core/binaries/<slug>/`.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/protocol/harness-graph.png" alt="Harness DAG" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/protocol/binary-package.png" alt="One binary + one README" width="640" />
+</p>
 
 ## Install
 

@@ -1,5 +1,9 @@
 # opgrok-sg-mcp
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/brand/logo-lockup-h.svg" alt="OPGROK" width="280" />
+</p>
+
 [![crates.io](https://img.shields.io/crates/v/opgrok-sg-mcp.svg)](https://crates.io/crates/opgrok-sg-mcp)
 [![docs.rs](https://docs.rs/opgrok-sg-mcp/badge.svg)](https://docs.rs/opgrok-sg-mcp)
 [![license](https://img.shields.io/crates/l/opgrok-sg-mcp.svg)](https://github.com/DylanCkawalec/opgrok/blob/main/LICENSE)
@@ -7,6 +11,10 @@
 **The MCP-style tool surface for [OPGROK](https://github.com/DylanCkawalec/opgrok) — expose the SuperGrok agent catalog to any tool-calling LLM or agent framework as machine-readable JSON.**
 
 Installs the `opgrok-sg-mcp` binary. Every command emits JSON, so MCP clients, orchestrators, and scripts can list, route, describe, and load 150+ specialist Grok agents without parsing markdown.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/protocol/inference-flow.png" alt="Catalog nodes routing into Grok" />
+</p>
 
 ## Install
 

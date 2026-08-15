@@ -1,5 +1,9 @@
 # opgrok-sg-runtime
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/brand/logo-lockup-h.svg" alt="OPGROK" width="280" />
+</p>
+
 [![crates.io](https://img.shields.io/crates/v/opgrok-sg-runtime.svg)](https://crates.io/crates/opgrok-sg-runtime)
 [![docs.rs](https://docs.rs/opgrok-sg-runtime/badge.svg)](https://docs.rs/opgrok-sg-runtime)
 [![license](https://img.shields.io/crates/l/opgrok-sg-runtime.svg)](https://github.com/DylanCkawalec/opgrok/blob/main/LICENSE)
@@ -7,6 +11,10 @@
 **The SuperGrok runtime for [OPGROK](https://github.com/DylanCkawalec/opgrok) — load the agent registry, route natural-language intent to specialist Grok agents, and load skill contracts.**
 
 OPGROK turns any goal into a team of Grok agents shipped as one reusable binary. This crate is the foundation every other OPGROK crate builds on: it parses the SuperGrok registry (`REGISTRY.json`), indexes 150+ specialist agents by name, id, and category, and scores them against free-text intent.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DylanCkawalec/opgrok/main/assets/protocol/inference-flow.png" alt="SuperGrok nodes calling Grok" />
+</p>
 
 ## Install
 

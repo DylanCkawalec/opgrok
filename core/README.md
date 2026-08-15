@@ -1,5 +1,12 @@
 # Core — SuperGrok harness kernel
 
+<p align="center">
+  <img src="../assets/brand/logo-lockup-h.svg" alt="OPGROK" width="280" />
+</p>
+<p align="center">
+  <img src="../assets/protocol/harness-graph.png" alt="SuperGrok DAG flowing to an amber product node" />
+</p>
+
 This directory **is** OPGROK. The public interface is the CLI (`./opgrok` or `core/tools/*.py`).
 
 ## Purpose
@@ -9,6 +16,10 @@ Turn a goal into a **harness**:
 ```text
 goal → SuperGroks → Leslie WC → graph → package → Grok API run → OPGROK_RESULT
 ```
+
+<p align="center">
+  <img src="../assets/protocol/craft-pipeline.png" alt="Hire → seal → graph → binary" />
+</p>
 
 Leslie packaging law (always):
 
