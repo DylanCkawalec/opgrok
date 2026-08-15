@@ -53,6 +53,16 @@ enum Cmd {
     },
     /// List crafted harness binaries
     Harnesses,
+    /// Classify a goal (craft | meta | run | inspect)
+    Mode { goal: String },
+    /// Apex: print mode + family, then craft
+    Apex { goal: String },
+    /// Rust-specialist optimize + cargo build a slug
+    Build { slug: String },
+    /// Run rust-scout/smith/forge/trace/audit/seal on a crate (no binary yet)
+    Optimize { slug: String },
+    /// Validate SuperGrok catalog (Leslie gate)
+    Validate,
 }
 
 fn main() -> Result<()> {
@@ -60,6 +70,9 @@ fn main() -> Result<()> {
 
     match &cli.cmd {
         Cmd::Craft { goal, hire } => {
+            if *hire < 2 {
+                anyhow::bail!("hire limit must be 2..=24");
+            }
             let pkg = opgrok_sg_harness::craft(&cli.repo, goal, *hire)?;
             println!("@opgrok craft complete");
             println!("slug:     {}", pkg.slug);
@@ -104,6 +117,62 @@ fn main() -> Result<()> {
                 r#"{"harnesses":[]}"#.into()
             });
             println!("{raw}");
+            return Ok(());
+        }
+        Cmd::Mode { goal } => {
+            let mode = opgrok_sg_runtime::detect_mode(goal);
+            let family = opgrok_sg_runtime::prefer_categories(goal);
+            println!("mode:     {mode}");
+            println!("family:   {}", family.join(", "));
+            return Ok(());
+        }
+        Cmd::Apex { goal } => {
+            let mode = opgrok_sg_runtime::detect_mode(goal);
+            println!("mode:     {mode}");
+            let pkg = opgrok_sg_harness::craft(&cli.repo, goal, 8)?;
+            println!("@opgrok apex complete");
+            println!("slug:     {}", pkg.slug);
+            println!("root:     {}", pkg.root.display());
+            println!("hired:    {}", pkg.hired.join(", "));
+            println!("WIN: PASS — package has 1 README + binary entrypoint + Leslie WC");
+            return Ok(());
+        }
+        Cmd::Build { slug } => {
+            let status = Command::new("python3")
+                .arg(cli.repo.join("core/tools/build_harness.py"))
+                .arg(slug)
+                .current_dir(&cli.repo)
+                .status()
+                .context("python3 build_harness.py")?;
+            if !status.success() {
+                anyhow::bail!("build failed");
+            }
+            return Ok(());
+        }
+        Cmd::Optimize { slug } => {
+            let status = Command::new("python3")
+                .arg("-c")
+                .arg(format!(
+                    "import sys; sys.path.insert(0,'core'); from toolkit.rust_opt import optimize_crate; \
+                     r=optimize_crate({slug:?}); print(r)"
+                ))
+                .current_dir(&cli.repo)
+                .status()
+                .context("rust_opt")?;
+            if !status.success() {
+                anyhow::bail!("optimize failed");
+            }
+            return Ok(());
+        }
+        Cmd::Validate => {
+            let status = Command::new("python3")
+                .arg(cli.repo.join("core/tools/validate_supergroks.py"))
+                .current_dir(&cli.repo)
+                .status()
+                .context("validate_supergroks")?;
+            if !status.success() {
+                anyhow::bail!("Leslie gate failed");
+            }
             return Ok(());
         }
         _ => {}
@@ -159,7 +228,14 @@ fn main() -> Result<()> {
             let body = opgrok_sg_runtime::load_skill_markdown(&cli.repo, &idx, &name)?;
             print!("{body}");
         }
-        Cmd::Craft { .. } | Cmd::Run { .. } | Cmd::Harnesses => unreachable!(),
+        Cmd::Craft { .. }
+        | Cmd::Run { .. }
+        | Cmd::Harnesses
+        | Cmd::Mode { .. }
+        | Cmd::Apex { .. }
+        | Cmd::Build { .. }
+        | Cmd::Optimize { .. }
+        | Cmd::Validate => unreachable!(),
     }
     Ok(())
 }

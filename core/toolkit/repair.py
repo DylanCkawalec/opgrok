@@ -16,7 +16,10 @@ def should_retry(output: dict[str, Any], attempt: int, max_retries: int) -> bool
     # Contract violation: non-JSON junk or missing keys is retryable, not acceptable.
     if not isinstance(parsed, dict) or not all(k in parsed for k in CONTRACT_KEYS):
         return True
-    return str(parsed.get("win", "")).upper() == "FAIL"
+    w = parsed.get("win")
+    if not isinstance(w, str) or not w.strip():
+        return True
+    return w.strip().upper() == "FAIL"
 
 
 def repair_prompt(

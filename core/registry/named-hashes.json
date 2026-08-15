@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "algorithm": "sha256-fixed-width-identity-v1",
-  "updated_at": "2026-08-08T18:51:49Z",
+  "updated_at": "2026-08-15T00:56:51Z",
   "count": 178,
   "short_prefix_len": 12,
   "agents": [
@@ -695,11 +695,11 @@
     },
     {
       "name": "Corinne",
-      "full_hash": "21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e",
-      "short_token": "Corinne-21b314c2fe78",
-      "full_token": "Corinne-21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e",
+      "full_hash": "bdd07b5b423e6d757dfe6feafaaf754f69340734456109f289a1e3fb75af5b61",
+      "short_token": "Corinne-bdd07b5b423e",
+      "full_token": "Corinne-bdd07b5b423e6d757dfe6feafaaf754f69340734456109f289a1e3fb75af5b61",
       "path": "core/skills/opgrok/SKILL.md",
-      "timestamp": "2026-08-08T18:51:49Z"
+      "timestamp": "2026-08-15T00:56:51Z"
     },
     {
       "name": "Damien",
@@ -1518,7 +1518,6 @@
       "Clara-6413b3494b29": "core/skills/meta/seal/SKILL.md",
       "Clarence-87b59d55b92d": "core/skills/meta/smith/SKILL.md",
       "Clark-d1c3d6b87850": "core/skills/meta/trace/SKILL.md",
-      "Corinne-21b314c2fe78": "core/skills/opgrok/SKILL.md",
       "Damien-ebefbc92c3c7": "core/skills/plan/SKILL.md",
       "Dana-644e38c25017": "core/skills/plan/audit/SKILL.md",
       "Danielle-8d2e19bd4c9e": "core/skills/plan/forge/SKILL.md",
@@ -1609,7 +1608,8 @@
       "Holly-a62b357f6894": "core/skills/workflow/scout/SKILL.md",
       "Honesty-6ff84a7b1e1d": "core/skills/workflow/seal/SKILL.md",
       "Honora-bcd6f99eacf6": "core/skills/workflow/smith/SKILL.md",
-      "Hope-469bce9f67ec": "core/skills/workflow/trace/SKILL.md"
+      "Hope-469bce9f67ec": "core/skills/workflow/trace/SKILL.md",
+      "Corinne-bdd07b5b423e": "core/skills/opgrok/SKILL.md"
     },
     "by_full_token": {
       "Aaliyah-1cee01187ff4924654ad4a994caecdf7fbcae3e8c4f3ab789b269741a4c9372e": "core/skills/agent/SKILL.md",
@@ -1698,7 +1698,6 @@
       "Clara-6413b3494b29d9fee6a584e6cb710837f6c3a800c7e4a13c1efc0c9370b22b5f": "core/skills/meta/seal/SKILL.md",
       "Clarence-87b59d55b92d0acb147adef5e35cb4cddd7213e09911cb1bd6e4fd979ffe73c5": "core/skills/meta/smith/SKILL.md",
       "Clark-d1c3d6b8785089cdea2ed87d9571af131728d44e8997b94330ecd71021afe4ff": "core/skills/meta/trace/SKILL.md",
-      "Corinne-21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e": "core/skills/opgrok/SKILL.md",
       "Damien-ebefbc92c3c752964182e6f9774c181998030a44a6d490026fde611dc64fcf1e": "core/skills/plan/SKILL.md",
       "Dana-644e38c25017a5c7a4ee28e6203ad1196e00550baa005ac6c8bd2051cbe76826": "core/skills/plan/audit/SKILL.md",
       "Danielle-8d2e19bd4c9e9c682650754a453e4da6f404d13ad6d01beab55c1a5cc06e3ef5": "core/skills/plan/forge/SKILL.md",
@@ -1789,7 +1788,8 @@
       "Holly-a62b357f6894a9e5e07cea4f5a534fe0f2cbcb23189e33fe818735b09aa8f001": "core/skills/workflow/scout/SKILL.md",
       "Honesty-6ff84a7b1e1d2aff7712f9f9c60966f0b9e7d3108130131b62dd698b151b6824": "core/skills/workflow/seal/SKILL.md",
       "Honora-bcd6f99eacf6f73f22f365c9a150e3d20cd6c024e5901997418aab4c102f7d6d": "core/skills/workflow/smith/SKILL.md",
-      "Hope-469bce9f67eca3f469eb44a05f50411e3ecc6d1dfd8e249b05d204e9fd057f6a": "core/skills/workflow/trace/SKILL.md"
+      "Hope-469bce9f67eca3f469eb44a05f50411e3ecc6d1dfd8e249b05d204e9fd057f6a": "core/skills/workflow/trace/SKILL.md",
+      "Corinne-bdd07b5b423e6d757dfe6feafaaf754f69340734456109f289a1e3fb75af5b61": "core/skills/opgrok/SKILL.md"
     },
     "by_hash": {
       "1cee01187ff4924654ad4a994caecdf7fbcae3e8c4f3ab789b269741a4c9372e": "core/skills/agent/SKILL.md",
@@ -1878,7 +1878,6 @@
       "6413b3494b29d9fee6a584e6cb710837f6c3a800c7e4a13c1efc0c9370b22b5f": "core/skills/meta/seal/SKILL.md",
       "87b59d55b92d0acb147adef5e35cb4cddd7213e09911cb1bd6e4fd979ffe73c5": "core/skills/meta/smith/SKILL.md",
       "d1c3d6b8785089cdea2ed87d9571af131728d44e8997b94330ecd71021afe4ff": "core/skills/meta/trace/SKILL.md",
-      "21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e": "core/skills/opgrok/SKILL.md",
       "ebefbc92c3c752964182e6f9774c181998030a44a6d490026fde611dc64fcf1e": "core/skills/plan/SKILL.md",
       "644e38c25017a5c7a4ee28e6203ad1196e00550baa005ac6c8bd2051cbe76826": "core/skills/plan/audit/SKILL.md",
       "8d2e19bd4c9e9c682650754a453e4da6f404d13ad6d01beab55c1a5cc06e3ef5": "core/skills/plan/forge/SKILL.md",
@@ -1969,7 +1968,8 @@
       "a62b357f6894a9e5e07cea4f5a534fe0f2cbcb23189e33fe818735b09aa8f001": "core/skills/workflow/scout/SKILL.md",
       "6ff84a7b1e1d2aff7712f9f9c60966f0b9e7d3108130131b62dd698b151b6824": "core/skills/workflow/seal/SKILL.md",
       "bcd6f99eacf6f73f22f365c9a150e3d20cd6c024e5901997418aab4c102f7d6d": "core/skills/workflow/smith/SKILL.md",
-      "469bce9f67eca3f469eb44a05f50411e3ecc6d1dfd8e249b05d204e9fd057f6a": "core/skills/workflow/trace/SKILL.md"
+      "469bce9f67eca3f469eb44a05f50411e3ecc6d1dfd8e249b05d204e9fd057f6a": "core/skills/workflow/trace/SKILL.md",
+      "bdd07b5b423e6d757dfe6feafaaf754f69340734456109f289a1e3fb75af5b61": "core/skills/opgrok/SKILL.md"
     },
     "by_name": {
       "Aaliyah": "core/skills/agent/SKILL.md",
@@ -2238,7 +2238,7 @@
       "core/skills/meta/seal/SKILL.md": "Clara-6413b3494b29",
       "core/skills/meta/smith/SKILL.md": "Clarence-87b59d55b92d",
       "core/skills/meta/trace/SKILL.md": "Clark-d1c3d6b87850",
-      "core/skills/opgrok/SKILL.md": "Corinne-21b314c2fe78",
+      "core/skills/opgrok/SKILL.md": "Corinne-bdd07b5b423e",
       "core/skills/plan/SKILL.md": "Damien-ebefbc92c3c7",
       "core/skills/plan/audit/SKILL.md": "Dana-644e38c25017",
       "core/skills/plan/forge/SKILL.md": "Danielle-8d2e19bd4c9e",

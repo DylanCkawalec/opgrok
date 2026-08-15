@@ -15,11 +15,12 @@ def ensure_judge_node(graph: dict[str, Any], registry_skills: list[dict] | None 
     """Append a judge sink if missing. Mutates and returns graph."""
     nodes = graph.setdefault("nodes", [])
     edges = graph.setdefault("edges", [])
-    if any(n.get("judge") or is_judge_category(n.get("category", "")) for n in nodes):
-        # ensure last is sink
+    if nodes and (nodes[-1].get("judge") or is_judge_category(nodes[-1].get("category", ""))):
         for n in nodes:
             n["sink"] = False
         nodes[-1]["sink"] = True
+        nodes[-1]["judge"] = True
+        nodes[-1]["model_tier"] = nodes[-1].get("model_tier") or "judge"
         return graph
 
     # pick review-audit or eval-prism from registry if available

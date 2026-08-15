@@ -6,7 +6,7 @@ How OPGROK and MCP should traverse skills.
 
 | Call | Role |
 |------|------|
-| `/opgrok` | Craft multi-agent harness for a goal |
+| `/opgrok` | Enter OPGrok Mode — craft a reusable harness binary |
 | `/leslie` | Seal Winning Conditions; validate catalog |
 | `/meta-asset-creator` | Brand / visual asset library |
 | `/cat-<category>` | Navigate one category's roles |

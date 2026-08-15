@@ -2,6 +2,7 @@
 name = "opgrok-sg-harness"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -12,7 +13,7 @@ categories = ["development-tools", "development-tools::build-utils"]
 readme = "README.md"
 
 [dependencies]
-opgrok-sg-runtime = { path = "../sg-runtime", version = "0.1.0" }
+opgrok-sg-runtime = { path = "../sg-runtime", version = "1.0.0" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }

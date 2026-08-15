@@ -63,35 +63,18 @@ pub struct SgOutput {
     pub artifacts: Vec<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, thiserror::Error)]
 pub enum SuperGrokError {
-    Io(std::io::Error),
-    Json(serde_json::Error),
+    #[error("registry io: {0}")]
+    Io(#[from] std::io::Error),
+    #[error("registry json: {0}")]
+    Json(#[from] serde_json::Error),
+    #[error("unknown supergrok: {0}")]
     NotFound(String),
+    #[error("binary not implemented: {0}")]
     BinaryStub(String),
-}
-
-impl std::fmt::Display for SuperGrokError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            SuperGrokError::Io(e) => write!(f, "registry io: {e}"),
-            SuperGrokError::Json(e) => write!(f, "registry json: {e}"),
-            SuperGrokError::NotFound(n) => write!(f, "unknown supergrak: {n}"),
-            SuperGrokError::BinaryStub(id) => write!(f, "binary not implemented: {id}"),
-        }
-    }
-}
-
-impl std::error::Error for SuperGrokError {}
-impl From<std::io::Error> for SuperGrokError {
-    fn from(e: std::io::Error) -> Self {
-        SuperGrokError::Io(e)
-    }
-}
-impl From<serde_json::Error> for SuperGrokError {
-    fn from(e: serde_json::Error) -> Self {
-        SuperGrokError::Json(e)
-    }
+    #[error("hire limit must be 2..=24")]
+    HireBounds,
 }
 
 #[derive(Debug, Default)]
@@ -149,7 +132,23 @@ impl SuperGrokIndex {
         cats
     }
 
+    pub fn is_hireable(sk: &SuperGrokMeta) -> bool {
+        if sk.name.starts_with("cat-")
+            || matches!(sk.name.as_str(), "leslie" | "opgrok" | "meta-asset-creator")
+        {
+            return false;
+        }
+        if !sk.kind.is_empty() && sk.kind != "supergrok" {
+            return false;
+        }
+        matches!(
+            sk.role.as_str(),
+            "forge" | "smith" | "scout" | "seal" | "trace" | "audit"
+        )
+    }
+
     pub fn route(&self, intent: &str, limit: usize) -> Vec<&SuperGrokMeta> {
+        let limit = limit.clamp(2, 24);
         let intent_l = intent.to_lowercase();
         let tokens: Vec<&str> = intent_l
             .split(|c: char| !c.is_alphanumeric() && c != '-')
@@ -161,6 +160,9 @@ impl SuperGrokIndex {
             .values()
             .map(|sk| {
                 let mut score = 0i32;
+                let purpose_l = sk.purpose.to_lowercase();
+                let when_l = sk.when_to_use.to_lowercase();
+                let shorthand_l = sk.shorthand.to_lowercase();
                 for t in &tokens {
                     if sk.name.contains(t) {
                         score += 5;
@@ -174,6 +176,15 @@ impl SuperGrokIndex {
                     if sk.intent.to_lowercase().contains(t) {
                         score += 2;
                     }
+                    if purpose_l.contains(t) {
+                        score += 2;
+                    }
+                    if when_l.contains(t) {
+                        score += 2;
+                    }
+                    if shorthand_l.contains(t) {
+                        score += 1;
+                    }
                     for tag in &sk.intent_tags {
                         if tag == t || tag.contains(t) {
                             score += 3;
@@ -182,7 +193,7 @@ impl SuperGrokIndex {
                 }
                 (score, sk)
             })
-            .filter(|(s, _)| *s > 0)
+            .filter(|(s, sk)| *s > 0 && Self::is_hireable(sk))
             .collect();
 
         scored.sort_by(|a, b| b.0.cmp(&a.0).then_with(|| a.1.name.cmp(&b.1.name)));
@@ -193,6 +204,68 @@ impl SuperGrokIndex {
         let meta = self.get(name)?;
         Some(repo_root.as_ref().join(&meta.path))
     }
+}
+
+/// Apex classify-and-route. Keep markers aligned with `core/toolkit/apex.py`.
+pub fn detect_mode(goal: &str) -> &'static str {
+    let g = goal.trim().to_ascii_lowercase();
+    if g.is_empty() {
+        return "inspect";
+    }
+    if g.starts_with("run ") || g.contains(" run harness") {
+        return "run";
+    }
+    if matches!(
+        g.as_str(),
+        "help" | "howto" | "validate" | "harnesses" | "status"
+    ) || g.starts_with("route ")
+        || g.starts_with("validate ")
+        || g.starts_with("howto ")
+    {
+        return "inspect";
+    }
+    const META: &[&str] = &[
+        "enhance opgrok",
+        "improve opgrok",
+        "opgrok itself",
+        "opgrok core",
+        "meta-mode",
+        "apex binary",
+        "closed loop",
+        "super-integration",
+        "routing logic",
+        "skill catalog",
+        "harness builder",
+    ];
+    if META.iter().any(|m| g.contains(m)) {
+        return "meta";
+    }
+    if g.contains("opgrok")
+        && ["improve", "enhance", "fix", "upgrade", "evolve"]
+            .iter()
+            .any(|w| g.contains(w))
+    {
+        return "meta";
+    }
+    "craft"
+}
+
+/// Category family for hire order. Meta goals staff surgery, not marketing.
+pub fn prefer_categories(goal: &str) -> &'static [&'static str] {
+    if detect_mode(goal) == "meta" {
+        return &[
+            "meta", "agent", "binary", "plan", "eval", "tool", "review", "docs",
+        ];
+    }
+    let g = goal.to_ascii_lowercase();
+    if g.contains("landing") || g.contains("website") || g.contains("frontend") {
+        return &[
+            "product", "plan", "web", "ui", "code", "review", "docs", "test",
+        ];
+    }
+    &[
+        "plan", "agent", "code", "review", "test", "docs", "product", "web",
+    ]
 }
 
 /// Future native entrypoints. v1 always stubs.

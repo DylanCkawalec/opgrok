@@ -6,6 +6,7 @@ Usage:
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sys
@@ -16,10 +17,44 @@ ROOT = Path(__file__).resolve().parents[2]
 REG = ROOT / "core/skills/_framework/REGISTRY.json"
 BIN_ROOT = ROOT / "core/binaries"
 
+sys.path.insert(0, str(ROOT / "core"))
+from toolkit.apex import (  # noqa: E402
+    boost_categories,
+    detect_mode,
+    package_ok,
+    prefer_categories,
+    incoming_keys,
+    prior_input,
+    record_lesson,
+    tokens,
+    wave_edges,
+)
+
 
 def slugify(goal: str) -> str:
-    s = re.sub(r"[^a-z0-9]+", "-", goal.lower()).strip("-")
-    return (s[:48] or f"harness-{int(time.time())}")
+    """Clock-free. Long goals get a hash suffix so 48-char prefixes don't collide."""
+    digest = hashlib.sha256((goal or "").encode("utf-8")).hexdigest()
+    s = re.sub(r"[^a-z0-9]+", "-", (goal or "").lower()).strip("-")
+    if not s:
+        return "h-" + digest[:16]
+    if len(s) > 40:
+        return s[:40].rstrip("-") + "-" + digest[:7]
+    return s
+
+
+HIREABLE_ROLES = frozenset({"forge", "smith", "scout", "seal", "trace", "audit"})
+CORE_NAMES = frozenset({"leslie", "opgrok", "meta-asset-creator"})
+
+
+def _is_hireable(sk: dict) -> bool:
+    name = sk.get("name") or ""
+    if name.startswith("cat-") or name in CORE_NAMES:
+        return False
+    kind = sk.get("kind")
+    if kind is not None and kind != "supergrok":
+        return False
+    role = sk.get("role") or ""
+    return role in HIREABLE_ROLES
 
 
 def _best_in_category(skills: list[dict], cat: str, prefer_roles: list[str], tokens: tuple[str, ...] = ()) -> dict | None:
@@ -79,36 +114,22 @@ STAGE_ROLE: dict[str, list[str]] = {
 
 
 def route(goal: str, limit: int = 8) -> list[dict]:
+    if limit < 2:
+        raise ValueError("hire_limit_below_min")
+    limit = min(int(limit), 24)
     reg = json.loads(REG.read_text())
     skills = reg["skills"]
-    g = goal.lower()
-    # Preferred categories by goal family (order = pipeline order)
-    # Order matters: more specific families before broad keywords like "design"
-    if any(k in g for k in ("cli", "command-line", "command line", "rust crate", "cargo")) or (
-        "rust" in g and any(k in g for k in ("cli", "binary", "tool", "crate"))
-    ):
-        prefer = ["product", "plan", "rust", "binary", "code", "docs", "review", "test"]
-    elif any(k in g for k in ("site", "web", "page", "landing", "frontend", "wireframe", "marketing")) or (
-        "ui" in g.split() or " ux" in f" {g}"
-    ):
-        prefer = ["product", "plan", "web", "ui", "code", "review", "docs", "test"]
-    elif any(k in g for k in ("api", "backend", "service", "server", "endpoint")):
-        prefer = ["plan", "code", "web", "db", "security", "test", "review", "docs"]
-    elif any(k in g for k in ("agent", "mesh", "harness", "orchestr", "opgrok", "supergrok")):
-        prefer = ["agent", "plan", "eval", "mcp", "tool", "review", "binary", "meta"]
-    elif any(k in g for k in ("architecture", "design doc", "adr", "spec ")):
-        prefer = ["product", "plan", "docs", "review", "code", "eval"]
-    else:
-        prefer = ["plan", "agent", "code", "review", "test", "docs"]
+    mode = detect_mode(goal)
+    prefer = boost_categories(prefer_categories(goal, mode), goal)
 
-    tokens = tuple(t for t in re.split(r"[^a-z0-9\-]+", g) if len(t) > 2)
+    goal_tokens = tokens(goal)
     hired: list[dict] = []
     seen_cat: set[str] = set()
     for cat in prefer:
         if len(hired) >= limit:
             break
         roles = STAGE_ROLE.get(cat, ["forge", "smith", "scout", "audit", "seal", "trace"])
-        sk = _best_in_category(skills, cat, roles, tokens)
+        sk = _best_in_category(skills, cat, roles, goal_tokens)
         if sk and cat not in seen_cat:
             hired.append(sk)
             seen_cat.add(cat)
@@ -118,10 +139,12 @@ def route(goal: str, limit: int = 8) -> list[dict]:
     for sk in skills:
         if sk.get("category") in seen_cat:
             continue
+        if not _is_hireable(sk):
+            continue
         blob = " ".join(
             [sk.get("name", ""), sk.get("intent", ""), sk.get("purpose", "")]
         ).lower()
-        score = sum(2 for t in tokens if t in blob)
+        score = sum(2 for t in goal_tokens if t in blob)
         if score:
             scored.append((score, sk))
     scored.sort(key=lambda x: (-x[0], x[1]["name"]))
@@ -132,36 +155,65 @@ def route(goal: str, limit: int = 8) -> list[dict]:
         seen_cat.add(sk.get("category", ""))
 
     if len(hired) < 2:
-        hired = skills[:2]
+        for sk in skills:
+            if any(h.get("name") == sk.get("name") for h in hired):
+                continue
+            if not _is_hireable(sk):
+                continue
+            hired.append(sk)
+            if len(hired) >= 2:
+                break
     return hired[:limit]
 
 
-def craft(goal: str, hire_limit: int = 8) -> Path:
-    slug = slugify(goal)
+def craft(goal: str, hire_limit: int = 8, force: bool = False, slug: str | None = None) -> Path:
+    if hire_limit < 2:
+        print("hire limit must be 2..24")
+        raise SystemExit(1)
+    if slug:
+        slug = re.sub(r"[^a-z0-9._-]+", "-", slug.lower()).strip("-")
+        if not slug or not re.match(r"^[a-z0-9][a-z0-9._-]*$", slug):
+            print("invalid --slug")
+            raise SystemExit(1)
+    else:
+        slug = slugify(goal)
+    mode = detect_mode(goal)
+    family = boost_categories(prefer_categories(goal, mode), goal)
     hired = route(goal, hire_limit)
+    reg_path = BIN_ROOT / "registry.json"
+    if reg_path.is_file():
+        existing_reg = json.loads(reg_path.read_text())
+        hit = next((h for h in (existing_reg.get("harnesses") or []) if h.get("slug") == slug), None)
+        if hit and hit.get("goal") != goal and not force:
+            print(f"slug collision: {slug} already bound to a different goal")
+            raise SystemExit(1)
     root = BIN_ROOT / slug
     (root / "bin").mkdir(parents=True, exist_ok=True)
     (root / "crate" / "src").mkdir(parents=True, exist_ok=True)
 
+    node_ids = [f"n{i+1:02d}" for i in range(len(hired))]
     nodes = []
-    edges = []
     for i, sk in enumerate(hired):
-        nid = f"n{i+1:02d}"
-        prev = "goal" if i == 0 else f"n{i:02d}.output"
+        nid = node_ids[i]
+        ins = incoming_keys(node_ids, i)
+        if "goal" not in ins:
+            ins = list(ins) + ["goal"]
         nodes.append(
             {
                 "id": nid,
                 "sg_name": sk["name"],
+                "name": sk["name"],
                 "sg_id": sk.get("sg_id", ""),
                 "binary_id": sk.get("binary_id", f"opgrok.sg.{sk['name']}"),
                 "skill_path": sk.get("path", ""),
                 "category": sk.get("category", ""),
                 "role": sk.get("role", ""),
+                "kind": sk.get("kind") or "supergrok",
                 "intent": sk.get("intent", ""),
                 "purpose": sk.get("purpose", ""),
                 "sink": i == len(hired) - 1,
                 "ipo": {
-                    "inputs": [prev, "goal"],
+                    "inputs": ins,
                     "process": f"Execute {sk['name']}: {sk.get('purpose','')}",
                     "outputs": [f"{nid}.output"],
                 },
@@ -173,8 +225,7 @@ def craft(goal: str, hire_limit: int = 8) -> Path:
                 },
             }
         )
-        if i > 0:
-            edges.append({"from": f"n{i:02d}", "to": nid, "key": f"n{i:02d}.output"})
+    edges = wave_edges(node_ids)
 
     # Model tiers (Grok-native multi-model routing hints)
     FAST = {"docs", "chat", "search", "extract", "polish", "product"}
@@ -209,6 +260,19 @@ def craft(goal: str, hire_limit: int = 8) -> Path:
         },
         "nodes": nodes,
         "edges": edges,
+        "apex": {
+            "mode": mode,
+            "family": family,
+            "lessons_used": [],
+            "rust_specialists": [
+                "rust-scout",
+                "rust-smith",
+                "rust-forge",
+                "rust-trace",
+                "rust-audit",
+                "rust-seal",
+            ],
+        },
     }
 
     # Auto-append judge sink (Grok critique strength) unless disabled
@@ -242,7 +306,7 @@ Harness for:
 
 > {goal}
 
-n8n-style SuperGrok graph. Each node uses Grok API with that SuperGrok's skill contract. Sink surfaces OPGROK_RESULT.
+SuperGrok graph. Each node uses the Grok API with that SuperGrok's skill contract. Sink surfaces OPGROK_RESULT.
 
 ## Winning condition (Leslie)
 
@@ -289,8 +353,8 @@ python3 core/tools/build_harness.py {slug} --install
     (root / "WINNING_CONDITION.md").write_text(
         f"""# Winning Condition — opgrok-{slug}
 
-**Leslie seal.** Governed by the master seal `docs/WINNING_CONDITION.md`
-(module `HarnessRun`: invariants I1 NoVacuousPass, I2 DryHonesty, I3 SingleVerdict).
+**Leslie seal.** Governed by `core/harness/SPEC.md`
+(invariants: no vacuous PASS, dry-run honesty, single verdict).
 
 ## Goal
 
@@ -363,6 +427,7 @@ Exit code: 0 for `PASS` or `DRY`, 1 for `FAIL`.
     # Build binary package: skills_cache + full crate + entrypoint (+ cargo if present)
     import subprocess
 
+    print(f"mode: {mode}")
     print(f"slug: {slug}")
     print(f"root: {root}")
     print(f"hired: {', '.join(h['name'] for h in hired)}")
@@ -371,25 +436,44 @@ Exit code: 0 for `PASS` or `DRY`, 1 for `FAIL`.
         [sys.executable, str(ROOT / "core/tools/build_harness.py"), slug],
         cwd=str(ROOT),
     )
+    check = package_ok(root)
+    record_lesson(
+        goal,
+        slug,
+        hired,
+        mode,
+        outcome="pass" if check["ok"] else "package_fail",
+    )
+    if not check["ok"]:
+        print(f"package_ok errors: {check.get('errors') or check.get('missing')}")
+        raise SystemExit(1)
     print("WIN: PASS — 1 README + binary entry + Leslie WC + skills_cache")
     return root
 
 
 def main() -> int:
     if len(sys.argv) < 2:
-        print('Usage: craft_harness.py "<goal>" [--hire N] [--install]')
+        print('Usage: craft_harness.py "<goal>" [--hire N] [--slug NAME] [--install]')
         return 2
     args = sys.argv[1:]
     hire = 8
     install = False
+    force = False
+    slug_arg = None
     goal_parts = []
     i = 0
     while i < len(args):
         if args[i] == "--hire" and i + 1 < len(args):
             hire = int(args[i + 1])
             i += 2
+        elif args[i] == "--slug" and i + 1 < len(args):
+            slug_arg = args[i + 1]
+            i += 2
         elif args[i] == "--install":
             install = True
+            i += 1
+        elif args[i] == "--force":
+            force = True
             i += 1
         else:
             goal_parts.append(args[i])
@@ -398,7 +482,10 @@ def main() -> int:
     if not goal:
         print("goal required")
         return 2
-    root = craft(goal, hire_limit=hire)
+    if hire < 2:
+        print("hire limit must be 2..24")
+        return 1
+    root = craft(goal, hire_limit=hire, force=force, slug=slug_arg)
     if install:
         import subprocess
 

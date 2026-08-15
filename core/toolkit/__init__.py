@@ -12,6 +12,10 @@ from .judge import ensure_judge_node, is_judge_category
 from .vision import collect_vision_refs, vision_system_addon
 from .parallel import ready_wave, topo_layers
 from .identity import IdentityIndex, AgentRef, resolve as resolve_agent, default_index
+from .apex import detect_mode, prefer_categories, package_ok, record_lesson, wave_edges
+from .validate import ValidationResult, validate_graph
+from .rust_opt import RUST_SPECIALISTS, optimize_crate
+from .product import crate_ident, dest_rel_for_name, extract_json_object, node_max_tokens
 
 __all__ = [
     "load_repo_env",
@@ -35,4 +39,17 @@ __all__ = [
     "AgentRef",
     "resolve_agent",
     "default_index",
+    "detect_mode",
+    "prefer_categories",
+    "package_ok",
+    "record_lesson",
+    "wave_edges",
+    "validate_graph",
+    "ValidationResult",
+    "optimize_crate",
+    "RUST_SPECIALISTS",
+    "crate_ident",
+    "dest_rel_for_name",
+    "extract_json_object",
+    "node_max_tokens",
 ]

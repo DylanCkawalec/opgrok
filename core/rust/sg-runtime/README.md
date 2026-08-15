@@ -43,7 +43,9 @@ let md = opgrok_sg_runtime::load_skill_markdown(".", &idx, "rust-smith")?;
 | API | Purpose |
 |-----|---------|
 | `SuperGrokIndex::load_from_repo_root` | Load + index the full registry from a repo checkout |
-| `route(intent, limit)` | Ranked intent → agent matching (name/category/nest/intent-tag scoring) |
+| `route(intent, limit)` | Ranked intent → agent matching (name/category/nest/intent/purpose/when_to_use) |
+| `detect_mode(goal)` | Apex classify: craft / meta / run / inspect |
+| `prefer_categories(goal)` | Hire-order family (meta vs product) |
 | `get(name_or_id)` | Look up one agent by name or `sg_id` |
 | `by_category(cat)` | All agents in a category |
 | `mcp_descriptors()` | Machine-readable descriptors for MCP-style tool surfaces |

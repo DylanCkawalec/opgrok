@@ -1,11 +1,11 @@
 # Ops
 
-Process management and install helpers for the monorepo.
+CLI wrapper for the factory. Resolve `./opgrok` from the clone root.
 
 | Path | Role |
 |------|------|
-| `install.sh` | chmod + optional shell alias for `opgrok` |
-| `scripts/opgrok.sh` | Unified CLI: craft/run/build + optional app start/stop |
+| `install.sh` | chmod + optional shell alias |
+| `scripts/opgrok.sh` | `craft` / `run` / `build` / `route` / `validate` |
 
 Root symlink:
 
@@ -13,20 +13,13 @@ Root symlink:
 ./opgrok  →  ops/scripts/opgrok.sh
 ```
 
-## Harness commands (core)
-
 ```bash
 ./opgrok craft "goal"
 ./opgrok run <slug> [--dry-run]
 ./opgrok build <slug> [--install]
 ./opgrok validate
 ./opgrok harnesses
+./opgrok howto
 ```
 
-## App shell commands (optional)
-
-```bash
-./opgrok start | chat | genius | stop | status | logs
-```
-
-Requires root `.env` (`XAI_API_KEY`). n8n modes need Node 18+.
+Live runs need `XAI_API_KEY` in the clone-root `.env`. See the root [README.md](../README.md).

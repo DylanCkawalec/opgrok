@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import time
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -26,7 +27,11 @@ class TokenLedger:
         model: str,
         usage: dict | None,
         error: str | None = None,
+        phase: str = "initial",
+        dry: bool = False,
     ) -> None:
+        if error:
+            usage = None
         row = {
             "ts": int(time.time()),
             "node_id": node_id,
@@ -34,9 +39,12 @@ class TokenLedger:
             "model": model,
             "usage": usage or {},
             "error": error,
+            "phase": phase,
+            "dry": dry,
         }
         self.rows.append(row)
-        self.totals["calls"] += 1
+        if not dry:
+            self.totals["calls"] += 1
         if error:
             self.totals["errors"] += 1
         if usage:
@@ -46,7 +54,20 @@ class TokenLedger:
                 except Exception:
                     pass
 
+    def rollup(self) -> dict[str, dict[str, int]]:
+        out: dict[str, dict[str, int]] = defaultdict(
+            lambda: {"calls": 0, "total_tokens": 0, "errors": 0}
+        )
+        for row in self.rows:
+            nid = row["node_id"]
+            if not row.get("dry"):
+                out[nid]["calls"] += 1
+            out[nid]["total_tokens"] += int((row.get("usage") or {}).get("total_tokens") or 0)
+            if row.get("error"):
+                out[nid]["errors"] += 1
+        return dict(out)
+
     def flush(self) -> dict[str, Any]:
-        payload = {"totals": self.totals, "rows": self.rows}
+        payload = {"totals": self.totals, "rows": self.rows, "by_node": self.rollup()}
         self.path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
         return payload

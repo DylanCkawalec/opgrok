@@ -5,25 +5,29 @@ members = [
     "core/rust/sg-mcp",
     "core/rust/sg-cli",
     "core/rust/sg-harness",
-    "apps/chat",
 ]
 default-members = [
     "core/rust/sg-runtime",
     "core/rust/sg-cli",
     "core/rust/sg-harness",
+    "core/rust/sg-mcp",
 ]
+# Generated harness crates must never join this workspace.
+exclude = ["core/binaries"]
 
 [workspace.package]
 edition = "2021"
+rust-version = "1.85"
 license = "MIT"
-version = "0.1.0"
-authors = ["Dylan Kawalec <43707795+DylanCkawalec@users.noreply.github.com>"]
+version = "1.0.0"
+authors = ["Dylan Kawalec"]
 repository = "https://github.com/DylanCkawalec/opgrok"
 homepage = "https://github.com/DylanCkawalec/opgrok"
 
 [workspace.dependencies]
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-anyhow = "1.0"
-clap = { version = "4.0", features = ["derive"] }
-tokio = { version = "1.0", features = ["rt-multi-thread", "macros", "fs", "io-util"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+anyhow = "1.0.100"
+thiserror = "2.0.17"
+clap = { version = "4.5.53", features = ["derive"] }
+tokio = { version = "1.48.0", features = ["rt-multi-thread", "macros", "fs", "io-util"] }

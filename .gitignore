@@ -1,4 +1,4 @@
-# Python
+# ── Python ────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -9,68 +9,73 @@ venv/
 ENV/
 env/
 
-# Rust
+# ── Rust ──────────────────────────────────────────────────────────────────
 /target/
 Cargo.lock
 **/*.rs.bk
 
-# Environment & Secrets
+# ── Secrets ───────────────────────────────────────────────────────────────
 .env
 .env.local
 *.key
 *.pem
 
-# IDEs
+# ── Editors / OS ──────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.bak
 .vscode/
 .idea/
 *.swp
 *.swo
 .cursor/
 
-# OS
-.DS_Store
-Thumbs.db
-*.bak
-
-# n8n Data (keep structure, ignore content)
-.n8n/.cache/
-.n8n/.n8n/database.*
-.n8n/database.*
-.n8n/*.pid
-.n8n/*.log
-.n8n/audit/*.jsonl
-n8n_data/
-postgres_data/
-
-# Logs
+# ── Logs / temp / DBs ─────────────────────────────────────────────────────
 *.log
 logs/
-
-# Database
+tmp/
+temp/
+*.tmp
 *.db
 *.sqlite
 *.sqlite3
 *.db-journal
 
-# Node
+# ── Node (local only) ─────────────────────────────────────────────────────
 node_modules/
 npm-debug.log*
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# Build artifacts
+# ── Build artifacts ───────────────────────────────────────────────────────
 dist/
 build/
 *.egg-info/
 
-# OPGROK harness artifacts (personal — crafted per user, not for public)
+# ── Per-clone factory output (not the published tree) ─────────────────────
 core/binaries/
 
-# n8n runtime cache + data (keep dir structure, ignore contents)
-.n8n/.cache/
-.n8n/nodes/
-.n8n/config
-.n8n/crash.journal
+# ── Personal / not part of the public CLI ─────────────────────────────────
+# Local tests, long-form notes, TLA+ specs, UI shells, and example oracles
+# stay on the author's machine. A clone should learn the factory from
+# README.md + core/skills/opgrok/SKILL.md.
+tests/
+docs/
+apps/
+webapp/
+examples/
+_analysis/
+.n8n/
+n8n_data/
+postgres_data/
+
+# Local Grok Build plugin + experimental workflows
+.grok-plugin/
+.grok/workflows/
+
+# n8n / web UI helper scripts (need apps/)
+ops/scripts/run.sh
+ops/scripts/run_n8n.sh
+ops/scripts/run_n8n_local.sh
+ops/scripts/run_genius_mode.sh
+ops/scripts/stop_n8n_local.sh

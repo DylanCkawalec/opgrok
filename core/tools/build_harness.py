@@ -8,7 +8,7 @@ Steps:
 4. Optional: install to ~/.opgrok/bin
 
 Usage:
-  python3 core/tools/build_harness.py <slug> [--install] [--force-python]
+  python3 core/tools/build_harness.py <slug> [--install] [--force-python] [--require-cargo]
 """
 from __future__ import annotations
 
@@ -95,12 +95,16 @@ def cargo_available() -> bool:
 
 def build_cargo(slug: str) -> Path | None:
     crate = ROOT / "core/binaries" / slug / "crate"
-    if not (crate / "Cargo.toml").is_file():
-        return None
     if not cargo_available():
         return None
-    # ensure full main.rs from template exists
-    ensure_full_crate(slug)
+    # rust specialists upgrade the crate BEFORE cargo is allowed to build
+    try:
+        ensure_full_crate(slug)
+    except Exception as e:  # noqa: BLE001
+        print(f"rust_opt failed: {e}", file=sys.stderr)
+        return None
+    if not (crate / "Cargo.toml").is_file():
+        return None
     env = os.environ.copy()
     # isolate from workspace parent if needed — use --manifest-path
     cmd = [
@@ -118,276 +122,42 @@ def build_cargo(slug: str) -> Path | None:
         print(r.stdout[-2000:] if r.stdout else "")
         print(r.stderr[-3000:] if r.stderr else "", file=sys.stderr)
         return None
-    # find binary
-    bin_name = f"opgrok-{slug}"
-    candidates = list((crate / "target" / "release").glob(bin_name))
-    if not candidates:
-        # windows or renamed
-        candidates = list((crate / "target" / "release").glob(f"{bin_name}*"))
+    sys.path.insert(0, str(ROOT / "core"))
+    from toolkit.product import crate_ident
+
+    dest_name = f"opgrok-{slug}"
+    want = [dest_name, crate_ident(slug)]
+    release = crate / "target" / "release"
+    candidates: list[Path] = []
+    for name in want:
+        candidates.extend(release.glob(name))
+        candidates.extend(release.glob(f"{name}.exe"))
+    candidates = [c for c in candidates if c.is_file()]
     if not candidates:
         print("cargo succeeded but binary not found", file=sys.stderr)
         return None
     dest_dir = ROOT / "core/binaries" / slug / "bin"
     dest_dir.mkdir(parents=True, exist_ok=True)
-    dest = dest_dir / bin_name
+    dest = dest_dir / dest_name
     shutil.copy2(candidates[0], dest)
     dest.chmod(dest.stat().st_mode | stat.S_IEXEC)
     return dest
 
 
 def ensure_full_crate(slug: str) -> None:
-    """Write a complete standalone harness crate with embedded graph + skill runner via subprocess python or curl."""
-    crate = ROOT / "core/binaries" / slug / "crate"
-    crate.mkdir(parents=True, exist_ok=True)
-    (crate / "src").mkdir(exist_ok=True)
-    graph_src = ROOT / "core/binaries" / slug / "graph.json"
-    if graph_src.is_file():
-        shutil.copy2(graph_src, crate / "graph.json")
+    """Generate crate sources, then run the rust-specialist optimize panel.
 
-    # Copy skills_cache into crate for portability
-    cache = ROOT / "core/binaries" / slug / "skills_cache"
-    crate_cache = crate / "skills_cache"
-    if cache.is_dir():
-        if crate_cache.exists():
-            shutil.rmtree(crate_cache)
-        shutil.copytree(cache, crate_cache)
+    Cargo must not run until rust_opt.optimize_crate has rewritten the crate.
+    """
+    sys.path.insert(0, str(ROOT / "core"))
+    from toolkit.rust_opt import optimize_crate
 
-    pkg = f"opgrok-{slug}"
-    (crate / "Cargo.toml").write_text(
-        f"""[package]
-name = "{pkg}"
-version = "0.1.0"
-edition = "2021"
-description = "OPGROK SuperGrok harness binary"
-
-[[bin]]
-name = "opgrok-{slug}"
-path = "src/main.rs"
-
-[dependencies]
-serde = {{ version = "1", features = ["derive"] }}
-serde_json = "1"
-clap = {{ version = "4", features = ["derive"] }}
-"""
+    report = optimize_crate(slug, ROOT)
+    print(
+        "rust specialists:",
+        ", ".join(p["sg"] for p in report.get("passes") or []),
     )
-
-    main_rs = r'''//! OPGROK harness binary — loads graph, injects skills, calls Grok API.
-use clap::Parser;
-use serde_json::{json, Value};
-use std::collections::BTreeMap;
-use std::env;
-use std::fs;
-use std::path::{Path, PathBuf};
-use std::process::Command;
-use std::time::Duration;
-
-#[derive(Parser, Debug)]
-struct Cli {
-    #[arg(long)]
-    goal: Option<String>,
-    #[arg(long, default_value_t = false)]
-    dry_run: bool,
-    #[arg(long)]
-    graph: Option<PathBuf>,
-}
-
-fn main() {
-    let cli = Cli::parse();
-    let manifest = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    let graph_path = cli
-        .graph
-        .unwrap_or_else(|| manifest.join("graph.json"));
-    let raw = fs::read_to_string(&graph_path).expect("read graph.json");
-    let graph: Value = serde_json::from_str(&raw).expect("parse graph");
-    let goal = cli
-        .goal
-        .or_else(|| graph["goal"].as_str().map(|s| s.to_string()))
-        .unwrap_or_default();
-    let nodes = graph["nodes"].as_array().cloned().unwrap_or_default();
-    let api_key = env::var("XAI_API_KEY").ok();
-    let model = env::var("OPGROK_MODEL").unwrap_or_else(|_| "grok-4".into());
-    let dry = cli.dry_run || api_key.is_none();
-
-    let mut blackboard: BTreeMap<String, Value> = BTreeMap::new();
-    blackboard.insert("goal".into(), json!(goal));
-    let mut node_results = Vec::new();
-
-    for node in &nodes {
-        let id = node["id"].as_str().unwrap_or("?");
-        let sg = node["sg_name"].as_str().unwrap_or("?");
-        let skill = load_skill(&manifest, sg, node);
-        let system = format!(
-            "You are SuperGrok `{sg}` (binary_id={bin}).\nIntent: {intent}\nPurpose: {purpose}\nReturn JSON with keys summary, artifacts, next_hints, win (PASS|FAIL).\n\nSKILL:\n{skill}",
-            sg = sg,
-            bin = node["binary_id"].as_str().unwrap_or(""),
-            intent = node["intent"].as_str().unwrap_or(""),
-            purpose = node["purpose"].as_str().unwrap_or(""),
-            skill = skill.chars().take(6000).collect::<String>(),
-        );
-        let bb = serde_json::to_string(&thrift_bb(&blackboard)).unwrap_or_else(|_| "{}".into());
-        let user = format!(
-            "GOAL:\n{goal}\n\nNODE: {id} ({sg})\nPROCESS: {proc}\n\nBLACKBOARD:\n{bb}\n\nReturn JSON only for this node.",
-            goal = goal,
-            id = id,
-            sg = sg,
-            proc = node["ipo"]["process"].as_str().unwrap_or(""),
-            bb = bb.chars().take(12000).collect::<String>(),
-        );
-
-        let output = if dry {
-            json!({
-                "mode": "dry_run",
-                "sg": sg,
-                "skill_chars": skill.len(),
-                "prompt_preview": user.chars().take(400).collect::<String>(),
-                "parsed": {"summary": format!("[dry] {sg}"), "win": "PASS", "artifacts": []}
-            })
-        } else {
-            match call_grok(api_key.as_deref().unwrap(), &model, &system, &user) {
-                Ok(v) => v,
-                Err(e) => json!({"error": e, "sg": sg}),
-            }
-        };
-        blackboard.insert(format!("{id}.output"), output.clone());
-        node_results.push(json!({"id": id, "sg_name": sg, "output": output}));
-    }
-
-    let fails = node_results
-        .iter()
-        .filter(|n| {
-            let o = &n["output"];
-            if o.get("error").is_some() {
-                return true;
-            }
-            let p = &o["parsed"];
-            let ok = p.is_object() && p.get("summary").is_some() && p.get("win").is_some();
-            if !ok {
-                return true;
-            }
-            p["win"].as_str() == Some("FAIL")
-        })
-        .count();
-    let win = if dry {
-        "DRY"
-    } else if fails == 0 {
-        "PASS"
-    } else {
-        "FAIL"
-    };
-    let sink = node_results.last().cloned().unwrap_or(json!(null));
-    let result = json!({
-        "win": win,
-        "slug": graph["slug"],
-        "goal": goal,
-        "dry_run": dry,
-        "model": if dry { Value::Null } else { json!(model) },
-        "nodes": node_results.len(),
-        "node_results": node_results,
-        "result": sink.get("output").cloned().unwrap_or(sink),
-    });
-    println!("{}", serde_json::to_string_pretty(&result).unwrap());
-}
-
-fn thrift_bb(bb: &BTreeMap<String, Value>) -> BTreeMap<String, Value> {
-    let mut out = BTreeMap::new();
-    for (k, v) in bb {
-        if k == "goal" || k.ends_with(".output") {
-            if let Some(obj) = v.as_object() {
-                if let Some(c) = obj.get("content").and_then(|x| x.as_str()) {
-                    out.insert(
-                        k.clone(),
-                        json!({
-                            "content_preview": c.chars().take(1200).collect::<String>(),
-                            "parsed": obj.get("parsed"),
-                        }),
-                    );
-                    continue;
-                }
-            }
-            out.insert(k.clone(), v.clone());
-        }
-    }
-    out
-}
-
-fn load_skill(manifest: &Path, sg: &str, node: &Value) -> String {
-    let p = manifest.join("skills_cache").join(format!("{sg}.md"));
-    if p.is_file() {
-        return fs::read_to_string(p).unwrap_or_default();
-    }
-    format!(
-        "Intent: {}\nPurpose: {}\n",
-        node["intent"].as_str().unwrap_or(""),
-        node["purpose"].as_str().unwrap_or("")
-    )
-}
-
-fn call_grok(api_key: &str, model: &str, system: &str, user: &str) -> Result<Value, String> {
-    let body = json!({
-        "model": model,
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": user}
-        ],
-        "temperature": 0.2,
-        "max_tokens": 1200
-    });
-    let tmp = env::temp_dir().join(format!("opgrok-body-{}.json", std::process::id()));
-    fs::write(&tmp, body.to_string()).map_err(|e| e.to_string())?;
-    let auth = format!("Authorization: Bearer {api_key}");
-    let data = format!("@{}", tmp.display());
-    let out = Command::new("curl")
-        .args([
-            "-sS",
-            "--max-time",
-            "120",
-            "https://api.x.ai/v1/chat/completions",
-            "-H",
-            &auth,
-            "-H",
-            "Content-Type: application/json",
-            "-d",
-            &data,
-        ])
-        .output()
-        .map_err(|e| e.to_string())?;
-    let _ = fs::remove_file(&tmp);
-    if !out.status.success() {
-        return Err(String::from_utf8_lossy(&out.stderr).into());
-    }
-    let v: Value = serde_json::from_slice(&out.stdout).map_err(|e| e.to_string())?;
-    let content = v["choices"][0]["message"]["content"]
-        .as_str()
-        .unwrap_or("")
-        .to_string();
-    let parsed = parse_jsonish(&content);
-    Ok(json!({
-        "mode": "live",
-        "content": content,
-        "parsed": parsed,
-        "usage": v.get("usage"),
-        "model": v.get("model"),
-    }))
-}
-
-fn parse_jsonish(text: &str) -> Value {
-    let t = text.trim();
-    if let Ok(v) = serde_json::from_str::<Value>(t) {
-        return v;
-    }
-    if let Some(start) = t.find('{') {
-        if let Some(end) = t.rfind('}') {
-            if let Ok(v) = serde_json::from_str::<Value>(&t[start..=end]) {
-                return v;
-            }
-        }
-    }
-    json!({"summary": t.chars().take(500).collect::<String>()})
-}
-'''
-    # fix unused imports warning in template
-    main_rs = main_rs.replace("use std::time::Duration;\n", "")
-    (crate / "src" / "main.rs").write_text(main_rs)
+    return
 
 
 def install_global(slug: str, binary: Path) -> Path:
@@ -433,6 +203,11 @@ def main() -> int:
     ap.add_argument("slug")
     ap.add_argument("--install", action="store_true", help="Install to ~/.opgrok/bin")
     ap.add_argument("--force-python", action="store_true", help="Skip cargo; use Python runner")
+    ap.add_argument(
+        "--require-cargo",
+        action="store_true",
+        help="FAIL instead of falling back to a Python wrapper (product compiles)",
+    )
     args = ap.parse_args()
     slug = args.slug
     root = ROOT / "core/binaries" / slug
@@ -451,6 +226,18 @@ def main() -> int:
             method = "cargo-release"
             print(f"cargo binary: {binary}")
     if binary is None:
+        if args.require_cargo:
+            print(
+                json.dumps(
+                    {
+                        "win": "FAIL",
+                        "slug": slug,
+                        "error": "cargo_required",
+                        "method": "none",
+                    }
+                )
+            )
+            return 1
         ensure_full_crate(slug)
         binary = write_python_bin(slug)
         method = "python-runner"

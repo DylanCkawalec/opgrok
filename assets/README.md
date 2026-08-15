@@ -53,7 +53,7 @@ In Grok Build this environment uses `image_gen` / `image_edit` (Imagine-backed).
 | Mechanism | Path |
 |-----------|------|
 | FastAPI mount | `http://localhost:420/assets/...` → monorepo `assets/` |
-| Static copy | `apps/web/app/static/assets/` (icons, tokens) |
+| Static copy | optional local UI only — not part of the published CLI |
 | CSS | `@import` of tokens in `styles.css` |
 | Templates | `index.html`, `harnesses.html`, `workflow.html` |
 

@@ -10,14 +10,16 @@ For a product-level overview see the repo [README.md](../../README.md).
 
 ## 1. What an OPGROK harness is
 
-An **OPGROK harness** is a compiled Rust binary that embeds an n8n-style agent graph:
+An **OPGROK harness** is a packaged SuperGrok DAG:
 
 - **Nodes** = SuperGroks (`core/skills/<category>/<role>/`) each with a `binary_id` and skill contract  
 - **Edges** = ordered dataflow on a run-scoped **blackboard** (memory for the run)  
 - **Inference** = per node, Grok cloud API is prompt-engineered to execute that SuperGrok’s purpose  
 - **Output** = one top-level `OPGROK_RESULT` bubbled from the sink node(s)
 
-Harnesses are **reusable specialized tools**: once crafted for “build a marketing site,” the binary lives in `core/binaries/` and can be re-run cheaper than re-planning.
+After `craft` the package is a **scaffold runner**. After a **live** run harvests compilable sources and `cargo --require-cargo` succeeds, the same slug is a **product** binary.
+
+Harnesses are **reusable specialized tools**: once crafted, the package lives in `core/binaries/` (per-clone, gitignored) and can be re-run cheaper than re-planning.
 
 ---
 
@@ -25,8 +27,8 @@ Harnesses are **reusable specialized tools**: once crafted for “build a market
 
 | Surface | Form |
 |---------|------|
-| Grok Build / Grok 4.5 | `@opgrok <goal>` or `/opgrok <goal>` |
-| CLI | `opgrok-sg craft "<goal>"` · `opgrok-sg run <slug>` |
+| Grok Build / Grok 4.5 | `@opgrok <goal>` or `/opgrok <goal>` (OPGrok Mode) |
+| CLI | `./opgrok craft` · `./opgrok apex` · `python3 core/tools/craft_harness.py` |
 | Library | `opgrok_sg_harness::craft(goal) -> HarnessPackage` |
 
 ---
@@ -122,11 +124,12 @@ All harnesses are Rust. Download/share = ship `core/binaries/<slug>/` or install
 
 ---
 
-## 8. Relationship to apps/n8n
+## 8. Runtime of record
 
-- **Conceptual model** mirrors n8n (nodes, edges, execution order).  
-- **Runtime of record** for harnesses is the **Rust binary**, not the n8n process.  
-- Optional: export `graph.json` to n8n for visualization; execution remains Rust.
+- The graph is a node/edge DAG (inputs, outputs, topological schedule).
+- Runtime of record for live inference is `core/tools/run_harness.py` (PassBody authority).
+- Native `crate/` binaries are a standalone fallback; product crates must compile with `--require-cargo`.
+- There is no required UI. The CLI is the product.
 
 ---
 

@@ -91,7 +91,7 @@ Claire	38b8f46c3076ee0e203a3c4e3a4cf3996e23f2aefe5c15cf945a4199cc8a8082	Claire-3
 Clara	6413b3494b29d9fee6a584e6cb710837f6c3a800c7e4a13c1efc0c9370b22b5f	Clara-6413b3494b29	core/skills/meta/seal/SKILL.md	2026-08-08T18:51:49Z
 Clarence	87b59d55b92d0acb147adef5e35cb4cddd7213e09911cb1bd6e4fd979ffe73c5	Clarence-87b59d55b92d	core/skills/meta/smith/SKILL.md	2026-08-08T18:51:49Z
 Clark	d1c3d6b8785089cdea2ed87d9571af131728d44e8997b94330ecd71021afe4ff	Clark-d1c3d6b87850	core/skills/meta/trace/SKILL.md	2026-08-08T18:51:49Z
-Corinne	21b314c2fe7816269f3ad4dced50b64f05db1e56489af329a173242537c47a6e	Corinne-21b314c2fe78	core/skills/opgrok/SKILL.md	2026-08-08T18:51:49Z
+Corinne	bdd07b5b423e6d757dfe6feafaaf754f69340734456109f289a1e3fb75af5b61	Corinne-bdd07b5b423e	core/skills/opgrok/SKILL.md	2026-08-15T00:56:51Z
 Damien	ebefbc92c3c752964182e6f9774c181998030a44a6d490026fde611dc64fcf1e	Damien-ebefbc92c3c7	core/skills/plan/SKILL.md	2026-08-08T18:51:49Z
 Dana	644e38c25017a5c7a4ee28e6203ad1196e00550baa005ac6c8bd2051cbe76826	Dana-644e38c25017	core/skills/plan/audit/SKILL.md	2026-08-08T18:51:49Z
 Danielle	8d2e19bd4c9e9c682650754a453e4da6f404d13ad6d01beab55c1a5cc06e3ef5	Danielle-8d2e19bd4c9e	core/skills/plan/forge/SKILL.md	2026-08-08T18:51:49Z

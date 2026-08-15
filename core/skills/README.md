@@ -15,7 +15,6 @@ core/skills/
 - **Call:** `/<category>-<role>` (e.g. `/rust-smith`)
 - **Binary id:** `opgrok.sg.<category>-<role>`
 - **Identity:** `Name-Hash` in SKILL.md + `core/registry/named-hashes.json`
-- **Generate:** `python3 core/tools/generate_supergroks.py`
 - **Validate:** `python3 core/tools/validate_supergroks.py`
 
 Roles:

@@ -2,7 +2,7 @@
 //!
 //! Turns a user goal into:
 //! - SuperGrok hire list (intent route)
-//! - n8n-style graph.json (IPO/OODA nodes)
+//! - graph.json DAG (IPO/OODA nodes)
 //! - Leslie WINNING_CONDITION.md
 //! - single README.md
 //! - Rust crate sources under core/binaries/<slug>/crate
@@ -112,12 +112,13 @@ pub fn hire(index: &SuperGrokIndex, goal: &str, limit: usize) -> Vec<SuperGrokMe
     let mut hired: Vec<SuperGrokMeta> = index
         .route(goal, limit.saturating_mul(2))
         .into_iter()
+        .filter(|m| SuperGrokIndex::is_hireable(m))
         .map(|m| m.clone())
         .collect();
 
     // Ensure diversity: if route is thin, pull category anchors.
-    let anchors = ["plan", "code", "web", "ui", "review", "test", "docs", "agent"];
-    for cat in anchors {
+    let anchors = opgrok_sg_runtime::prefer_categories(goal);
+    for cat in anchors.iter().copied() {
         if hired.len() >= limit {
             break;
         }
@@ -234,7 +235,7 @@ Harness for goal:
 
 > {goal}
 
-It runs an n8n-style SuperGrok graph: each node loads a SuperGrok skill, prompt-engineers for that node's purpose, calls the Grok API, and writes to a run blackboard. The sink node surfaces `OPGROK_RESULT`.
+It runs a SuperGrok graph: each node loads a SuperGrok skill, prompt-engineers for that node's purpose, calls the Grok API, and writes to a run blackboard. The sink node surfaces `OPGROK_RESULT`.
 
 ## Winning condition (Leslie)
 
@@ -289,8 +290,8 @@ fn write_wc(path: &Path, slug: &str, goal: &str, graph: &HarnessGraph) -> Result
     let body = format!(
         r#"# Winning Condition — opgrok-{slug}
 
-**Leslie seal.** Governed by the master seal `docs/WINNING_CONDITION.md`
-(module `HarnessRun`: I1 NoVacuousPass, I2 DryHonesty, I3 SingleVerdict).
+**Leslie seal.** Governed by `core/harness/SPEC.md`
+(invariants: no vacuous PASS, dry-run honesty, single verdict).
 Upstream protocol: https://github.com/DylanCkawalec/Leslie
 
 ## Goal
@@ -363,20 +364,25 @@ fn write_crate(crate_dir: &Path, slug: &str, goal: &str, graph: &HarnessGraph) -
 
     let goal_esc = goal.replace('"', "'");
     let cargo = format!(
-        r#"[package]
+        r#"[workspace]
+
+[package]
 name = "{pkg}"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
-description = "OPGROK harness binary for: {goal_esc}"
+rust-version = "1.85"
+description = "OPGROK v1.0.0 harness binary for: {goal_esc}"
+publish = false
 
 [[bin]]
 name = "opgrok-{slug}"
 path = "src/main.rs"
 
 [dependencies]
-serde = {{ version = "1", features = ["derive"] }}
-serde_json = "1"
-clap = {{ version = "4", features = ["derive"] }}
+serde = {{ version = "1.0.228", features = ["derive"] }}
+serde_json = "1.0.145"
+clap = {{ version = "4.5.53", features = ["derive"] }}
+ureq = "2.12.1"
 "#,
         pkg = pkg,
         slug = slug,
@@ -391,7 +397,7 @@ clap = {{ version = "4", features = ["derive"] }}
 }
 
 const HARNESS_MAIN_RS: &str = r##"//! Auto-generated OPGROK harness: @@SLUG@@
-//! Graph: n8n-style SuperGrok chain. Live Grok API when XAI_API_KEY set.
+//! Graph: SuperGrok chain. Live Grok API when XAI_API_KEY set.
 
 use clap::Parser;
 use serde_json::{json, Value};

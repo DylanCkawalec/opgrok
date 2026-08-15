@@ -168,8 +168,8 @@ fn main() -> Result<()> {
             let nav = cli.repo.join("core/skills/_framework/NAVIGATION.md");
             let manifest = json!({
                 "name": "opgrok-supergrok",
-                "version": "2.1.0",
-                "description": "SuperGrok catalog + harness MCP surface for OPGROK inference",
+                "version": "1.0.0",
+                "description": "OPGROK v1.0.0 SuperGrok catalog + harness MCP (route, load, mode)",
                 "skills_root": "core/skills",
                 "registry": "core/skills/_framework/REGISTRY.json",
                 "mcp_catalog": "core/skills/_framework/MCP_CATALOG.json",
