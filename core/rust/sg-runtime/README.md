@@ -12,7 +12,7 @@ OPGROK turns any goal into a team of Grok agents shipped as one reusable binary.
 
 ```toml
 [dependencies]
-opgrok-sg-runtime = "0.1"
+opgrok-sg-runtime = "1.0"
 ```
 
 ## Quick start

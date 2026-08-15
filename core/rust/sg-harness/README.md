@@ -14,7 +14,7 @@ Library:
 
 ```toml
 [dependencies]
-opgrok-sg-harness = "0.1"
+opgrok-sg-harness = "1.0"
 ```
 
 CLI:
